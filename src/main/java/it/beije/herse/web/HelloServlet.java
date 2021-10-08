@@ -13,29 +13,19 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/HelloServlet")
 public class HelloServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public HelloServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+	public HelloServlet() {
+		super();
 	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		StringBuilder builder=new StringBuilder();
+		builder.append("<html><head><title>Insert title here</title></head><body>");
+		builder.append("<form name='Login' action='Catalogo.html'>");
+		builder.append("<p> Inserisci il tuo Id :</p>");
+		builder.append("<p> <input type='text' name=Id><br> </p>");
+		builder.append("<p> <button type='submit'> Invio </button></p></form></body></html>");
+		response.getWriter().append(builder);
+	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
-
 }

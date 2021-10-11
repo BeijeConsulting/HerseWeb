@@ -46,6 +46,7 @@ public class HelloServlet extends HttpServlet {
 		//....
 
 		System.out.println("fname : " + fname);
+		
 		System.out.println("lname : " + lname);
 		
 		if (fname.equalsIgnoreCase("Pippo") && lname.equalsIgnoreCase("Pluto")) {

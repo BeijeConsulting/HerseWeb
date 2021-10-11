@@ -32,13 +32,6 @@ public class ContinuoServlet extends HttpServlet {
 		builder.append("<form action='CatalogoServlet'><button type='submit'>Sì</button></form><form action='EndServlet'>");
 		builder.append("<button type='submit'>No</button></form></body></html>");
 		response.getWriter().append(builder);
-	
-		
-		
-	
-
-		
-		
 	}
 
 	/**

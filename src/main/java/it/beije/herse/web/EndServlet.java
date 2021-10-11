@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import Shop.Funzioni;
+
 /**
  * Servlet implementation class EndServlet
  */
@@ -27,7 +29,7 @@ public class EndServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		StringBuilder builder=new StringBuilder();
-		builder.append("<html><head><title>Insert title here</title></head><body><form name='End' action='LoginServlet'>");
+		builder.append("<html><head><title>Insert title here</title></head><body><form name='End' method='post'>");
 		builder.append("<p>Acquisto completato!</p><p><button type='submit'>Ritorna alla HomePage</button>");
 		builder.append("</p></form></body></html>");
 		response.getWriter().append(builder);
@@ -38,8 +40,8 @@ public class EndServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		Funzioni.inserisciOrdineItem();
+		response.sendRedirect("LoginServlet");
 	}
 
 }

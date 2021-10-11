@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class HelloServlet
  */
-@WebServlet("/HelloServlet")
+@WebServlet("/hello")
 public class HelloServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -27,6 +27,9 @@ public class HelloServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		System.out.println("HelloServlet doGet");
+		System.out.println("fname : " + request.getParameter("fname"));
+		System.out.println("lname : " + request.getParameter("lname"));
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
@@ -35,7 +38,24 @@ public class HelloServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
+		System.out.println("HelloServlet doPost");
+
+		String fname = request.getParameter("fname");
+		String lname = request.getParameter("lname");
+		 
+		//....
+
+		System.out.println("fname : " + fname);
+		System.out.println("lname : " + lname);
+		
+		if (fname.equalsIgnoreCase("Pippo") && lname.equalsIgnoreCase("Pluto")) {
+			response.getWriter().append("BENVENUTO!!!");
+		} else {
+			response.sendRedirect("index.html");
+		}
+		
+//		response.getWriter().append("<html><body>fname : ").append(fname)
+//		.append("<br>").append("lname : ").append(lname).append("</body></html>");
 	}
 
 }

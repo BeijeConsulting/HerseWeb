@@ -48,14 +48,14 @@ public class HelloServlet extends HttpServlet {
 		System.out.println("fname : " + fname);
 		System.out.println("lname : " + lname);
 		
-		if (fname.equalsIgnoreCase("Pippo") && lname.equalsIgnoreCase("Pluto")) {
-			response.getWriter().append("BENVENUTO!!!");
-		} else {
-			response.sendRedirect("index.html");
-		}
+//		if (fname.equalsIgnoreCase("Pippo") && lname.equalsIgnoreCase("Pluto")) {
+//			response.getWriter().append("BENVENUTO!!!");
+//		} else {
+//			response.sendRedirect("index.html");
+//		}
 		
-//		response.getWriter().append("<html><body>fname : ").append(fname)
-//		.append("<br>").append("lname : ").append(lname).append("</body></html>");
+		response.getWriter().append("<html><body>fname : ").append(fname)
+		.append("<br>").append("lname : ").append(lname).append("</body></html>");
 	}
 
 }

@@ -1,4 +1,4 @@
-package it.beije.herse.shop;
+package it.beije.herse.shop.servlet;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -48,16 +48,16 @@ public class UserMenuServlet extends HttpServlet {
 			String action = (String) request.getParameter("userAction");
 			switch(action) {
 			case "showProfile":
-				response.getWriter().println("NAME: Mario, SURNAME: Rossi");
+//				response.getWriter().println("NAME: Mario, SURNAME: Rossi");
 				break;
 			case "showOrderHistory":
-				response.getWriter().println("NO ORDERS YET");
+//				response.getWriter().println("NO ORDERS YET");
 				break;
 			case "newOrder":
 				response.sendRedirect("newOrder.html");
 				break;
 			case "updateProfile":
-				response.getWriter().println("STARTING PROFILE UPDATE PROCESS...");
+//				response.getWriter().println("STARTING PROFILE UPDATE PROCESS...");
 				break;
 			}
 			

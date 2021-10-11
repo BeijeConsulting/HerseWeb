@@ -1,4 +1,4 @@
-package it.beije.herse.shop;
+package it.beije.herse.shop.servlet;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -63,11 +63,23 @@ public class NewOrderServlet extends HttpServlet {
 			
 			Double total = p1*q1 + p2*q2;
 //			response.getWriter().append("TOTAL: "+total);
-			String path = "checkout.html";
-			BufferedReader br = new BufferedReader(new FileReader(path));
-			StringBuilder s = new StringBuilder();
-			while(br.ready()) s.append(br.readLine());
-			response.getWriter().append(s.toString());
+			
+			// Checkout
+			if((checkboxProd1!=null && q1>0) || (checkboxProd2!=null && q2>0)) {
+				StringBuilder s = new StringBuilder();
+				s.append("<html><body bgcolor=\"black\" text=\"white\">");
+				s.append("<h1>HERSE SHOP</h1><br>");
+				s.append("ORDER ADDED: <br>");
+				s.append("<table>");
+				if(checkboxProd1!=null && q1>0) 
+					s.append("<tr><td>\"Dune\"</td><td>QUANTITY: "+q1+"</td><td>PRICE: "+p1*q1+"$</td></tr>");
+				if(checkboxProd2!=null && q2>0)
+					s.append("<tr><td>\"Lenovo\"</td><td>QUANTITY: "+q2+"</td><td>PRICE: "+p2*q2+"$</td></tr>");
+				s.append("</table>");
+				s.append("<br>TOTAL: "+total+"$");
+				s.append("</body></html>");
+				response.getWriter().append(s.toString());
+			}
 		}
 //		else response.getWriter().println("WAITING...");
 		

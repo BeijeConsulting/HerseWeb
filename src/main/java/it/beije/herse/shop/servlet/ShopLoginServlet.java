@@ -1,4 +1,4 @@
-package it.beije.herse.shop;
+package it.beije.herse.shop.servlet;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -69,10 +69,11 @@ public class ShopLoginServlet extends HttpServlet {
 			
 			String email = (String) request.getParameter("email");
 			String password = (String) request.getParameter("password");
-			if(email.equals("m@r.it") && password.equals("mr")) {
-				response.sendRedirect("userMenu.html");
+			if(email.equals("mrossi@gmail.com") && password.equals("mr")) {
+				response.sendRedirect("userMenu.html?email="+email);
 			}
-			else response.sendRedirect("failedLogin.html");
+			else response.sendRedirect("failedLogin.html?email="+email);
+			//else response.sendRedirect("failedLogin.html");
 			
 		}
 //		else response.getWriter().println("WAITING...");

@@ -59,3 +59,4 @@ public class HelloServlet extends HttpServlet {
 	}
 
 }
+//server config

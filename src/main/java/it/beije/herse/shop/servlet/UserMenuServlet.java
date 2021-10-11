@@ -54,7 +54,7 @@ public class UserMenuServlet extends HttpServlet {
 //				response.getWriter().println("NO ORDERS YET");
 				break;
 			case "newOrder":
-				response.sendRedirect("newOrder.html");
+				response.sendRedirect("servlet/newOrder.html");
 				break;
 			case "updateProfile":
 //				response.getWriter().println("STARTING PROFILE UPDATE PROCESS...");

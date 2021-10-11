@@ -44,11 +44,11 @@ public class FailedLoginServlet extends HttpServlet {
 			if(action!=null)
 				switch(action) {
 				case "retry":
-					response.sendRedirect("index.html");
+					response.sendRedirect("servlet/index.html");
 					break;
 				case "signIn":
 					String email = (String) request.getParameter("email");
-					response.sendRedirect("userMenu.html?email="+email);
+					response.sendRedirect("servlet/userMenu.html?email="+email);
 					break;
 				}
 			

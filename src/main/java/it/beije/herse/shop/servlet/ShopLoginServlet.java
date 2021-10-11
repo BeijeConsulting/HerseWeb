@@ -70,9 +70,9 @@ public class ShopLoginServlet extends HttpServlet {
 			String email = (String) request.getParameter("email");
 			String password = (String) request.getParameter("password");
 			if(email.equals("mrossi@gmail.com") && password.equals("mr")) {
-				response.sendRedirect("userMenu.html?email="+email);
+				response.sendRedirect("servlet/userMenu.html?email="+email);
 			}
-			else response.sendRedirect("failedLogin.html?email="+email);
+			else response.sendRedirect("servlet/failedLogin.html?email="+email);
 			//else response.sendRedirect("failedLogin.html");
 			
 		}

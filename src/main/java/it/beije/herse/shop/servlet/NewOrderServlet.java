@@ -83,7 +83,7 @@ public class NewOrderServlet extends HttpServlet {
 		}
 //		else response.getWriter().println("WAITING...");
 		
-		doGet(request, response);
+//		doGet(request, response);
 	}
 
 }

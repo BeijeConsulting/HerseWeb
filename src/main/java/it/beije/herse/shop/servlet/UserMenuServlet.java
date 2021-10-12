@@ -64,7 +64,7 @@ public class UserMenuServlet extends HttpServlet {
 		}
 //		else response.getWriter().println("WAITING...");
 		
-		doGet(request, response);
+//		doGet(request, response);
 	}
 
 }

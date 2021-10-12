@@ -81,7 +81,7 @@ public class ShopLoginServlet extends HttpServlet {
 		}
 //		else response.getWriter().println("WAITING...");
 		
-		doGet(request, response);
+//		doGet(request, response);
 	}
 
 }

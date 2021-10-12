@@ -15,7 +15,11 @@
 
 int userId = (int) session.getAttribute("userId");
 
+out.print("User: " + "<strong>" + userId +"</strong>" + " ");
+
 int orderId = (int) session.getAttribute("orderId");
+
+out.print("Order: " + "<strong>" + orderId +"</strong>");
 
 Order order = Shop.changeOrder(orderId);
 

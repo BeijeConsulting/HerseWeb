@@ -20,10 +20,10 @@ if (error != null) {
 }
 %>
 <form action="hello" method="post">
-  <label for="fname">fname:</label><br>
-  <input type="text" name="fname"><br>
-  <label for="lname">lname:</label><br>
-  <input type="text" name="lname"><br><br>
+  <label for="user">Username:</label><br>
+  <input type="text" name="username"><br>
+  <label for="pass">Password:</label><br>
+  <input type="password" name="password"><br><br>
   <input type="submit" value="Submit">
 </form> 
 

@@ -21,7 +21,6 @@ public class Prodotti extends HttpServlet {
      * @see HttpServlet#HttpServlet()
      */
 	
-	static List<BeanProdotti> prodotti = new ArrayList<>();
 	
 	public static final String  A_CAPO = "<br>";
 	public static final String  INIZIO = "<html><body>";
@@ -43,15 +42,6 @@ public class Prodotti extends HttpServlet {
 		
 		html.append(INIZIO);
 		html.append("<h1>").append("Ecco i prodotti disponibili per l'acquisto").append("</h1>");
-		html.append("<ul>");
-		for(BeanProdotti p : prodotti) {
-			html.append("<li>");
-			html.append(p.getId()).append(" ");
-			html.append(p.getName()).append(" ");
-			html.append(p.getDescription()).append(" ");
-			html.append(p.getPrice()).append("</li>");
-		}
-		html.append("</ul>");
 		
 		html.append("<form action=\"prodotti\" method=\"post\">");
 		html.append("<label for=\"id\">Id Prodotti:</label>").append(A_CAPO);
@@ -70,15 +60,6 @@ public class Prodotti extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String id = request.getParameter("id");
-		Integer idProdotto = Integer.parseInt(id);
-		for(int i = 0; i<prodotti.size(); i++) {
-			BeanProdotti p = prodotti.get(i);
-			if(p.getId() == idProdotto) {
-				Carrello.carrello.add(p);
-				break;
-			}
-		}
-		
 		doGet(request, response);
 	}
 

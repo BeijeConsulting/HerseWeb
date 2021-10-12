@@ -51,6 +51,7 @@ public class HelloServlet extends HttpServlet {
 		String fname = request.getParameter("fname");
 		String lname = request.getParameter("lname");
 		
+		
 		HttpSession session = request.getSession();
 		System.out.println("session id : " + session.getId());
 		session.setAttribute("fname", fname);

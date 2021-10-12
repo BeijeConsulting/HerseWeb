@@ -23,30 +23,20 @@ public class OrdiniUser extends HttpServlet {
     public OrdiniUser() {
         super();
     }
-    
-    protected List<Order> selectOrders(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-    	Object email = request.getAttribute("email");
-    	System.out.println(email);
-    	System.out.println("ok");
-    	int idUser = new LoginUser().correctLogin(request, response);
-    	List<Order> listOrdersUser = Shop.ordersOfUser(idUser);
-    	return listOrdersUser;
-    }
-
 	
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//response.getWriter().append("Served at: ").append(request.getContextPath());
-		
-		List<Order> listOrdersUser = selectOrders(request, response);
-		
-		response.getWriter().append(openHtml).append("<h1>Lista ordini</h1>");
-		
-		for(Order o : listOrdersUser) {
-			response.getWriter().append(o.toString());
-		}
-		response.getWriter().append(br).append("<a href=\"menuUser.jsp\" style=\"text-decoration: none; color:black;\">-> Torna al menu</a>").append(closeHtml);
-
-	}
+//	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+//		//response.getWriter().append("Served at: ").append(request.getContextPath());
+//		
+//		List<Order> listOrdersUser = Shop.ordersOfUser(idUser);
+//		
+//		response.getWriter().append(openHtml).append("<h1>Lista ordini</h1>");
+//		
+//		for(Order o : listOrdersUser) {
+//			response.getWriter().append(o.toString());
+//		}
+//		response.getWriter().append(br).append("<a href=\"menuUser.jsp\" style=\"text-decoration: none; color:black;\">-> Torna al menu</a>").append(closeHtml);
+//
+//	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);

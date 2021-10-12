@@ -1,4 +1,4 @@
-<%@page import="org.hibernate.internal.build.AllowSysOut"%>
+
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -10,8 +10,11 @@
 	
 </head>
 <body style="margin:1%">
-	<% Object email = request.getAttribute("email");
-		Object password = request.getAttribute("password");
+	<!--  Object email = request.getAttribute("email");
+		Object password = request.getAttribute("password");-->
+	<% 
+		String email = (String) session.getAttribute("email");
+		String password = (String) session.getAttribute("password");
 		System.out.println("email : " + email + " password " + password);
 		%>
 	<h1>Benvenuto utente</h1>
@@ -19,9 +22,9 @@
 		<li class="list-group-item"><a href="OrdiniUser" style="text-decoration: none; color:black;">Visualizza tutti i tuoi ordini</a></li>
 		<li class="list-group-item"><a href="nuovoOrdine.html" style="text-decoration: none; color:black;">Effettua un nuovo ordine</a></li>
 		<li class="list-group-item"><a href="infoOrdine.html" style="text-decoration: none; color:black;">Ottieni informazioni riguardo un ordine</a></li>
-		<li class="list-group-item"><a href="lista" style="text-decoration: none; color:black;">Visualizza tutti i prodotti dello Shop</a></li>
+		<li class="list-group-item"><a href="listaProdotti" style="text-decoration: none; color:black;">Visualizza tutti i prodotti dello Shop</a></li>
 	</ul>
 	
-	<a href="login.html" style="text-decoration: none; color:blue;">Login</a>
+	<!--  <a href="login.html" style="text-decoration: none; color:blue;">Login</a>-->
 </body>
 </html>

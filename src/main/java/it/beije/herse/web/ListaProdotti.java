@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import it.beije.herse.web.entity.Order;
 import it.beije.herse.web.entity.Product;
 
-@WebServlet("/lista")
+@WebServlet("/listaProdotti")
 public class ListaProdotti extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;

@@ -32,35 +32,13 @@ public class Prodotti extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
     
-    static void creaListaProdotti() {
-    	BeanProdotti p= new BeanProdotti();
-    	BeanProdotti q= new BeanProdotti();
-    	BeanProdotti r= new BeanProdotti();
-    	p.setId(1);
-    	q.setId(2);
-    	r.setId(3);
-    	p.setName("occhiali");
-    	q.setName("penna");
-    	r.setName("libro");
-    	p.setDescription("sono occhiali");
-    	q.setDescription("è una penna");
-    	r.setDescription("è un libro");
-    	p.setPrice(13.99);
-    	q.setPrice(9.99);
-    	r.setPrice(29.99);
-    	
-    	prodotti.add(p);
-    	prodotti.add(q);
-    	prodotti.add(r);
-    	
-    }
+   
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		creaListaProdotti();
-		
+	
 		StringBuilder html = new StringBuilder();
 		
 		html.append(INIZIO);

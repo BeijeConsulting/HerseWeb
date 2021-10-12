@@ -9,6 +9,7 @@
 <body>
 <%
 out.print(request.getParameter("id"));
+
 %>
 
 </body>

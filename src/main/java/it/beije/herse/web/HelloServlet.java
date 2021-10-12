@@ -36,9 +36,10 @@ public class HelloServlet extends HttpServlet {
 
 		String result = login(request.getParameter("username"),request.getParameter("password"));
 		User u = new User();
-		u.setId(1);
+		u.setId(2);
+		u.setEmail("anna@frank.de");
 		
-		response.sendRedirect("prova.jsp?id=" + u.getId());
+		response.sendRedirect("prova.jsp?id=" + u.getId() + "&email=" + request.getParameter("username"));
 		/*
 		response.getWriter().append("Ciao").append(result);
 		System.out.println("HelloServlet doGet");
@@ -55,10 +56,13 @@ public class HelloServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		System.out.println("HelloServlet doPost");
 		
-		String result = login(request.getParameter("username"),request.getParameter("password"));
+		String username = request.getParameter("username");
+		String result = login(username,request.getParameter("password"));
 		User u = new User();
-		u.setId(1);
-		response.sendRedirect("prova.jsp?id=" + u.getId());
+		u.setId(2);
+		u.setEmail("anna@frank.de");
+		
+		response.sendRedirect("prova.jsp?id=" + u.getId() + "&email=" + u.getEmail());
 
 		/*String fname = request.getParameter("fname");
 		String lname = request.getParameter("lname");

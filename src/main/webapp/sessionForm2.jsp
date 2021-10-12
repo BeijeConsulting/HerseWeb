@@ -29,6 +29,17 @@ for(Product p: products){
 
 %>
 
+<%
+
+String quantityMsg = (String) session.getAttribute("wrongQuantity");
+if (quantityMsg != null) {
+	%>
+	<strong><span style="color:red"><%=quantityMsg%></span></strong><br><br>
+	<%
+	session.removeAttribute("error");
+}
+%>
+
 <h3 align="center">What do you want to buy</h3>
 
 	<form action='Check' method='post'>
@@ -51,6 +62,14 @@ for(Product p: products){
 		<p>
 			Buy more: <input type="checkbox" id="yes" name="yes">
 				<label for="yes">Yes</label>
+		</p>
+
+	</form>
+
+	<form action='index.html' method="post">
+
+		<p>
+			<input type="submit" value="Back">
 		</p>
 
 	</form>

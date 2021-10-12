@@ -63,7 +63,7 @@ public class Check extends HttpServlet {
 					
 			} else {
 				session.setAttribute("wrongQuantity", "Wrong Quantity, too High");
-				response.sendRedirect("sessionForm");
+				response.sendRedirect("sessionForm2.jsp");
 			}
 			
 		} else {
@@ -73,7 +73,7 @@ public class Check extends HttpServlet {
 				response.sendRedirect("sessionForm.jsp");
 			}else {
 				session.setAttribute("wrongQuantity", "Wrong Quantity");
-				response.sendRedirect("sessionForm");
+				response.sendRedirect("sessionForm2.jsp");
 			}
 		}
 	}

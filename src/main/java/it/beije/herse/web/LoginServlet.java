@@ -7,26 +7,27 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import static it.beije.herse.shop.MyShop.*;
+import it.beije.herse.shop.*;
+
 /**
  * Servlet implementation class HelloServlet
  */
-@WebServlet("/HelloServlet")
-public class HelloServlet extends HttpServlet {
+@WebServlet("/LoginServlet")
+public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public HelloServlet() {
+    public LoginServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
@@ -34,7 +35,14 @@ public class HelloServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+
+		User user = getUser(request.getParameter("email"), request.getParameter("password"));
+		if(user == null) {
+			response.sendError(0,"Error login");
+			response.sendRedirect("index.html");
+		}
+		
+		response.sendRedirect("viewmenu.jsp?id=" + user.getId());
 		doGet(request, response);
 	}
 

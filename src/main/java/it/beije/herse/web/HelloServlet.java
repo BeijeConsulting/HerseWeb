@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import it.beije.herse.db.Singleton;
 import it.beije.herse.db.User;
@@ -43,10 +44,22 @@ public class HelloServlet extends HttpServlet {
 		/*
 		response.getWriter().append("Ciao").append(result);
 		System.out.println("HelloServlet doGet");
+
 		System.out.println("fname : " + request.getParameter("fname"));
 		System.out.println("lname : " + request.getParameter("lname"));
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 		*/
+
+		HttpSession session = request.getSession();
+		String fname = (String) session.getAttribute("fname");
+		String lname = (String) session.getAttribute("lname");
+
+		System.out.println("fname : " + fname);
+		System.out.println("lname : " + lname);
+		
+		response.getWriter().append("<html><body>fname in sessione : ").append(fname)
+		.append("<br>").append("lname in sessione : ").append(lname).append("</body></html>");
+
 	}
 
 	/**
@@ -64,21 +77,25 @@ public class HelloServlet extends HttpServlet {
 		
 		response.sendRedirect("prova.jsp?id=" + u.getId() + "&email=" + u.getEmail());
 
-		/*String fname = request.getParameter("fname");
+		String fname = request.getParameter("fname");
 		String lname = request.getParameter("lname");
-
-		//....
-
+		
+		HttpSession session = request.getSession();
+		System.out.println("session id : " + session.getId());
+		session.setAttribute("fname", fname);
+		session.setAttribute("lname", lname);
+		
 		System.out.println("fname : " + fname);
-
 		System.out.println("lname : " + lname);
 
 		if (fname.equalsIgnoreCase("Pippo") && lname.equalsIgnoreCase("Pluto")) {
-			response.getWriter().append("BENVENUTO!!!");
+			response.sendRedirect("herse.jsp");
 		} else {
-			response.sendRedirect("index.html");
+			//response.sendRedirect("index.jsp?error=credenziali errate");
+			session.setAttribute("error", "Credenziali Errate");
+			response.sendRedirect("index.jsp");
 		}
-*/
+
 		//		response.getWriter().append("<html><body>fname : ").append(fname)
 		//		.append("<br>").append("lname : ").append(lname).append("</body></html>");
 	}

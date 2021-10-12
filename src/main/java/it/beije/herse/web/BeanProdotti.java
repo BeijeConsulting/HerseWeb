@@ -3,7 +3,7 @@ package it.beije.herse.web;
 
 
 
-public class BinProdotti {
+public class BeanProdotti {
 
 
 	private Integer id;

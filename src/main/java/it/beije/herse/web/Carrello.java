@@ -21,7 +21,7 @@ public class Carrello extends HttpServlet {
      * @see HttpServlet#HttpServlet()
      */
 	
-	static List<BinProdotti> carrello = new ArrayList<>();
+	static List<BeanProdotti> carrello = new ArrayList<>();
 	public static final String  A_CAPO = "<br>";
 	public static final String  INIZIO = "<html><body>";
 	public static final String  FINE = "</html></body>";

@@ -21,7 +21,7 @@ public class Prodotti extends HttpServlet {
      * @see HttpServlet#HttpServlet()
      */
 	
-	static List<BinProdotti> prodotti = new ArrayList<>();
+	static List<BeanProdotti> prodotti = new ArrayList<>();
 	
 	public static final String  A_CAPO = "<br>";
 	public static final String  INIZIO = "<html><body>";
@@ -33,9 +33,9 @@ public class Prodotti extends HttpServlet {
     }
     
     static void creaListaProdotti() {
-    	BinProdotti p= new BinProdotti();
-    	BinProdotti q= new BinProdotti();
-    	BinProdotti r= new BinProdotti();
+    	BeanProdotti p= new BeanProdotti();
+    	BeanProdotti q= new BeanProdotti();
+    	BeanProdotti r= new BeanProdotti();
     	p.setId(1);
     	q.setId(2);
     	r.setId(3);
@@ -66,7 +66,7 @@ public class Prodotti extends HttpServlet {
 		html.append(INIZIO);
 		html.append("<h1>").append("Ecco i prodotti disponibili per l'acquisto").append("</h1>");
 		html.append("<ul>");
-		for(BinProdotti p : prodotti) {
+		for(BeanProdotti p : prodotti) {
 			html.append("<li>");
 			html.append(p.getId()).append(" ");
 			html.append(p.getName()).append(" ");
@@ -94,7 +94,7 @@ public class Prodotti extends HttpServlet {
 		String id = request.getParameter("id");
 		Integer idProdotto = Integer.parseInt(id);
 		for(int i = 0; i<prodotti.size(); i++) {
-			BinProdotti p = prodotti.get(i);
+			BeanProdotti p = prodotti.get(i);
 			if(p.getId() == idProdotto) {
 				Carrello.carrello.add(p);
 				break;

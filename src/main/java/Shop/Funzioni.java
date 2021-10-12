@@ -65,6 +65,7 @@ public class Funzioni {
 			commit(c,q.get(i),orderId);
 			i++;
 		}
+		
 		q=new ArrayList();
 		carrello =new ArrayList<Product>();
 		tot =0.0;
@@ -81,6 +82,14 @@ public class Funzioni {
 		orderItem.setQuantity(i);
 		manager.persist(orderItem);
 		manager.getTransaction().commit();
+	}
+	public static String getCatalogo() {
+		List<Product> prodotti=manager.createQuery("SELECT p FROM Product as p").getResultList();
+		StringBuilder catalogo=new StringBuilder();
+		for(Product p:prodotti) 
+			catalogo.append("<tr><td>"+p.getId()+"</td><td>"+p.getName()+"</td><td>"+p.getDesc()+"</td><td>"+p.getPrice()+"</td><td>"+p.getQty()+"</td></tr>");
+		return catalogo.toString();
+			
 	}
 }
 

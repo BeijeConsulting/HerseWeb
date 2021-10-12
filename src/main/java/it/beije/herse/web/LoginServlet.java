@@ -21,12 +21,12 @@ public class LoginServlet extends HttpServlet {
 		builder.append("<html><head><title>Insert title here</title></head><body>");
 		builder.append("<form name='Login' method='post'>");
 		builder.append("<p> Inserisci il tuo Id :</p>");
-		builder.append("<p> <input type='text' name=Id><br> </p>");
+		builder.append("<p> <input type='text' name='idUser'><br> </p>");
 		builder.append("<p> <button type='submit'> Invio </button></p></form></body></html>");
 		response.getWriter().append(builder);
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int user = Integer.parseInt(request.getParameter("Id"));
+		int user = Integer.parseInt(request.getParameter("idUser"));
 		if(!Funzioni.login(user))
 			response.sendRedirect("LoginServlet");
 		else

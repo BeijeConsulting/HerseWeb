@@ -25,4 +25,8 @@ hs_err_pid*
 /.project
 /.settings/
 /build/
+<<<<<<< HEAD
+=======
+/WebContent/
+>>>>>>> refs/remotes/origin/main
 /target/

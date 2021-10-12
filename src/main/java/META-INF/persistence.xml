@@ -5,11 +5,15 @@
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
 	<persistence-unit name="herse-shop">
 
+		
+		
 		<class>Ecommerce.User</class>
 		<class>Ecommerce.Product</class>
 		<class>Ecommerce.Order</class>
 		<class>Ecommerce.OrderItem</class>
 		<exclude-unlisted-classes>true</exclude-unlisted-classes>
+		
+		
 
 
 		<properties>

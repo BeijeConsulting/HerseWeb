@@ -46,33 +46,33 @@ public class GetProductServlet extends HttpServlet {
 		boolean quantityBool = false;
 		
 		
-		if(request.getParameter("yes") == null){
-			System.out.println("unchecked");//checkbox not checked
-			quantityBool = Shop.checkQuantity(productId, quantity);
-			if(!quantityBool) {
-				response.getWriter().append("Too high quantity");
-				response.sendRedirect("index.html");
-			} else {
-//				Order order = Shop.changeOrder();
-				
-//				response.getWriter().append("Your Order: ").append(order.toString());
-			}
-			
-		}else{
-			System.out.println("checked");//checkbox checked
-			quantityBool= Shop.checkQuantity(productId, quantity);
-			if(!quantityBool) {
-				response.getWriter().append("Too high quantity");
-				response.sendRedirect("index.html");
-			} else {
-				StringBuilder sb = new StringBuilder("<html><body><form action='/Login' method=\"get\">\r\n\"\r\n"
-						+ "       <p><input type=\"submit\" value=\"Go to buy more \"></p>\r\n"
-						+ "					    </form> </body></html>");
-				response.getWriter().append(sb);
-			}
-			
-		}
-		
+//		if(request.getParameter("yes") == null){
+//			System.out.println("unchecked");//checkbox not checked
+//			quantityBool = Shop.checkQuantity(productId, quantity);
+//			if(!quantityBool) {
+//				response.getWriter().append("Too high quantity");
+//				response.sendRedirect("index.html");
+//			} else {
+////				Order order = Shop.changeOrder();
+//				
+////				response.getWriter().append("Your Order: ").append(order.toString());
+//			}
+//			
+//		}else{
+//			System.out.println("checked");//checkbox checked
+//			quantityBool= Shop.checkQuantity(productId, quantity);
+//			if(!quantityBool) {
+//				response.getWriter().append("Too high quantity");
+//				response.sendRedirect("index.html");
+//			} else {
+//				StringBuilder sb = new StringBuilder("<html><body><form action='/Login' method=\"get\">\r\n\"\r\n"
+//						+ "       <p><input type=\"submit\" value=\"Go to buy more \"></p>\r\n"
+//						+ "					    </form> </body></html>");
+//				response.getWriter().append(sb);
+//			}
+//			
+//		}
+//		
 		
 		
 		

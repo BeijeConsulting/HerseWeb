@@ -4,7 +4,9 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
+import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -19,8 +21,6 @@ public class Shop {
 		
 		User user = manager.find(User.class, userId);
 		if(user != null) {
-//			new Shop().setUserId(userId);
-//			new Shop().createOrder(userId);
 			return true;
 		} else {
 			return false;
@@ -42,14 +42,14 @@ public class Shop {
 		return query.getResultList();
 	}
 	
-	public static boolean checkQuantity(int productId, int quantity) {
-//		Order order= new Order();
+	public static int checkQuantity(int productId, int quantity, int userId) {
+		int orderId=  new Shop().insertOrder(userId);
 		
 		Product product = manager.find(Product.class, productId);
 		
 		if(product.getQuantity() < quantity) {
 			System.out.println("Quantità maggiore rispetto a quella disponibile");
-			return false;
+			return 0;
 		} else {
 			
 			System.out.println(product);
@@ -59,9 +59,9 @@ public class Shop {
 			product.setQuantity(product.getQuantity()-quantity); //settatto la quantità nuova di product
 			transaction.commit();
 			
-//			insertOrderItem(new Shop().getOrderId(), productId, product.getQuantity(), quantity);
+			insertOrderItem(orderId, productId, product.getQuantity(), quantity);
 			
-			return true;
+			return orderId;
 		}
 	}
 	
@@ -82,7 +82,6 @@ public class Shop {
 		EntityTransaction transaction = manager.getTransaction();
 		transaction.begin();
 		OrderItem orderItem = new OrderItem();
-		System.out.println(order);
 		orderItem.setOrderId(order);
 		orderItem.setProductId(product);
 		orderItem.setSellPrice(price);
@@ -91,29 +90,27 @@ public class Shop {
 		transaction.commit();
 	}
 	
-//	public static Order changeOrder() {
-////		int orderId = new Shop().getOrderId();
-//		
-////		String selectP = "SELECT p FROM OrderItem as p WHERE orderId=" + orderId;
-////		Query query = manager.createQuery(selectP);
-////		List<OrderItem> orders =  query.getResultList();
-//		
-//		Double total = 0.0;
-//		
-////		for(OrderItem o: orders) {
-////			System.out.println(o);
-////			total += o.getSellPrice() * o.getQuantity();
-////		}
-//		
-//		EntityTransaction transaction = manager.getTransaction();
-//		transaction.begin();
-////		manager.find(Order.class, orderId).setAmount(total);
-//		transaction.commit();
-//		
-////		Order order = manager.find(Order.class, orderId);
-//		
-////		return order;
-//	}
+	public static Order changeOrder(int orderId) {
+		String selectP = "SELECT p FROM OrderItem as p WHERE orderId=" + orderId;
+		Query query = manager.createQuery(selectP);
+		List<OrderItem> orders =  query.getResultList();
+		
+		Double total = 0.0;
+		
+		for(OrderItem o: orders) {
+			System.out.println(o);
+			total += o.getSellPrice() * o.getQuantity();
+		}
+		
+		EntityTransaction transaction = manager.getTransaction();
+		transaction.begin();
+		manager.find(Order.class, orderId).setAmount(total);
+		transaction.commit();
+		
+		Order order = manager.find(Order.class, orderId);
+		
+		return order;
+	}
 	
 
 }

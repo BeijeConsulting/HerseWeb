@@ -1,7 +1,7 @@
+<!DOCTYPE html>
 <html>
 
 <head>
-
 <script language="JavaScript">
   function getEmail()
   {
@@ -9,11 +9,9 @@
 
     var temp = parameters[0].split("=");
     l = unescape(temp[1]);
-    document.getElementById("signInLabel").innerText = l;
-    document.getElementById("email").value = l;
+    document.getElementById("email").innerText = l;
   }
 </script>
-
 </head>
 
     
@@ -22,14 +20,13 @@
     <h1>HERSE SHOP</h1>
     
     <br>
-    
+   
     <form action="FailedLoginServlet" method="post">
         EMAIL AND PASSWORD NOT FOUND<br>
         <input type="radio" name="failedLoginAction" value="retry">RETRY<br>
-        <input type="radio" name="failedLoginAction" value="signIn">SIGN IN AS <label id="signInLabel"></label><br>
+        <input type="radio" name="failedLoginAction" value="signIn">SIGN IN AS <label id="email"></label><br>
         <br>
         <input type=submit name="submitFailed" value="SUBMIT">
-        <input type="hidden" name="email" id="email"> 
     </form>
     
 </body>

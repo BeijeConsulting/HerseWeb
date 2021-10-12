@@ -1,23 +1,28 @@
 package it.beije.herse.web;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import it.beije.bean.Products;
+
 /**
- * Servlet implementation class HelloServlet
+ * Servlet implementation class PlaceOrderServlet
  */
-@WebServlet("/hello")
-public class HelloServlet extends HttpServlet {
+@WebServlet("/PlaceOrderServlet")
+public class PlaceOrderServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public HelloServlet() {
+    public PlaceOrderServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -27,9 +32,6 @@ public class HelloServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		System.out.println("HelloServlet doGet");
-		System.out.println("fname : " + request.getParameter("fname"));
-		System.out.println("lname : " + request.getParameter("lname"));
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
@@ -38,25 +40,17 @@ public class HelloServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		System.out.println("HelloServlet doPost");
-
-		String fname = request.getParameter("fname");
-		String lname = request.getParameter("lname");
-		 
-		//....
-
-		System.out.println("fname : " + fname);
-		System.out.println("lname : " + lname);
+//		doGet(request, response);
+		getInfo(request, response);
+	}
+	
+	private void getInfo(HttpServletRequest request, HttpServletResponse response) {
+		List<Products> products = new ArrayList<Products>();
+		int quantity;
+		String totale;
 		
-		if (fname.equalsIgnoreCase("Pippo") && lname.equalsIgnoreCase("Pluto")) {
-			response.getWriter().append("BENVENUTO!!!");
-		} else {
-			response.sendRedirect("index.html");
-		}
-		
-//		response.getWriter().append("<html><body>fname : ").append(fname)
-//		.append("<br>").append("lname : ").append(lname).append("</body></html>");
+		quantity = Integer.parseInt(request.getParameter("quantity")); 
+		System.out.println(quantity);
 	}
 
 }
-

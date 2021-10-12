@@ -1,23 +1,30 @@
 package it.beije.herse.web;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import it.beije.bean.Products;
+
 /**
- * Servlet implementation class HelloServlet
+ * Servlet implementation class ProductsServlet
  */
-@WebServlet("/hello")
-public class HelloServlet extends HttpServlet {
+@WebServlet("/ProductsServlet")
+public class ProductsServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public HelloServlet() {
+    public ProductsServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -27,9 +34,6 @@ public class HelloServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		System.out.println("HelloServlet doGet");
-		System.out.println("fname : " + request.getParameter("fname"));
-		System.out.println("lname : " + request.getParameter("lname"));
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
@@ -38,25 +42,23 @@ public class HelloServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		System.out.println("HelloServlet doPost");
-
-		String fname = request.getParameter("fname");
-		String lname = request.getParameter("lname");
-		 
-		//....
-
-		System.out.println("fname : " + fname);
-		System.out.println("lname : " + lname);
+//		doGet(request, response);
 		
-		if (fname.equalsIgnoreCase("Pippo") && lname.equalsIgnoreCase("Pluto")) {
-			response.getWriter().append("BENVENUTO!!!");
-		} else {
-			response.sendRedirect("index.html");
+		Map<String, String[]> attMap = request.getParameterMap();
+		Set<String> keys = attMap.keySet();
+		Products product = new Products();
+		List<Products> products = new ArrayList<Products>();
+		
+		for (String key : keys) {
+			if(attMap.get(key)[0].toString().equals("on")) {
+				System.out.println("aggiungi prodotto");
+				product.setId(null);
+				product.setDescription(null);
+				product.setName(null);
+				product.setPrice(null);
+				products.add(product);
+			}
 		}
-		
-//		response.getWriter().append("<html><body>fname : ").append(fname)
-//		.append("<br>").append("lname : ").append(lname).append("</body></html>");
 	}
 
 }
-

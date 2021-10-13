@@ -19,9 +19,7 @@
 	<%
 	List<OrderItem> items = (List<OrderItem>) session.getAttribute("items");
 	Order order = (Order) session.getAttribute("order");
-	try{
-		OrderManager.insertOrder(order, items);
-	} catch(Throwable e){}
+	
 	for(OrderItem i : items){
 		Product p = ProductManager.selectProducts(i.getProductId()).get(0);
 	%>

@@ -50,8 +50,10 @@ public class CreateOrderServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		HttpSession session = request.getSession();
 		
+		List<OrderItem> items = new ArrayList<OrderItem>();
+		Order order = new Order();
+		
 		List<Product> products = ProductManager.selectProducts();
-		List<OrderItem> items = new ArrayList<>();		
 		String submit = (String) request.getParameter("submitOrder");
 		if(submit!=null && submit.equals("ADD TO CART")) {
 			for(Product p : products) {
@@ -64,16 +66,14 @@ public class CreateOrderServlet extends HttpServlet {
 					items.add(item);
 				}
 			}
-			Order order = new Order();
+			
 			order.setUserId(((User)session.getAttribute("loggedUser")).getId());
 			order.setDateTime(LocalDateTime.now());
 			
 			session.setAttribute("order", order);
 			session.setAttribute("items", items);
 			
-			OrderManager.insertOrder(order, items);
-			
-			System.out.println("ORDER ADDED");
+//			OrderManager.insertOrder(order, items);
 			
 			response.sendRedirect("checkout.jsp");
 		}

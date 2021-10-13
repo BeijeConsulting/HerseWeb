@@ -12,7 +12,9 @@ import javax.servlet.http.HttpSession;
 
 import it.beije.herse.shop.classes.Order;
 import it.beije.herse.shop.classes.OrderItem;
+import it.beije.herse.shop.classes.Product;
 import it.beije.herse.shop.manager.OrderManager;
+import it.beije.herse.shop.manager.ProductManager;
 
 /**
  * Servlet implementation class CheckoutServlet
@@ -43,9 +45,38 @@ public class CheckoutServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		HttpSession session = request.getSession();
+		
 		List<OrderItem> items = (List<OrderItem>) session.getAttribute("items");
-		Order order = (Order) session.getAttribute("order");
-		OrderManager.insertOrder(order, items);
+		for(OrderItem i : items) {
+			System.out.println("DELETE ID: "+i.getProductId());
+			String delete = (String) request.getParameter("deleteItem"+i.getProductId());
+			if(delete!=null) {
+				System.out.println("ID "+i.getProductId()+" DELETED");
+				items.remove(i);
+				session.setAttribute("items", items);
+				response.sendRedirect("checkout.jsp");
+				return;
+			}
+		}
+		
+		String submit = (String) request.getParameter("submitPayment");
+		Double total = (Double) session.getAttribute("total");
+		if(submit!=null && submit.equalsIgnoreCase("CONFIRM & PAY")) {
+			if(total<=0) {
+				response.sendRedirect("newOrder.jsp");
+				return;
+			}
+			Order order = (Order) session.getAttribute("order");
+			OrderManager.insertOrder(order, items);
+			response.sendRedirect("confirmOrder.jsp");
+			return;
+		}
+		
+		String back = (String) request.getParameter("back");
+		if(back!=null && back.equalsIgnoreCase("BACK")) {
+			response.sendRedirect("newOrder.jsp");
+			return;
+		}
+		
 	}
-
 }

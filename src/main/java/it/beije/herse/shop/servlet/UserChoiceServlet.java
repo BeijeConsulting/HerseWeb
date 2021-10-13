@@ -42,11 +42,13 @@ public class UserChoiceServlet extends HttpServlet {
 				response.sendRedirect("newOrder.jsp");
 				break;
 			case "showProfile":
-				response.sendRedirect("newOrder.jsp");
+				response.sendRedirect("userProfile.jsp");
 				break;
-			// TODO	
-			default:
-				response.sendRedirect("index.jsp");
+			case "updateProfile":
+				response.sendRedirect("updateProfile.jsp");
+				break;	
+			case "showOrderHistory":
+				response.sendRedirect("orderHistory.jsp");
 				break;
 			}
 	}

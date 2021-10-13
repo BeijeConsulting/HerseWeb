@@ -45,6 +45,26 @@ public class OrderManager {
 		manager.close();
 	}
 	
+	public static List<OrderItem> getOrderItems(Integer orderId){
+		EntityManager manager = ShopEntityManager.newEntityManager();
+			
+		// Criteria Query
+		CriteriaBuilder cb = manager.getCriteriaBuilder();
+		CriteriaQuery<OrderItem> query = cb.createQuery(OrderItem.class);
+		Root<OrderItem> oi = query.from(OrderItem.class);
+		query.select(oi).where(oi.get("orderId").in(orderId));
+					
+		List<OrderItem> items = manager.createQuery(query).getResultList();
+			
+		// SQL
+//		Query itemsQuery = manager.createQuery("Select o From OrderItem as o Where orderId = "+o.getId());
+//		List<OrderItem> items = itemsQuery.getResultList();
+		
+		manager.close();
+		
+		return items;
+	}
+	
 	public static List<Order> selectOrders(){
 		EntityManager manager = ShopEntityManager.newEntityManager();
 		List<Order> orders = new ArrayList<>();

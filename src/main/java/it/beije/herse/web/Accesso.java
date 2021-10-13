@@ -1,12 +1,20 @@
 package it.beije.herse.web;
 
 import java.io.IOException;
+import java.util.List;
+
+import javax.persistence.EntityManager;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import javax.persistence.Query;
+
+import it.beije.herse.bean.User;
+import it.beije.herse.bean.*;
 
 /**
  * Servlet implementation class Shop
@@ -29,9 +37,7 @@ public class Accesso extends HttpServlet {
 		// TODO Auto-generated constructor stub
 	}
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		HttpSession session = request.getSession();
@@ -45,7 +51,9 @@ public class Accesso extends HttpServlet {
 	
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+
+		
+		EntityManager entityManager = ShopEntityManager.newEntityManager(); 
 
 		HttpSession session = request.getSession();
 		System.out.println("session id " + session.getId());
@@ -55,12 +63,25 @@ public class Accesso extends HttpServlet {
 		session.setAttribute("username", username);
 		session.setAttribute("password", password);
 		
-		if(username.equalsIgnoreCase("Max"))
-			response.sendRedirect("utente");
-		else {
-			session.setAttribute("error","Credenziali errate");
+		StringBuilder jpql = new StringBuilder();
+		jpql.append("SELECT u FROM User as u WHERE email = '").append(username).append("' AND password = '").append(password).append("'");
+
+		String jpqlSelect = jpql.toString();
+		Query query = entityManager.createQuery(jpqlSelect);
+		List <User> utenti = query.getResultList();
+		if(utenti.size()==0) {
+			session.setAttribute("error", "Credenziali Errate");
 			response.sendRedirect("Accesso.jsp");
+		}
+		else if(utenti.size()==1) {
+			System.out.println(utenti.get(0));
+			User user =  utenti.get(0);
+			session.setAttribute("user", user);
+			response.sendRedirect("catalogo.jsp");
+		}
+		
+		
 		}
 	}
 
-}
+

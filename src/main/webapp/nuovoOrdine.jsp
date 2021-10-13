@@ -14,7 +14,6 @@
 </head>
 <body style="margin:1%">
 
-	<jsp:useBean id="authUser" class="it.beije.herse.web.entity.User" scope="session"></jsp:useBean>
 
 	<%
 	String error = (String) session.getAttribute("error");

@@ -1,6 +1,7 @@
 package it.beije.herse.web;
 
 import java.io.IOException;
+import java.util.HashMap;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -45,12 +46,13 @@ public class ShoppingCart extends HttpServlet {
 		Product product = new Product();
 		
 		product.setId(Integer.valueOf(idProdotto));
-		product.setQuantity(Integer.valueOf(quantita));
+		
 		String select = "SELECT p FROM Product AS p WHERE id = "+idProdotto;
 		Query query = entityManager.createQuery(select);
 		
 		Double totale = new Double(0);
 		Carrello carrello = new Carrello();
+		HashMap<Product, Integer> cart = new HashMap<>();
 		
 		try {
 			Product pResult = (Product)query.getSingleResult();
@@ -60,6 +62,11 @@ public class ShoppingCart extends HttpServlet {
 			product.setPrice(totale);
 			product.setName(pResult.getName());
 			product.setDescription(pResult.getDescription());
+			
+			cart.put(product, Integer.valueOf(quantita));
+			carrello.setCarrello(cart);
+			
+			session.setAttribute("carrello", carrello);
 			session.setAttribute("productCart", product);
 			
 			response.sendRedirect("shopping_cart.jsp");

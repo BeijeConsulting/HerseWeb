@@ -11,6 +11,7 @@
 </head>
 <body style="margin:1%">
 	<jsp:useBean id="productCart" class="it.beije.herse.web.entity.Product" scope="session"></jsp:useBean>
+	<jsp:useBean id="carrello" class="it.beije.herse.web.entity.Carrello" scope="session"></jsp:useBean>
 	
 	<h1>Carrello</h1>
 	<p>

@@ -59,24 +59,27 @@ public class LoginUser extends HttpServlet {
 		HttpSession session = request.getSession();
 		
 		System.out.println("session id : " + session.getId());
-		System.out.println("email"+email);
-		System.out.println("password"+password);
+		System.out.println("email login: "+email);
+		System.out.println("password login: "+password);
 		session.setAttribute("email", email);
 		session.setAttribute("password", password);
-		System.out.println("email : " + email);
-		System.out.println("password : " + password);
-
 		
 		User user = new User();
-		int idUser = -1;
+//		user.setEmail(email);
+//		user.setPassword(password);
+//		//int idUser = -1;
 //		String select = "SELECT u FROM User AS u";
 //		Query query = entityManager.createQuery(select);
 //		List<User> listUsers = query.getResultList();
 //		System.out.println("list"+listUsers);
 		
-		
-		
+//		if(listUsers.contains(user)) {
+//			
+//		}
 //		for(int i = 0; i < listUsers.size(); i++) {
+//			
+//			System.out.println(i);
+//			System.out.println(listUsers.get(i));
 //			if(listUsers.get(i).getEmail().equals(email) && listUsers.get(i).getPassword().equals(password)) {
 //				response.sendRedirect("menuUser.jsp");
 //			} if(i == listUsers.size()-1) {
@@ -89,8 +92,7 @@ public class LoginUser extends HttpServlet {
 			String userSelect = "SELECT u FROM User AS u WHERE email = '"+email+"' AND password = "+password;
 			Query query = entityManager.createQuery(userSelect);
 			user = (User) query.getSingleResult();
-			idUser = user.getId();
-			session.setAttribute("idUser", idUser);
+			session.setAttribute("authUser", user);
 //			request.setAttribute("email", email);
 //			request.setAttribute("password", password);
 //			RequestDispatcher reqDis = request.getRequestDispatcher("menuUser.jsp");
@@ -100,7 +102,7 @@ public class LoginUser extends HttpServlet {
 		} catch (PersistenceException e) {
 			//response.getWriter().append(openHtml).append("Utente non trovato. Utenticati nuovamente").append("<a href=\"login.html\" >-> Login</a>").append(closeHtml);
 			session.setAttribute("error", "Credenziali Errate");
-			response.sendRedirect("loginError.jsp");
+			response.sendRedirect("loginUser.jsp");
 		}
 
 		entityManager.close();

@@ -46,7 +46,8 @@ public class LoginServlet extends HttpServlet {
 		}
 		
 		session.setAttribute("user", user);
-		response.sendRedirect("viewmenu.jsp");
+		session.setAttribute("caarrello", new Carrello());
+		response.sendRedirect("viewproduct.jsp");
 		doGet(request, response);
 		
 	}

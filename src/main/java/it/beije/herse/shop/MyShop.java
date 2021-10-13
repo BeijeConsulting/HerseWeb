@@ -55,13 +55,24 @@ public class MyShop {
 		
 	}
 
-	public static OrderItem setOrderItem(String prodId, String qta, Double sellPrice, Integer orderId) {
+	public static OrderItem setOrderItem(Integer prodId, Integer qta, Double sellPrice, Integer orderId) {
 
 		OrderItem item = new OrderItem();
-		item.setProductId(Integer.valueOf(prodId));
-		item.setQuantity(Integer.valueOf(qta));
+		item.setProductId(prodId);
+		item.setQuantity(qta);
 		item.setSellPrice(sellPrice);
 		item.setOrderId(orderId);
+
+		return item;
+
+	}
+	
+	public static OrderItem setOrderItem(Integer prodId, Double sellPrice) {
+
+		OrderItem item = new OrderItem();
+		item.setProductId(prodId);
+		item.setSellPrice(sellPrice);
+		item.setQuantity(1);
 
 		return item;
 
@@ -89,6 +100,26 @@ public class MyShop {
 		}
 		
 		return flag;
+		
+	}
+	
+	public static Double calcAmountOrder(List<OrderItem> items) {
+		
+		Double amount = 0.0;
+		
+		for(OrderItem item : items)
+			amount += item.getQuantity();
+		
+		return amount;
+		
+	}
+
+	public static List<OrderItem> setListOrderItemId(List<OrderItem> items, Integer orderId) {
+		
+		for(OrderItem item : items)
+			item.setOrderId(orderId);
+		
+		return items;
 		
 	}
 	

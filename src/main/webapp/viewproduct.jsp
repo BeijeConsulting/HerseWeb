@@ -1,3 +1,4 @@
+<%@page import="javax.swing.text.html.HTMLEditorKit.InsertHTMLTextAction"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -11,20 +12,20 @@
 
 	<h1>Catalogo</h1>
 
-	<form action="FinalizeOrder" method="get">
-
-		<jsp:useBean id="user" class="it.beije.herse.shop.User"
-			scope="session"></jsp:useBean>
+		<jsp:useBean id="user" class="it.beije.herse.shop.User" scope="session"></jsp:useBean>			
+		<jsp:useBean id="carrello" class="it.beije.herse.shop.Carrello" scope="session"></jsp:useBean>
 
 		<%@ page import="it.beije.herse.shop.*"%>
 		<%@ page import="static it.beije.herse.shop.MyShop.*"%>
 		<%@ page import="java.util.List"%>
+		
+		<%session = request.getSession(); %>
 
 		<%!public String newHTMLProd(Product p) {
-				return "<input type=\"text\" name=\"" + p.getId() + "\" value=\"" + p.getName() + "\" readonly>"
-					+ "<input type=\"text\" name=\"prodDescription\" value=\"" + p.getDescription() + "\" readonly>"
-					+ "<input type=\"text\" name=\"prodQta" + p.getId() + "\" placeholder=\"0\">"
-					+ "<input type=\"button\" value=\"+\" onClick=\"\"><br>";
+			return "<input type=\"checkbox\" name=\"prodId\" value=\"" + p.getId() + "\">"
+					+ "<input type=\"text\" name=\"prodName\" value=\"" + p.getName() + "\" readonly>\n"
+					+ "<input type=\"text\" name=\"prodDescription\" value=\"" + p.getDescription() + "\" readonly>\n"
+					+ "<input style=\"width:30px\" type=\"text\" name=\"prodQta\" placeholder=\"0\"><br>\n";
 		}%>
 
 		<%
@@ -38,10 +39,7 @@
 		out.print(s);
 		%>
 
-		<input type="submit" value="BUY">
-
-	</form>
-
+		<a href="FinalizeOrder"><input type="button" value="BUY"></a>
 
 </body>
 </html>

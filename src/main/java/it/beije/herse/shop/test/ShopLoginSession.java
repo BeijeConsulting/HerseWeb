@@ -1,4 +1,4 @@
-package it.beije.herse.shop.servlet;
+package it.beije.herse.shop.test;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -30,14 +30,14 @@ import javax.servlet.http.Part;
 /**
  * Servlet implementation class TestServlet
  */
-@WebServlet("/ShopLoginServlet")
-public class ShopLoginServlet extends HttpServlet {
+@WebServlet("/ShopLoginServletSession")
+public class ShopLoginSession extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ShopLoginServlet() {
+    public ShopLoginSession() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -64,15 +64,18 @@ public class ShopLoginServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
+		HttpSession session = request.getSession();
 		String login = (String) request.getParameter("submitLogin");
 		if(login!=null && login.equals("LOGIN")) {
 			
 			String email = (String) request.getParameter("email");
+			session.setAttribute("email", email);
 			String password = (String) request.getParameter("password");
+			session.setAttribute("password", email);
 			if(email.equals("mrossi@gmail.com") && password.equals("mr")) {
-				response.sendRedirect("servlet/userMenu.html?email="+email);
+				response.sendRedirect("userMenu.html");
 			}
-			else response.sendRedirect("servlet/failedLogin.html?email="+email);
+			else response.sendRedirect("failedLogin.html");
 			//else response.sendRedirect("failedLogin.html");
 			
 		}

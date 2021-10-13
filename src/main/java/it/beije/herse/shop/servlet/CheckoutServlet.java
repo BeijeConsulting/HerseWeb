@@ -1,23 +1,30 @@
 package it.beije.herse.shop.servlet;
 
 import java.io.IOException;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import it.beije.herse.shop.classes.Order;
+import it.beije.herse.shop.classes.OrderItem;
+import it.beije.herse.shop.manager.OrderManager;
 
 /**
- * Servlet implementation class FailedLoginServlet
+ * Servlet implementation class CheckoutServlet
  */
-@WebServlet("/FailedLoginServlet")
-public class FailedLoginServlet extends HttpServlet {
+@WebServlet("/CheckoutServlet")
+public class CheckoutServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public FailedLoginServlet() {
+    public CheckoutServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -28,7 +35,6 @@ public class FailedLoginServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 //		response.getWriter().append("Served at: ").append(request.getContextPath());
-//		response.getWriter().append(request.getParameter("email"));
 	}
 
 	/**
@@ -36,25 +42,10 @@ public class FailedLoginServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
-		String submit = (String) request.getParameter("submitFailed");
-		if(submit!=null && submit.equals("SUBMIT")) {
-			
-			String action = (String) request.getParameter("failedLoginAction");
-			if(action!=null)
-				switch(action) {
-				case "retry":
-					response.sendRedirect("servlet/index.html");
-					break;
-				case "signIn":
-					String email = (String) request.getParameter("email");
-					response.sendRedirect("servlet/userMenu.html?email="+email);
-					break;
-				}
-			
-		}
-		
-//		doGet(request, response);
+		HttpSession session = request.getSession();
+		List<OrderItem> items = (List<OrderItem>) session.getAttribute("items");
+		Order order = (Order) session.getAttribute("order");
+		OrderManager.insertOrder(order, items);
 	}
 
 }

@@ -14,7 +14,7 @@
     
     <br>
   
-    <form action="userMenu.jsp" method="post">
+    <form action="LoginFailServlet" method="post">
         EMAIL AND PASSWORD NOT FOUND<br>
         <input type="radio" name="failedLoginAction" value="retry">RETRY<br>
         <input type="radio" name="failedLoginAction" value="signIn">SIGN IN AS <%= session.getAttribute("email") %><br>

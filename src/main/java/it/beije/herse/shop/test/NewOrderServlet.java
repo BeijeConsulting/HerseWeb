@@ -1,4 +1,4 @@
-package it.beije.herse.shop.servlet;
+package it.beije.herse.shop.test;
 
 import java.io.BufferedReader;
 import java.io.FileReader;

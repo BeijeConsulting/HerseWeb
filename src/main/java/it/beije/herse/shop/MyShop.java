@@ -24,6 +24,21 @@ public class MyShop {
 		return user;
 		
 	}
+	
+	public static Product getProduct(Integer id) {
+
+		Product prod = null;
+		String query = "SELECT P FROM Product as P WHERE id = " + id;
+		
+		try {
+			prod = (Product)manager.select(query).get(0);
+		} catch (IndexOutOfBoundsException e) {
+			System.out.println("Email o password errate");
+		}
+
+		return prod;
+		
+	}
 
 	public static List<Product> getProducts() {
 
@@ -62,6 +77,17 @@ public class MyShop {
 		item.setQuantity(qta);
 		item.setSellPrice(sellPrice);
 		item.setOrderId(orderId);
+
+		return item;
+
+	}
+	
+	public static OrderItem setOrderItem(Integer prodId, Integer qta, Double sellPrice) {
+
+		OrderItem item = new OrderItem();
+		item.setProductId(prodId);
+		item.setQuantity(qta);
+		item.setSellPrice(sellPrice);
 
 		return item;
 

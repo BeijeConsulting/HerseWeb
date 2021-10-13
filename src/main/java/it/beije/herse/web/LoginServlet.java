@@ -9,7 +9,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import static it.beije.herse.shop.MyShop.*;
-import it.beije.herse.shop.*;
+
+import it.beije.herse.shop.Carrello;
+import it.beije.herse.shop.User;
 
 /**
  * Servlet implementation class HelloServlet
@@ -46,7 +48,7 @@ public class LoginServlet extends HttpServlet {
 		}
 		
 		session.setAttribute("user", user);
-		session.setAttribute("caarrello", new Carrello());
+		session.setAttribute("carrello", new Carrello());
 		response.sendRedirect("viewproduct.jsp");
 		doGet(request, response);
 		

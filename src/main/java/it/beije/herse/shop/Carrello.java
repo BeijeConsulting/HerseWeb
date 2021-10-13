@@ -11,8 +11,12 @@ public class Carrello {
 		return items;
 	}
 
-	public void setItems(OrderItem item) {
+	public void addItem(OrderItem item) {
 		this.items.add(item);
+	}
+	
+	public void setListItem(List<OrderItem> items) {
+		this.items = items;
 	}
 	
 }

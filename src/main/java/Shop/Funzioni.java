@@ -5,91 +5,107 @@ import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.*;
 public class Funzioni {
-	static EntityManager manager=ShopEntityManager.newEntityManager();
-	static CriteriaBuilder criteriaBuilder=manager.getCriteriaBuilder();
-	static CriteriaQuery criteriaQuery=criteriaBuilder.createQuery();
-	static List<Integer> q=new ArrayList();
-	static List<Product> carrello = new ArrayList<Product>();
-	static Double tot = 0.0;
-	static Integer user=null;
-	static Integer orderId=null;
 
-	public static boolean login(Integer id) {
+	public static User login(String username, String password) {
 		EntityManager manager=ShopEntityManager.newEntityManager();
 		List<User> users=manager.createQuery("select u from User as u").getResultList();
 		for(User u:users)
-			if(u.getId().equals(id)) {
-				user=id;
-				return true;
-			}
-		return false;
+			if(u.getEmail().equalsIgnoreCase(username)&&u.getPassword().equals(password)) 
+				return u;
+		return null;
+	}
+	public static int ControlloRegistrazione(String email, String name,String surname,String password,String conf_email,String conf_password) {
+		EntityManager manager=ShopEntityManager.newEntityManager();
+		List<User> users=manager.createQuery("select u from User as u").getResultList();
+		if(!email.contains("@"))
+			return -1;
+		if(!email.equals(conf_email))
+			return -3;
+		if(!password.equals(conf_password))
+			return -4;
+		for(User u:users)
+			if(u.getEmail().equalsIgnoreCase(email)) 
+				return -2;
+		return 0;
+	}
+	public static User Registrazione(String email,String name,String surname,String password) {
+		EntityManager manager=ShopEntityManager.newEntityManager();
+		User user=new User();
+		manager.getTransaction().begin();
+		user.setEmail(email);
+		user.setName(name);
+		user.setPassword(password);
+		user.setSurname(surname);
+		manager.persist(user);
+		manager.getTransaction().commit();
+		return user;
 	}
 
-	public static void carrello(Integer id,Integer qty ) {
-			carrello.add(manager.find(Product.class, id));
-			tot+=qty*carrello.get(carrello.size()-1).getPrice();
+	public static ArrayList<Product> carrello(Integer id,ArrayList<Product>carrello) {
+		EntityManager manager=ShopEntityManager.newEntityManager();
+		carrello.add(manager.find(Product.class, id));
+		return carrello;
+	}
+	public static ArrayList<Integer> qta(Integer quta,ArrayList<Integer>qta) {
+		qta.add(quta);
+		return qta;
 	}
 
 	public static boolean controlloQuantità(int id,int qty) {
+		EntityManager manager=ShopEntityManager.newEntityManager();
 		Product p=manager.find(Product.class, id);
 		if(p.getQty()>=qty) {
 			manager.getTransaction().begin();
 			p.setQty(p.getQty()-qty);
 			manager.getTransaction().commit();
-			q.add(qty);
 			return true;
 		}
 		return false;
 	}
-
+	//
 	public static boolean controlloIdProdotto(Integer id) {
+		EntityManager manager=ShopEntityManager.newEntityManager();
 		if(manager.find(Product.class, id)!=null)
 			return true;
 		return false;
 	}
 
-	public static Integer inserisciOrdine() {
+	public static int inserisciOrdine(ArrayList<Product>carrello,Double tot,User user) {
+		EntityManager manager=ShopEntityManager.newEntityManager();
 		manager.getTransaction().begin();
 		Order order=new Order();
 		order.setAmount(tot);
 		order.setDataTime(LocalDateTime.now());
-		order.setUserId(user);
+		order.setUserId(user.getId());
 		manager.persist(order);
 		manager.getTransaction().commit();
 		return order.getId();
 	}
-	public static void inserisciOrdineItem() {
-		orderId=inserisciOrdine();
-		int i=0;
-		for(Product c:carrello) {
-			commit(c,q.get(i),orderId);
-			i++;
-		}
-		
-		q=new ArrayList();
-		carrello =new ArrayList<Product>();
-		tot =0.0;
-		user=null;
-		orderId=null;
-	}
-
-	public static void commit(Product c,Integer i,Integer id) {
-		OrderItem orderItem=new OrderItem();
-		manager.getTransaction().begin();
-		orderItem.setOrderId(id);
-		orderItem.setProductId(c.getId());
-		orderItem.setSellPrice(c.getPrice());
-		orderItem.setQuantity(i);
-		manager.persist(orderItem);
-		manager.getTransaction().commit();
-	}
-	public static String getCatalogo() {
-		List<Product> prodotti=manager.createQuery("SELECT p FROM Product as p").getResultList();
-		StringBuilder catalogo=new StringBuilder();
-		for(Product p:prodotti) 
-			catalogo.append("<tr><td>"+p.getId()+"</td><td>"+p.getName()+"</td><td>"+p.getDesc()+"</td><td>"+p.getPrice()+"</td><td>"+p.getQty()+"</td></tr>");
-		return catalogo.toString();
+		public static void inserisciOrdineItem(ArrayList<Product>carrello,Double tot,User user,ArrayList<Integer>qta) {
 			
+			int orderId=inserisciOrdine(carrello,tot,user);
+			int i=0;
+			for(Product c:carrello) {
+				commit(c,qta.get(i),orderId);
+				i++;
+			}
+		}
+	
+		public static void commit(Product c,Integer i,Integer orderId) {
+			EntityManager manager=ShopEntityManager.newEntityManager();
+			OrderItem orderItem=new OrderItem();
+			manager.getTransaction().begin();
+			orderItem.setOrderId(orderId);
+			orderItem.setProductId(c.getId());
+			orderItem.setSellPrice(c.getPrice());
+			orderItem.setQuantity(i);
+			manager.persist(orderItem);
+			manager.getTransaction().commit();
+		}
+	public static List<Product> getCatalogo() {
+		EntityManager manager=ShopEntityManager.newEntityManager();
+		List<Product> prodotti=manager.createQuery("SELECT p FROM Product as p").getResultList();
+		return prodotti;
 	}
 }
-
+//

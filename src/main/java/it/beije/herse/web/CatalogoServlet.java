@@ -1,13 +1,17 @@
 package it.beije.herse.web;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import Shop.Funzioni;
+import Shop.*;
 
 /**
  * Servlet implementation class CatalogoServlet
@@ -21,35 +25,25 @@ public class CatalogoServlet extends HttpServlet {
      */
     public CatalogoServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		StringBuilder builder=new StringBuilder();
-		builder.append("<html><head><title>"+request.getAttribute("idUser")+"</title></head><body>Benvenuto, di seguito il nostro catalogo:");
-		builder.append("<br><br><table><thead><tr><td>Id</td><td>Nome</td><td>Descrizione</td><td>Prezzo</td><td>Quantità Disponibili</td></tr></thead>");
-		builder.append(Funzioni.getCatalogo());
-		builder.append("</table><form name='Carrello' method='post'>");
-		builder.append("<p>Id oggetto:</p><p><input type='text' name=id></p>Quantità:<p><input type='text' name=qta>");
-		builder.append("</p><p><button type='submit'>Invio</button></p></form></body></html>");
-		response.getWriter().append(builder);
+	
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int idProdotto,qta;
-		idProdotto=Integer.parseInt(request.getParameter("id"));
-		qta=Integer.parseInt(request.getParameter("qta"));
-		if(Funzioni.controlloIdProdotto(idProdotto)&&Funzioni.controlloQuantità(idProdotto, qta)) {
-			Funzioni.carrello(idProdotto, qta);
-			response.sendRedirect("ContinuoServlet");
-		}else response.sendRedirect("CatalogoServlet");
-		
+		int idProdotto = Integer.parseInt(request.getParameter("idProdotto"));
+		int quta = Integer.parseInt(request.getParameter("qta"));
+		HttpSession session=request.getSession();
+		if(Funzioni.controlloIdProdotto(idProdotto)&&Funzioni.controlloQuantità(idProdotto, quta)) {
+			session.setAttribute("carrello", Funzioni.carrello(idProdotto, (ArrayList<Product>)session.getAttribute("carrello")));
+			session.setAttribute("qta", Funzioni.qta(quta, (ArrayList<Integer>)session.getAttribute("qta")));
+			session.setAttribute("prodotto_aggiunto", "Prodotto aggiunto al carrello!");
+			response.sendRedirect("Catalogo.jsp");
+		}else {
+			session.setAttribute("prodotto_aggiunto", "ERRORE!");
+			response.sendRedirect("Catalogo.jsp");
+		}
 	}
 
 }

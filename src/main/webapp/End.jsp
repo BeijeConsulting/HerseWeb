@@ -19,10 +19,10 @@
 			<td><%=session.getAttribute("tot")%></td>
 		</tr>
 	</table>
-	<form action='Catalogo.jsp' method='post'>
+	<form action='ResetCarrello' method='post'>
 		<button type='submit'>Torna agli acquisti</button>
 	</form>
-	<form action='Login.jsp' method='post'>
+	<form action='ResetAll' method='post'>
 		<button type='submit'>Conferma e torna alla Hompage</button>
 	</form>
 

@@ -1,7 +1,6 @@
 package it.beije.prove.servlet;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -14,21 +13,20 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import it.beije.bean.Carrello;
+import it.beije.bean.Products;
 import it.beije.bean.SingletonEntityManagerFactory;
-import it.beije.bean.Users;
 
 /**
- * Servlet implementation class LogIn
+ * Servlet implementation class Shop
  */
-@WebServlet("/LogIn")
-public class LogIn extends HttpServlet {
+@WebServlet("/Shop")
+public class Shop extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static List<Users> onLineUsers = new ArrayList<Users>();
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public LogIn() {
+	public Shop() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -52,46 +50,33 @@ public class LogIn extends HttpServlet {
 		// TODO Auto-generated method stub
 //		doGet(request, response);
 		HttpSession session = request.getSession();
-
-		String email = request.getParameter("email");
-		String password = request.getParameter("password");
-
-		Users users = checkUser(email, password, request, response);
-		if (users != null) {
-			session.setAttribute("authUser", users);
-			Carrello carrello = new Carrello(request);
-			session.setAttribute("Carrello", carrello);
-			response.sendRedirect("Home.jsp");
-		} else {
-			response.sendRedirect("login.jsp");
-		}
-
-	}
-
-	private Users checkUser(String email, String password, HttpServletRequest request, HttpServletResponse response)
-			throws IOException {
 		EntityManager entityManager = SingletonEntityManagerFactory.newEntityManager();
-		HttpSession session = request.getSession();
+		Carrello carrello = (Carrello) session.getAttribute("Carrello");
 
-		String jpqlSelect = "SELECT x FROM Users as x";
+		String jpqlSelect = "SELECT x FROM Products as x";
 		Query query = entityManager.createQuery(jpqlSelect);
 
-		List<Users> result = query.getResultList();
-		for (Users us : result) {
-			boolean emailEqual = us.getEmail().equalsIgnoreCase(email);
-			boolean paswEqual = us.getPassword().equals(password);
-			if (emailEqual && paswEqual) {
-				return us;
-			} else {
-				if (us.getEmail().equals(email)) {
+		List<Products> result = query.getResultList();
+		for (Products p : result) {
+			int productId = p.getId();
+			String tagId = request.getParameter("" + productId);
+			if (tagId != null) {
+				int quantity = Integer.parseInt(tagId);
+				double tot = carrello.getTotale() + p.getPrice() * quantity;
+				carrello.setTotale(tot);
 
-					String passwordError = "Password errata";
+				double TotQuantity = carrello.getQuantita() + quantity;
+				carrello.setQuantita(TotQuantity);
 
-					request.setAttribute("passwordError", passwordError);
-					session.setAttribute("passwordError", passwordError);
+				for (int i = 0; i < quantity; i++) {
+					carrello.getProdotti().add(p);
 				}
+
+				session.setAttribute("Carrello", carrello);
 			}
 		}
-		return null;
+
+		response.sendRedirect("CarrelloBis.jsp");
 	}
+
 }

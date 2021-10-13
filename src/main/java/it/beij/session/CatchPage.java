@@ -7,19 +7,18 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.websocket.Session;
 
 /**
- * Servlet implementation class HomePage
+ * Servlet implementation class CatchPage
  */
-@WebServlet("/HomePage")
-public class HomePage extends HttpServlet {
+@WebServlet("/CatchPage")
+public class CatchPage extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public HomePage() {
+	public CatchPage() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -32,14 +31,16 @@ public class HomePage extends HttpServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 //		response.getWriter().append("Served at: ").append(request.getContextPath());
-		HttpSession session = request.getSession();
+		StringBuilder sb = new StringBuilder("Benvenuto!");
+		String user = (String) request.getSession().getAttribute("user");
+		String psw = (String) request.getSession().getAttribute("password");
+		String note = (String) request.getSession().getAttribute("note");
+		sb.append("\nUser: " + user);
+		sb.append("\nPassword: " + psw);
+		sb.append("\nNote: " + note);
+		sb.append("\nSession: " + request.getSession().getId());
 
-		System.out.println("doGet error: " + session.getAttribute("error"));
-		if (session.getAttribute("error") == null) {
-			response.sendRedirect("CatchPage.html");
-		} else {
-			response.sendRedirect("HomePage.jsp");
-		}
+		response.getWriter().append(sb);
 	}
 
 	/**
@@ -52,27 +53,11 @@ public class HomePage extends HttpServlet {
 //		doGet(request, response);
 
 		HttpSession session = request.getSession();
+		String note = request.getParameter("note");
+		System.out.println("same session: " + session.getId());
+		System.out.println("note: " + note);
 
-		String user = request.getParameter("user");
-		String psw = request.getParameter("password");
-
-		if (user.equals("1") && psw.equals("1")) {
-
-			session.setAttribute("user", user);
-			session.setAttribute("password", psw);
-			session.removeAttribute("error");
-
-			System.out.println("User: " + user);
-			System.out.println("Password: " + psw);
-
-			System.out.println("session post: " + session.getId());
-
-		} else {
-			String err = "Log in Error";
-			request.setAttribute("error", err);
-			session.setAttribute("error", err);
-			System.out.println("error: " + request.getAttribute("error"));
-		}
+		session.setAttribute("note", note);
 
 		doGet(request, response);
 	}

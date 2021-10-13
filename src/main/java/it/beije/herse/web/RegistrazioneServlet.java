@@ -3,12 +3,15 @@ package it.beije.herse.web;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import it.beije.bean.*;
 import it.beije.bean.Users;
 
 /**
@@ -33,7 +36,7 @@ public class RegistrazioneServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+//		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
@@ -44,44 +47,30 @@ public class RegistrazioneServlet extends HttpServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 //		doGet(request, response);
-		System.out.println("doPost");
-		String name = request.getParameter("name");
-		String surname = request.getParameter("surname");
+//		System.out.println("doPost");
+		String name = request.getParameter("nome");
+		String surname = request.getParameter("cognome");
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
 		String passwordCheck = request.getParameter("passwordCheck");
-		String warningMessage;
 
-		if (name.equals("")) {
-			String nameWarning = "inserire Nome";
-		}
-		if (surname.equals("")) {
-			String surnameWarning = "inserire Cognome";
-		}
-		if (email.equals("")) {
-			String emailWarning = "Inserire nome";
-			if (!email.contains("@")) {
-				String emailError = "L'email non e corretta";
-			}
-		}
-		if (password.equals("")) {
-			String passwordWarning = "inserire Password";
-		}
-		if (passwordCheck.equals("")) {
-			String passwordCheckWarning = "inserire Password di conferma";
-		}
 		if (password.equals(passwordCheck)) {
+			EntityManager entityManager = SingletonEntityManagerFactory.newEntityManager();
+			EntityTransaction transaction = entityManager.getTransaction();
+			transaction.begin();
 			Users user = new Users();
+
 			user.setId(null);
 			user.setName(name);
 			user.setSurname(surname);
 			user.setEmail(email);
 			user.setPassword(password);
-			addUserToDb(user);
-			LogInServlet.logIn(user);
+			entityManager.persist(user);
+			transaction.commit();
+
 			response.sendRedirect("Home.html");
 		} else {
-			response.sendRedirect("Registrazione.html");
+			response.sendRedirect("Registrazione.jsp");
 			System.out.println("password miss");
 //			warningMessage = "<html><body>Inserite 2 password differenti</body></html>";
 //			response.getWriter().append(warningMessage);
@@ -90,10 +79,5 @@ public class RegistrazioneServlet extends HttpServlet {
 //			pw.close();
 		}
 	}
-	
-	private void addUserToDb(Users user) {
-		//Aggiungo user al database
-	}
-
 
 }

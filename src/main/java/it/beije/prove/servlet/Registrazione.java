@@ -1,11 +1,21 @@
 package it.beije.prove.servlet;
 
 import java.io.IOException;
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
+import javax.persistence.Query;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import it.beije.bean.Carrello;
+import it.beije.bean.SingletonEntityManagerFactory;
+import it.beije.bean.Users;
 
 /**
  * Servlet implementation class Registrazione
@@ -40,43 +50,69 @@ public class Registrazione extends HttpServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 //		doGet(request, response);
-		String name = request.getParameter("userName");
-		String surname = request.getParameter("userSurname");
+		HttpSession session = request.getSession();
+		String name = request.getParameter("nome");
+		String surname = request.getParameter("cognome");
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
 		String passworCheck = request.getParameter("passwordCheck");
+		String emailError = "Email errata";
+		String passwordError = "Password errata";
+		String userError = "Utente gia esistente";
 
 		if (!checkUser(email, password)) {
-			if (password.equals(passworCheck) && email.contains("@")) {
-				response.sendRedirect("Home.html");
+			if (password.equals(passworCheck)) {
+				if (email.contains("@")) {
+					EntityManager entityManager = SingletonEntityManagerFactory.newEntityManager();
+					EntityTransaction transaction = entityManager.getTransaction();
+					transaction.begin();
+					Users user = new Users();
+					
+					user.setId(null);
+					user.setName(name);
+					user.setSurname(surname);
+					user.setEmail(email);
+					user.setPassword(password);
+					
+					entityManager.persist(user);
+					transaction.commit();
+					session.setAttribute("authUser", user);
+					Carrello carrello = new Carrello(request);
+					session.setAttribute("Carrello", carrello);
+					response.sendRedirect("Home.jsp");
+				}else {
+					request.setAttribute("emailError", emailError);
+					session.setAttribute("emailError", emailError);
+					response.sendRedirect("Registrazione.jsp");				}
 			} else {
-				if (!password.equals(passworCheck)) {
-					System.out.println("Password errata");
-				}
-				if (!email.contains("@")) {
-					System.out.println("email errata");
-				}
-				response.sendRedirect("Registrazione.html");
+				request.setAttribute("passwordError", passwordError);
+				session.setAttribute("passwordError", passwordError);
+				response.sendRedirect("Registrazione.jsp");
 			}
 		} else {
-			response.sendRedirect("Registrazione.html");
+			request.setAttribute("userError", userError);
+			session.setAttribute("userError", userError);
+			response.sendRedirect("Registrazione.jsp");
 		}
 
 	}
 
 	private boolean checkUser(String email, String password) {
-		boolean exist;
-		boolean controllo = false;
-		// controllo nel db se esiste l'utente
-		if (controllo) {
-			exist = true;
-			System.out.println("l'utente si e gia registrato");
-			return exist;
-		} else {
-			System.out.println("checkuser e ok");
-			exist = false;
-			return exist;
+		boolean exist = false;
+
+		EntityManager entityManager = SingletonEntityManagerFactory.newEntityManager();
+
+		String jpqlSelect = "SELECT x FROM Users as x";
+		Query query = entityManager.createQuery(jpqlSelect);
+
+		List<Users> result = query.getResultList();
+		for (Users us : result) {
+			if (us.getEmail().equals(email)) {
+				exist = true;
+				return exist;
+			}
 		}
+		return exist;
 	}
 
 }

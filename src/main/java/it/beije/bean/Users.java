@@ -1,28 +1,32 @@
 package it.beije.bean;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "user")
 public class Users {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
 	private Integer id;
 
+	@Column(name = "email")
 	private String email;
 
+	@Column(name = "name")
 	private String name;
 
+	@Column(name = "surname")
 	private String surname;
 
+	@Column(name = "password")
 	private String password;
-
-	// Costructors
-	public Users() {
-	}
-
-	public Users(Users users) {
-		this.id = users.getId();
-		this.email = users.getEmail();
-		this.name = users.getName();
-		this.surname = users.getSurname();
-		this.password = users.getPassword();
-	}
 
 	// Getter & Setter
 	public Integer getId() {
@@ -69,7 +73,7 @@ public class Users {
 	@Override
 	public String toString() {
 		return "Users [id=" + id + ", email=" + email + ", name=" + name + ", surname=" + surname + ", password="
-				+ password + " ]";
+				+ password + "]";
 	}
 }
 //bisogna mettere che unique? no non va messo, nel cao sia duplicato ci pensa il db a generare un error

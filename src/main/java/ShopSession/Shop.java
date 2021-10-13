@@ -44,6 +44,13 @@ public class Shop {
 		return query.getResultList();
 	}
 	
+	public static List<Product> getProductsById(int productId){
+		String selectP = "SELECT p FROM Product as p WHERE id=" + productId;
+		Query query = manager.createQuery(selectP);
+		List<Product> products =  query.getResultList();
+		return products;
+	}
+	
 	public static boolean checkQuantity(int productId, int quantity, int userId) {
 		int orderId=  new Shop().insertOrder(userId);
 		
@@ -121,5 +128,19 @@ public class Shop {
 		return orders;
 	}
 	
-
+	public static int checkCredential(String email, String password) {
+		String selectU = "SELECT u FROM User as u"; // WHERE email=" + email;
+		Query query = manager.createQuery(selectU);
+		List<User> user =  query.getResultList();
+		
+		for(User u: user) {
+			if(u.getPassword().equals(password) && u.getEmail().equalsIgnoreCase(email)) {
+				return u.getId();
+			} 
+		}
+		return 0;
+	}
+	
+	
+	
 }

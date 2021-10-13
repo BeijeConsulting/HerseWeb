@@ -27,7 +27,10 @@ public class Product {
 
 	@Column(name="quantity")
 	private Integer quantity;
-
+	
+	@Column(name="images")
+	private String img;
+	
 
 	public Integer getId() {
 		return id;
@@ -72,6 +75,14 @@ public class Product {
 	public void setQuantity(Integer quantity) {
 		this.quantity = quantity;
 	}
+	
+	public String getImg() {
+		return img;
+	}
+
+	public void setImg(String img) {
+		this.img = img;
+	}
 
 
 	public String toString() {
@@ -80,6 +91,7 @@ public class Product {
 				.append(", description: ").append(description)
 				.append(", price: ").append(price)
 				.append(", quantity: ").append(quantity)
+				.append(", image: ").append(img)
 				.append("}");
 
 		return builder.toString();

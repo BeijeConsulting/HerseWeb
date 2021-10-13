@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.swing.plaf.basic.BasicInternalFrameTitlePane.SystemMenuBar;
 
 import it.beije.herse.db.Singleton;
 import it.beije.herse.db.User;
@@ -54,10 +53,10 @@ public class HelloServlet extends HttpServlet {
 		if(result!=null) {
 			
 			session.setAttribute("user", result);
-			response.sendRedirect("ordini");
+			response.sendRedirect("catalogo.jsp");
 		} else {
 			session.setAttribute("error", "credenziali errate");
-			response.sendRedirect("index.jsp?error=dne");
+			response.sendRedirect("index.jsp");
 		}
 	}
 

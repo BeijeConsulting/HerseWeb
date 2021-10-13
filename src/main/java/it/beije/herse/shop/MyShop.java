@@ -134,7 +134,7 @@ public class MyShop {
 		Double amount = 0.0;
 		
 		for(OrderItem item : items)
-			amount += item.getQuantity();
+			amount += item.getSellPrice();
 		
 		return amount;
 		
@@ -146,22 +146,6 @@ public class MyShop {
 			item.setOrderId(orderId);
 		
 		return items;
-		
-	}
-	
-	public static void printDetails(Order o) {
-		
-		String query = "SELECT O FROM OrderItem AS O WHERE order_id = " + o.getId();
-		List<Object> items = manager.select(query);
-		List<Object> products = new ArrayList<>();
-		
-		for(Object item : items)
-			products.add(manager.selectByID(Product.class,((OrderItem)item).getProductId()));
-
-		for(Object prod : products)
-			System.out.println("Nome: " + ((Product)prod).getName() + ", Descrizione: " + ((Product)prod).getDescription());
-		
-		System.out.println("Totale: " + o.getAmount());
 		
 	}
 

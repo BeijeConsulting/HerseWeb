@@ -8,6 +8,8 @@
 </head>
 <body>
 
+<h1>Riepilogo</h1>
+
 <%@page import="it.beije.herse.shop.*"%>
 <%@page import="static it.beije.herse.shop.MyShop.*"%>
 
@@ -18,54 +20,57 @@
 <jsp:useBean id="user" class="it.beije.herse.shop.User" scope="session"></jsp:useBean>
 
 <%
-if(user.getId() == null)
+if(user.getId() == null){
 	response.sendRedirect("index.html");		
-if(carrello.getItems().isEmpty()){
-List<Product> list = getProducts();
-StringBuilder error = new StringBuilder();
-
-for(Product p : list){
-
-	String qta = request.getParameter("prodQta" + p.getId());
-	String id = request.getParameter(p.getId().toString());
+} else if(carrello.getItems().isEmpty()) {
 	
-	if(id != null) {
+	List<Product> list = getProducts();
+	StringBuilder error = new StringBuilder();
+	
+	for(Product p : list){
+	
+		String qta = request.getParameter("prodQta" + p.getId());
+		String id = request.getParameter(p.getId().toString());
 		
-		
-		if(Integer.valueOf(qta) <= p.getQuantity()){
+		if(id != null) {
 			
-			OrderItem item = setOrderItem(Integer.valueOf(id), Integer.valueOf(qta), p.getPrice());
-			carrello.addItem(item);
 			
-		}else{
-			
-			if(p.getQuantity() > 1)
-				error.append("Sono disponibili " + p.getQuantity() + " di " + p.getName());
-			else
-				error.append("E' disponibile " + p.getQuantity() + " di " + p.getName());
+			if(Integer.valueOf(qta) <= p.getQuantity()){
+				
+				OrderItem item = setOrderItem(Integer.valueOf(id), Integer.valueOf(qta), p.getPrice());
+				carrello.addItem(item);
+				
+			}else{
+				
+				if(p.getQuantity() > 1)
+					error.append("Sono disponibili " + p.getQuantity() + " di " + p.getName());
+				else
+					error.append("E' disponibile " + p.getQuantity() + " di " + p.getName());
+				
+			}
 			
 		}
 		
 	}
 	
-}
-if(!error.isEmpty()){
-	session.setAttribute("errorQta", error);
-	response.sendRedirect("viewproduct.jsp");
-}
+	if(!error.isEmpty()){
+		session.setAttribute("errorQta", error);
+		response.sendRedirect("viewproduct.jsp");
+	}
 
 }
-
 
 for(OrderItem item : carrello.getItems()){
 	Product p = getProduct(item.getProductId());
-	String htmlEl = "<html><body><input type=\"text\" value=\"" + p.getName() + "\" readonly>\n"
-					+ "<input type=\"text\" value=\"" + p.getDescription() + "\" readonly>\n"
-					+ "<input type=\"text\" value=\"" + item.getSellPrice() + "\" readonly>\n"
-					+ "<input type=\"text\" value=\"" + item.getQuantity() + "\" readonly><br>\n";
+	String htmlEl = "<html><body><input style=\"width:100px\" type=\"text\" value=\"" + p.getName() + "\" readonly>\n"
+					+ "<input style=\"width:100px\" type=\"text\" value=\"" + p.getDescription() + "\" readonly>\n"
+					+ "<input style=\"width:70px\" type=\"text\" value=\"" + item.getSellPrice() + "\" readonly>\n"
+					+ "<input style=\"width:40px\" type=\"text\" value=\"" + item.getQuantity() + "\" readonly><br>\n";
 	out.print(htmlEl);
 }
 %>
+
+<br><a href="OrderConfirm"><button>Conferma Ordine</button></a>
 
 </body>
 </html>

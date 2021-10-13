@@ -6,6 +6,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import static it.beije.herse.shop.MyShop.*;
 import it.beije.herse.shop.*;
@@ -37,13 +38,17 @@ public class LoginServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		User user = getUser(request.getParameter("email"), request.getParameter("password"));
+		HttpSession session = request.getSession();
+		
 		if(user == null) {
-			response.sendError(0,"Error login");
+			session.setAttribute("error", "Credenziali errate");
 			response.sendRedirect("index.html");
 		}
 		
-		response.sendRedirect("viewmenu.jsp?id=" + user.getId());
+		session.setAttribute("user", user);
+		response.sendRedirect("viewmenu.jsp");
 		doGet(request, response);
+		
 	}
 
 }

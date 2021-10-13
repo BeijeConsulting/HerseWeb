@@ -44,10 +44,15 @@ public class MyShop {
 		return LocalDateTime.parse(LocalDateTime.now().format(f), f);
 	}
 
-	public static void setOrder(Integer userId, Order ord) {
-		ord.setUserId(userId);
-		ord.setDateTime(getDateTime());
-		ord.setAmount(0.0);
+	public static Order initOrder(Integer userId) {
+		
+		Order o = new Order();
+		o.setUserId(userId);
+		o.setDateTime(getDateTime());
+		o.setAmount(0.0);
+		
+		return o;
+		
 	}
 
 	public static OrderItem setOrderItem(String prodId, String qta, Double sellPrice, Integer orderId) {
@@ -62,16 +67,17 @@ public class MyShop {
 
 	}
 
-	public static Product controlOrderId(String prodId, List<Product> prod) {
+	public static Product searchOrderId(String prodId, List<Product> prod) {
 
 		for(Product p : prod)
 			if(p.getId().equals(Integer.valueOf(prodId)))
 				return p;
 
 		return null;
+		
 	}
 
-	public static boolean controlQta(String qta, Product p) {
+	public static boolean validateQta(String qta, Product p) {
 		
 		boolean flag = false;
 		
@@ -83,6 +89,7 @@ public class MyShop {
 		}
 		
 		return flag;
+		
 	}
 	
 	public static void printDetails(Order o) {

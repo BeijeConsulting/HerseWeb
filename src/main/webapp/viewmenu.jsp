@@ -8,7 +8,9 @@
 </head>
 <body>
 
-	<a href="ViewProduct?id=<%= request.getParameter("id") %>"><input type="submit" value="Prodotti"></a>
+	<jsp:useBean id="user" class="it.beije.herse.shop.User" scope="session"></jsp:useBean>
+
+	<a href="viewproduct.jsp"><input type="submit" value="Prodotti"></a>
 	<input type="submit" value="Ordini">
 	<input type="submit" value="Profilo">
 

@@ -1,4 +1,4 @@
-package it.beije.herse.shop.classes;
+package it.beije.herse.shop.beans;
 
 import javax.persistence.EntityManager;
 

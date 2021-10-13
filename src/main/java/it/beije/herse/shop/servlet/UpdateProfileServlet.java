@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import it.beije.herse.shop.classes.User;
+import it.beije.herse.shop.beans.User;
 import it.beije.herse.shop.manager.UserManager;
 
 /**

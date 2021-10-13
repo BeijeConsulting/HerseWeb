@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<%@page import="it.beije.herse.shop.classes.*"%>
+<%@page import="it.beije.herse.shop.beans.*"%>
 <%@page import="it.beije.herse.shop.manager.*"%>
 <%@page import="java.util.List"%>
 <!DOCTYPE html>

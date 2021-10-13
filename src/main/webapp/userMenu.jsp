@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
     
-<%@page import="it.beije.herse.shop.classes.*"%>
+<%@page import="it.beije.herse.shop.beans.*"%>
 <%@page import="it.beije.herse.shop.manager.*"%>
 
 <!DOCTYPE html>
@@ -15,8 +15,10 @@
     
 <body bgcolor="black" text="white">
     
-    <%User u = (User) session.getAttribute("loggedUser");%>
-    <jsp:useBean id="loggedUser" class="it.beije.herse.shop.classes.User" scope="session"></jsp:useBean>
+    <%
+        User u = (User) session.getAttribute("loggedUser");
+        %>
+    <jsp:useBean id="loggedUser" class="it.beije.herse.shop.beans.User" scope="session"></jsp:useBean>
     <jsp:setProperty property="email" name="loggedUser" value="<%= u.getEmail() %>"/>
     <jsp:setProperty property="password" name="loggedUser" value="<%= u.getPassword() %>"/>
     <jsp:setProperty property="name" name="loggedUser" value="<%= u.getName() %>"/>
@@ -25,7 +27,13 @@
     
     <h1>HERSE SHOP</h1>
     
-    <h2>WELCOME <jsp:getProperty property="email" name="loggedUser"/> </h2>
+    <h2>WELCOME 
+    <% if(loggedUser.getName()!=null && loggedUser.getSurname()!=null){
+    	%><jsp:getProperty property="name" name="loggedUser"/> <jsp:getProperty property="surname" name="loggedUser"/><%
+    }
+    else{
+    	%><jsp:getProperty property="email" name="loggedUser"/><%
+    }%> </h2>
     
     <form action="UserChoiceServlet" method="post">
         CHOOSE AN OPTON:<br>

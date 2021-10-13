@@ -2,7 +2,7 @@
 <%@page import="java.time.format.DateTimeFormatter"%>
 <%@page import="java.util.List"%>
 <%@page import="it.beije.herse.shop.manager.UserManager"%>
-<%@page import="it.beije.herse.shop.classes.*"%>
+<%@page import="it.beije.herse.shop.beans.*"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>

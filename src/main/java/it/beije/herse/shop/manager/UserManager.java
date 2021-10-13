@@ -12,7 +12,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Root;
 
-import it.beije.herse.shop.classes.*;
+import it.beije.herse.shop.beans.*;
 
 public class UserManager {
 	

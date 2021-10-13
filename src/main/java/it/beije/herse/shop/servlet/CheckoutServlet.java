@@ -10,9 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import it.beije.herse.shop.classes.Order;
-import it.beije.herse.shop.classes.OrderItem;
-import it.beije.herse.shop.classes.Product;
+import it.beije.herse.shop.beans.Order;
+import it.beije.herse.shop.beans.OrderItem;
+import it.beije.herse.shop.beans.Product;
 import it.beije.herse.shop.manager.OrderManager;
 import it.beije.herse.shop.manager.ProductManager;
 

@@ -1,4 +1,4 @@
-package it.beije.herse.shop.classes;
+package it.beije.herse.shop.beans;
 
 import java.time.LocalDateTime;
 

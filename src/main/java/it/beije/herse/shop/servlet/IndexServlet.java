@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import it.beije.herse.shop.classes.User;
+import it.beije.herse.shop.beans.User;
 import it.beije.herse.shop.manager.UserManager;
 
 /**
@@ -51,6 +51,8 @@ public class IndexServlet extends HttpServlet {
 	    	else {
 	    		User loggedUser = UserManager.selectUser(email, password).get(0);
 	    		session.setAttribute("loggedUser", loggedUser);
+	    		session.removeAttribute("email");
+	    		session.removeAttribute("password");
 	    		response.sendRedirect("userMenu.jsp");
 	    	}
 	    }

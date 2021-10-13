@@ -2,10 +2,10 @@
 <persistence version="2.2" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
 	<persistence-unit name="herse-shop">
 
-		<class>it.beije.herse.shop.classes.User</class>
-		<class>it.beije.herse.shop.classes.Product</class>
-		<class>it.beije.herse.shop.classes.Order</class>
-		<class>it.beije.herse.shop.classes.OrderItem</class>
+		<class>it.beije.herse.shop.beans.User</class>
+		<class>it.beije.herse.shop.beans.Product</class>
+		<class>it.beije.herse.shop.beans.Order</class>
+		<class>it.beije.herse.shop.beans.OrderItem</class>
 		<exclude-unlisted-classes>true</exclude-unlisted-classes>
 		
 		<properties>

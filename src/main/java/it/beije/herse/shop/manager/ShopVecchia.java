@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import it.beije.herse.shop.classes.*;
+import it.beije.herse.shop.beans.*;
 
 public class ShopVecchia {
 	

@@ -1,5 +1,5 @@
 <%@page import="it.beije.herse.shop.manager.ProductManager"%>
-<%@page import="it.beije.herse.shop.classes.Product"%>
+<%@page import="it.beije.herse.shop.beans.Product"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>

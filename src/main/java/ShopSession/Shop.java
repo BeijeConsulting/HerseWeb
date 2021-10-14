@@ -64,7 +64,7 @@ public class Shop {
 	}
 	
 	public static boolean checkQuantity(int productId, int quantity, int userId) {
-		int orderId=  new Shop().insertOrder(userId);
+//		int orderId=  new Shop().insertOrder(userId);
 		
 		Product product = manager.find(Product.class, productId);
 		
@@ -117,6 +117,12 @@ public class Shop {
 		orderItem.setQuantity(quantity);
 		manager.persist(orderItem);
 		transaction.commit();
+	}
+	
+	public static Order findOrder(int orderId) {
+		EntityTransaction transaction = manager.getTransaction();
+		Order order = manager.find(Order.class, orderId);
+		return order;
 	}
 	
 	public static Order changeOrder(int orderId) {

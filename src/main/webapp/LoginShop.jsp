@@ -36,7 +36,7 @@ if (faiLogin != null) {
 	  Email: <br>
 	  <input type="text" name="email" placeholder= "Your Email" required><br>
 	  Password:<br>
-	  <input type="text" name="password" placeholder="**************" required><br><br>
+	  <input type="password" name="password" placeholder="**************" required><br><br>
 	  <input type="submit" value="Conferma">
 	</form> 
 </div>

@@ -83,13 +83,13 @@ for (Integer key : map.keySet()) {
 	
 </form>
 
-<form action='ordine.jsp' method='post'>
+<form action='ordineServlet' method='post'>
 	
 		<p style="color:green">
 			Conferma il tuo ordine: <input type="submit" value="Conferma">
 		</p>
 	
-	</form>
+</form>
 
 </body>
 </html>

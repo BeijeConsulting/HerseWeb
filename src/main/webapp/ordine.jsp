@@ -18,40 +18,17 @@
 <h3> Ecco il riepilogo del tuo ordine</h3>
 
 <%
-String user = (String) session.getAttribute("userID");
-int userId = Integer.parseInt(user);
-
-
-int orderId = 0;
-
-if(user != null){
-	orderId = Shop.insertOrder(userId);
-}
-
-
-HashMap<Integer, Object> map = (HashMap<Integer, Object>) session.getAttribute("map");
-
-for (Integer key : map.keySet()) {
-	Object obj = map.get(key);
-	Carrello carrello = (Carrello) obj;
-	List<Product> products = Shop.getProductsById(carrello.getProductId());
-	for (Product p : products) {
-		Shop.insertOrderItem(orderId, p.getId(), carrello.getQuantity());
-	}
-}
-
-
-Order order = Shop.changeOrder(orderId);
+Order order = (Order) session.getAttribute("order");
 %>
 
 <table Style="border:1px solid"  >
 <caption>	
-	<strong><p> Ordine numero : <%= order.getId() %></p></strong>
+	<strong> Ordine numero : <%= order.getId() %></strong>
 </caption>
 <tr><th>IdProdotto</th><th>NomeProdotto</th><th>Prezzo</th><th>Quantità</th></tr>
 
 <%
-List<OrderItem> orders = Shop.findOrderItem(orderId);
+List<OrderItem> orders = Shop.findOrderItem(order.getId());
 for(OrderItem o: orders){
 	List<Product> pro = Shop.getProductsById(o.getProductId());
 	for(Product p: pro){

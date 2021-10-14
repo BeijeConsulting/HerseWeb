@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -12,13 +11,12 @@
     
     <h1>HERSE SHOP</h1>
     
-    <br>
-    
     <%
     String failedLoginAction = (String) session.getAttribute("failedLoginAction");
     if(failedLoginAction!=null && failedLoginAction.equals("signIn")){%>
-    SIGNED IN  <br><br>
-    <%} %>
+   <h2><font color="red">SIGNED IN</font></h2>
+    <%session.removeAttribute("failedLoginAction");
+    } %>
    
       
       <%

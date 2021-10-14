@@ -105,6 +105,12 @@ public class CreateOrderServlet extends HttpServlet {
 			}	
 		}
 		
+		String back = (String) request.getParameter("backToMenu");
+		if(back!=null && back.equalsIgnoreCase("BACK TO MENU")) {
+			response.sendRedirect("usermenu.jsp");
+			return;
+		}
+		
 		session.setAttribute("cart", cart);
 	}
 

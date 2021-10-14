@@ -26,7 +26,7 @@
 		<tr><td>IN STOCK: </td><td><%= p.getQuantity() %></td></tr>
 	</table>
 	<br>
-	<form action="neworder.jsp" method="post">
+	<form action="ReturnToOrderServlet" method="post">
 	<br><br>
 	<input type="submit" name="back" value="BACK">
 	</form>

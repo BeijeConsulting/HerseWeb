@@ -23,7 +23,7 @@
 		<tr><td>PASSWORD: </td><td><%= u.getPassword() %></td></tr>
 	</table>
 	<br>
-	<form action="usermenu.jsp" method="post">
+	<form action="ReturnToMenuServlet" method="post">
 	<br><br>
 	<input type="submit" name="back" value="BACK">
 	</form>

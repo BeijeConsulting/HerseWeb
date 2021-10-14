@@ -30,5 +30,10 @@
 	</table>
 	<br>
 	TOTAL: <%= order.getAmount() %>$
+	<br>
+	<form action="ReturnToMenuServlet" method="post">
+	<br><br>
+	<input type="submit" name="back" value="RETURN TO MENU">
+	</form>
 </body>
 </html>

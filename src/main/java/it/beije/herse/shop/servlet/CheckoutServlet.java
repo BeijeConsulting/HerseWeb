@@ -74,6 +74,7 @@ public class CheckoutServlet extends HttpServlet {
 //		Double total = (Double) session.getAttribute("total");
 		if(submit!=null && submit.equalsIgnoreCase("CONFIRM & PAY")) {
 			if(cart.getTotal()<=0) {
+				session.setAttribute("totalEqualsZero", true);
 				response.sendRedirect("neworder.jsp");
 				return;
 			}

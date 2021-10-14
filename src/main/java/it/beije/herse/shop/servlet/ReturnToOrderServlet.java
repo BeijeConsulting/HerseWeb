@@ -6,21 +6,18 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
-import it.beije.herse.shop.manager.ProductManager;
 
 /**
- * Servlet implementation class UserChoiceServlet
+ * Servlet implementation class ReturnToOrderServlet
  */
-@WebServlet("/UserChoiceServlet")
-public class UserChoiceServlet extends HttpServlet {
+@WebServlet("/ReturnToOrderServlet")
+public class ReturnToOrderServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UserChoiceServlet() {
+    public ReturnToOrderServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -38,24 +35,8 @@ public class UserChoiceServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String userAction = (String) request.getParameter("userAction");
-		if(userAction!=null)
-			switch(userAction) {
-			case "newOrder":
-				HttpSession session = request.getSession();
-				session.setAttribute("products", ProductManager.selectProducts());
-				response.sendRedirect("neworder.jsp");
-				break;
-			case "showProfile":
-				response.sendRedirect("userprofile.jsp");
-				break;
-			case "updateProfile":
-				response.sendRedirect("updateprofile.jsp");
-				break;	
-			case "showOrderHistory":
-				response.sendRedirect("orderhistory.jsp");
-				break;
-			}
+//		doGet(request, response);
+		response.sendRedirect("neworder.jsp");
 	}
 
 }

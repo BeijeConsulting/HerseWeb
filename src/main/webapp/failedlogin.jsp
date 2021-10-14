@@ -12,10 +12,8 @@
     
     <h1>HERSE SHOP</h1>
     
-    <br>
-  
     <form action="LoginFailServlet" method="post">
-        EMAIL AND PASSWORD NOT FOUND<br>
+       <h2><font color="red">EMAIL AND PASSWORD NOT FOUND</font></h2>
         <input type="radio" name="failedLoginAction" value="retry">RETRY<br>
         <input type="radio" name="failedLoginAction" value="signIn">SIGN IN AS <%= session.getAttribute("email") %><br>
         <br>

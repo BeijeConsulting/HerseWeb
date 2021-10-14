@@ -6,23 +6,20 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
-import it.beije.herse.shop.manager.ProductManager;
 
 /**
- * Servlet implementation class UserChoiceServlet
+ * Servlet implementation class ShopHomeServlet
  */
-@WebServlet("/UserChoiceServlet")
-public class UserChoiceServlet extends HttpServlet {
+@WebServlet("/ShopHome")
+public class ShopHomeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UserChoiceServlet() {
+    public ShopHomeServlet() {
         super();
-        // TODO Auto-generated constructor stub
+        System.out.println("ShopHomeServlet's Constructor");
     }
 
 	/**
@@ -31,6 +28,7 @@ public class UserChoiceServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 //		response.getWriter().append("Served at: ").append(request.getContextPath());
+		response.sendRedirect("index.jsp");
 	}
 
 	/**
@@ -38,24 +36,7 @@ public class UserChoiceServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String userAction = (String) request.getParameter("userAction");
-		if(userAction!=null)
-			switch(userAction) {
-			case "newOrder":
-				HttpSession session = request.getSession();
-				session.setAttribute("products", ProductManager.selectProducts());
-				response.sendRedirect("neworder.jsp");
-				break;
-			case "showProfile":
-				response.sendRedirect("userprofile.jsp");
-				break;
-			case "updateProfile":
-				response.sendRedirect("updateprofile.jsp");
-				break;	
-			case "showOrderHistory":
-				response.sendRedirect("orderhistory.jsp");
-				break;
-			}
+//		doGet(request, response);
 	}
 
 }

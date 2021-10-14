@@ -15,12 +15,20 @@
     
 <body bgcolor="black" text="white">
 
-	<% List<Product> products = ProductManager.selectProducts();
+	<% List<Product> products = (List<Product>) session.getAttribute("products");
+	session.removeAttribute("products");
 	Cart cart = (Cart) session.getAttribute("cart");
 	Map<Integer,Integer> quantities = null;
 	if(cart!=null) quantities = cart.getQuantities();%>
     
     <h1>HERSE SHOP</h1>
+    
+    <%
+    Boolean totalEqualsZero = (Boolean) session.getAttribute("totalEqualsZero");
+    if(totalEqualsZero!=null && totalEqualsZero){%>
+    <h2><font color="red">PLEASE ENTER A VALID NUMBER OF ITEMS</font></h2>
+    <%session.removeAttribute("totalEqualsZero");
+    } %>
         
     <form action="CreateOrderServlet" method="post">
         <h3>ADD PRODUCTS TO YOUR ORDER:</h3>
@@ -53,6 +61,7 @@
         </table>
         <br>
         <input type=submit name="submitOrder" value="ADD TO CART">
+        <input type="submit" name="backToMenu" value="BACK TO MENU">
     </form>
        
 </body>

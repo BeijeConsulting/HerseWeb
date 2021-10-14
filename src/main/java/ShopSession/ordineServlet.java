@@ -45,28 +45,37 @@ public class ordineServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session=request.getSession();
 		
-		String user = (String) session.getAttribute("userID");
-		int userId = Integer.parseInt(user);
-		int orderId = 0;
-		if(user != null){
-			Shop shop = new Shop();
-			orderId = shop.insertOrder(userId);
-		}
 		HashMap<Integer, Object> map = (HashMap<Integer, Object>) session.getAttribute("map");
-		for (Integer key : map.keySet()) {
-			Object obj = map.get(key);
-			Carrello carrello = (Carrello) obj;
-			List<Product> products = new Shop().findProductsById(carrello.getProductId());
-			for (Product p : products) {
-				new Shop().insertOrderItem(orderId, p.getId(), carrello.getQuantity());
+		
+		if(map.isEmpty()) {
+			session.setAttribute("NessunArtiolo", "Inserisci degli articoli per proseguire");
+			response.sendRedirect("riepilogo.jsp");
+		} else {
+			String user = (String) session.getAttribute("userID");
+			int userId = Integer.parseInt(user);
+			int orderId = 0;
+			if(user != null){
+				Shop shop = new Shop();
+				orderId = shop.insertOrder(userId);
 			}
+
+			for (Integer key : map.keySet()) {
+				Object obj = map.get(key);
+				Carrello carrello = (Carrello) obj;
+				List<Product> products = new Shop().findProductsById(carrello.getProductId());
+				for (Product p : products) {
+					new Shop().insertOrderItem(orderId, p.getId(), carrello.getQuantity());
+				}
+			}
+			Order order = new Shop().changeOrder(orderId);
+			
+			System.out.println("Order: " + order);
+			
+			session.setAttribute("order", order);
+			response.sendRedirect("ordine.jsp");
 		}
-		Order order = new Shop().changeOrder(orderId);
 		
-		System.out.println("Order: " + order);
 		
-		session.setAttribute("order", order);
-		response.sendRedirect("ordine.jsp");
 	}
 
 }

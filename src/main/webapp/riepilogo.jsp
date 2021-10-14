@@ -26,6 +26,18 @@ if (quantitylMsg != null) {
 
 %>
 
+<%
+
+String emptyMap = (String) session.getAttribute("NessunArtiolo");
+if (emptyMap != null) {
+	%>
+	<strong><span style="color:red"><%=emptyMap%></span></strong><br><br>
+	<%
+	session.removeAttribute("NessunArtiolo");
+}
+
+%>
+
 <h3> Prodotti acquistati fino ad ora </h3>
 
 <table Style="border:1px solid"  >

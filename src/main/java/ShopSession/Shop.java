@@ -29,6 +29,18 @@ public class Shop {
 		}
 	}
 	
+	public static void insertUser(String nome, String cognome, String email, String password) {
+		EntityTransaction transaction = manager.getTransaction();
+		transaction.begin();
+		User user = new User();
+		user.setEmail(email);
+		user.setName(nome);
+		user.setPassword(password);
+		user.setSurname(cognome);
+		manager.persist(user);
+		transaction.commit();
+	}
+	
 	public static List<Product> getProducts(){
 		CriteriaBuilder criteriaBuilder = manager.getCriteriaBuilder();
 
@@ -71,6 +83,14 @@ public class Shop {
 			//insertOrderItem(orderId, productId, product.getQuantity(), quantity);
 			return true;
 		}
+	}
+	
+	public static void addQuantityProduct(int productId, int quantity) {
+		EntityTransaction transaction = manager.getTransaction();
+		Product product = manager.find(Product.class, productId);
+		transaction.begin();
+		product.setQuantity(product.getQuantity()+quantity); 
+		transaction.commit();
 	}
 	
 	public static int insertOrder(int userId) {

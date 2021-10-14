@@ -59,10 +59,7 @@ public class CarrelloServlet extends HttpServlet {
 		int quantity = Integer.parseInt(quantityS);
 		int userId = Integer.parseInt(user);
 		
-		Carrello carrello = new Carrello();
 		
-		carrello.setProductId(productId);
-		carrello.setQuantity(quantity);
 		
 		HashMap<Integer, Object> map;
 		
@@ -74,32 +71,39 @@ public class CarrelloServlet extends HttpServlet {
 		
 		Integer cont = (Integer) session.getAttribute("cont");
 		
-		
-		map.put(cont, carrello);
-		
 		System.out.println("carrello");
 		
 		if(buyMore == null) {
 
 			if(Shop.checkQuantity(productId, quantity, userId)) {
+				Carrello carrello = new Carrello();
+				carrello.setProductId(productId);
+				carrello.setQuantity(quantity);
+				map.put(cont, carrello);
+				cont++;
+				session.setAttribute("cont", cont);
 				session.setAttribute("map", map);
 				response.sendRedirect("riepilogo.jsp");
 
 			} else {
 				session.setAttribute("wrongQuantity", "Quantità troppo alta, prova ad abbasarla");
-				response.sendRedirect("catalogo2.jsp");
+				response.sendRedirect("catalogo.jsp");
 			}
 
 		} else {
 			System.out.println("vuoi comprare ancora");
 			if(Shop.checkQuantity(productId, quantity, userId)) {
+				Carrello carrello = new Carrello();
+				carrello.setProductId(productId);
+				carrello.setQuantity(quantity);
+				map.put(cont, carrello);
 				cont++;
 				session.setAttribute("cont", cont);
 				session.setAttribute("map", map);
 				response.sendRedirect("catalogo.jsp");
 			}else {
 				session.setAttribute("wrongQuantity", "Quantità troppo alta, prova ad abbasarla");
-				response.sendRedirect("catalogo2.jsp");
+				response.sendRedirect("catalogo.jsp");
 			}
 		}
 		

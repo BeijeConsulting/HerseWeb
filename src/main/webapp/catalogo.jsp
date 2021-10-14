@@ -21,12 +21,6 @@
 <h3> I nostri Prodotti</h3>
 
 <%
-
-//int userId = (int) session.getAttribute("userID");
-
-//System.out.println("userId: " + userId);
-
-
 List<Product> products = Shop.getProducts();
 %>
 <table Style="border:1px solid">
@@ -58,8 +52,18 @@ for(Product p: products){
 	</p>
 </form>
 
-</div>
+<%
+String error = (String) session.getAttribute("wrongQuantity");
+if (error != null) {
+	%>
+	<span style="color:red"><%=error%></span><br><br>
+	<%
+	session.removeAttribute("wrongQuantity");
+}
 
+%>
+
+</div>
 
 
 <h3>Cosa vuoi comprare?</h3>

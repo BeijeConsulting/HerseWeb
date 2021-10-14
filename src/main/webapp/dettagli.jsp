@@ -51,6 +51,8 @@ for(int x: ids){
 %>
 </table>
 
+<strong><a href="catalogo.jsp">Torna al Catalogo</a></strong>
+
 
 </body>
 </html>

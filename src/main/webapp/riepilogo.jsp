@@ -14,6 +14,17 @@
 <hr>
 
 <div>
+<%
+
+String quantitylMsg = (String) session.getAttribute("wrongQuantityE");
+if (quantitylMsg != null) {
+	%>
+	<strong><span style="color:red"><%=quantitylMsg%></span></strong><br><br>
+	<%
+	session.removeAttribute("wrongQuantityE");
+}
+
+%>
 
 <h3> Prodotti acquistati fino ad ora </h3>
 
@@ -21,20 +32,19 @@
 <tr><th>Id</th><th>Prodotto</th><th>Prezzo</th><th>Quantità</th></tr>
 
 <%
-
 HashMap<Integer, Object> map = (HashMap<Integer, Object>) session.getAttribute("map");
 
-for(int i = 1; i <= map.size(); i++){
-	Object obj = map.get(i);
+for (Integer key : map.keySet()) {
+	Object obj = map.get(key);
 	Carrello carrello = (Carrello) obj;
 	out.print(" Prodotto: ");
 	List<Product> products = Shop.getProductsById(carrello.getProductId());
-	for(Product p: products){
+	for (Product p : products) {
 		out.print("<tr>");
 		out.print("<td>" + p.getId() + "</td>");
 		out.print("<td>" + p.getName() + "</td>");
 		out.print("<td>" + p.getPrice() + "</td>");
-		out.print("<td>" + carrello.getQuantity()+ "</td>");
+		out.print("<td>" + carrello.getQuantity() + "</td>");
 		out.print("</tr>");
 	}
 }

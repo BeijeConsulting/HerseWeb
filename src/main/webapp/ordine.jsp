@@ -21,18 +21,25 @@
 String user = (String) session.getAttribute("userID");
 int userId = Integer.parseInt(user);
 
-int orderId = Shop.insertOrder(userId);
+
+int orderId = 0;
+
+if(user != null){
+	orderId = Shop.insertOrder(userId);
+}
+
 
 HashMap<Integer, Object> map = (HashMap<Integer, Object>) session.getAttribute("map");
 
-for(int i = 1; i <= map.size(); i++){
-	Object obj = map.get(i);
+for (Integer key : map.keySet()) {
+	Object obj = map.get(key);
 	Carrello carrello = (Carrello) obj;
 	List<Product> products = Shop.getProductsById(carrello.getProductId());
-	for(Product p: products){
+	for (Product p : products) {
 		Shop.insertOrderItem(orderId, p.getId(), carrello.getQuantity());
 	}
 }
+
 
 Order order = Shop.changeOrder(orderId);
 %>
@@ -64,7 +71,12 @@ for(OrderItem o: orders){
 
 <p> <strong>Costo Totale</strong> <%= order.getAmount() %></p>
 
-<p><strong>Data dell'ordine</strong> <%= order.getDateTime() %></p>
+<p><strong>Data dell'ordine</strong> <%=order.getDateTime() %></p>
+
+<form action="logout" method="post">
+	<input type="submit" value="Logout">
+</form>
+
 
 </body>
 </html>

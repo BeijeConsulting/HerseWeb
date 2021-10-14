@@ -41,51 +41,73 @@ public class EliminaProdotto extends HttpServlet {
 		
 		HashMap<Integer, Object> map = (HashMap<Integer, Object>) session.getAttribute("map");
 		
+		System.out.println("PRE: " + map);
+		
 		String product = request.getParameter("productIdE");
 		String quantityS = request.getParameter("quantityE");
 		
 		int productId = Integer.parseInt(product);
 		int quantity = Integer.parseInt(quantityS);
 		
-//		HashMap<Integer, Object> tmp = new HashMap<Integer, Object>();
+		session.removeAttribute("map");
+		
+		System.out.println("quantity par: " + quantity);
 		
 		int quanTot = 0;
 		
 		int cont = 1;
 		
-		for(int i = 1; i <= map.size(); i++) {
-			Object obj = map.get(i);
+		for (Integer key : map.keySet()) {
+			Object obj = map.get(key);
 			Carrello carrello = (Carrello) obj;
 			if(carrello.getProductId() == productId) {
 				quanTot += carrello.getQuantity();
 			}
 		}
 		
+		System.out.println("quantity tot: " + quanTot);
+		
 		if(quanTot < quantity) {
-			session.setAttribute("wrongQuantity", "Quantità troppo alta, prova ad abbasarla");
-//			response.sendRedirect("riepilogo.jsp");
+			session.setAttribute("wrongQuantityE", "Quantità troppo alta, prova ad abbasarla");
+			response.sendRedirect("riepilogo.jsp");
 		} else {
-			for(int i = 1; i <= map.size(); i++) {
-				Object obj = map.get(i);
-				Carrello carrello = (Carrello) obj;
-				if(carrello.getProductId() == productId) {
-					int quantityCar = carrello.getQuantity();
-					if(quantityCar == quantity) {
-						map.remove(i);
-						i = map.size()+1;
-					}else if(quantityCar > quantity) {
-						carrello.setQuantity(quantityCar - quantity);
-						i = map.size()+1;
-					} else if(quantityCar < quantity) {
-						quantity -= quantityCar; 
-						map.remove(i);
+			for(int i = 1; quantity != 0; i++) {
+				System.out.println("i: " +i);
+				if(map.containsKey(i)) {
+					Object obj = map.get(i);
+					Carrello carrello = (Carrello) obj;
+					if(carrello.getProductId() == productId) {
+						int quantityCar = carrello.getQuantity();
+						System.out.println("quantityCar: " + quantityCar);
+						if(quantityCar == quantity) {
+							System.out.println("car==par");
+							Shop.addQuantityProduct( productId, quantity);
+							quantity -= quantityCar;
+							map.remove(i);
+						}
+						if(quantityCar > quantity) {
+							System.out.println("car>par");
+							carrello.setQuantity(quantityCar - quantity);
+							Shop.addQuantityProduct( productId, quantity);
+							quantity = 0;
+						} 
+						if(quantityCar < quantity) {
+							System.out.println("car<par");
+							quantity -= quantityCar; 
+							Shop.addQuantityProduct( productId, quantityCar);
+							System.out.println("quanity-quantityCar:" + quantity);
+							map.remove(i);
+							
+						}
 					}
 				}
+				
 			}
-//			response.sendRedirect("riepilogo.jsp");
+			session.setAttribute("map", map);
+			response.sendRedirect("riepilogo.jsp");
 		}
 		
-		System.out.println(map);
+		System.out.println("POST: " + map);
 		
 	}
 

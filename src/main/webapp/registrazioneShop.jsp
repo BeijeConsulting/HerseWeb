@@ -14,6 +14,25 @@
 
 <hr>
 
+<%
+
+String emailMsg = (String) session.getAttribute("emailSbagliata");
+if (emailMsg != null) {
+	%>
+	<strong><span style="color:red"><%=emailMsg%></span></strong><br><br>
+	<%
+	session.removeAttribute("emailSbagliata");
+}
+
+String utenteMsg = (String) session.getAttribute("utenteRegistrato");
+if (utenteMsg != null) {
+	%>
+	<strong><span style="color:red"><%=utenteMsg%></span></strong><br><br>
+	<%
+	session.removeAttribute("utenteRegistrato");
+}
+%>
+
 
 <div align="center">
 <form action="RegistrazioneServlet" method="post">

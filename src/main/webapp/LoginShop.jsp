@@ -22,6 +22,14 @@ if (error != null) {
 	<%
 	session.removeAttribute("error");
 }
+
+String faiLogin = (String) session.getAttribute("faiLogin");
+if (faiLogin != null) {
+	%>
+	<span style="color:red"><%=faiLogin%></span><br><br>
+	<%
+	session.removeAttribute("faiLogin");
+}
 %>
 <div align="center">
 <form action="LoginServletBean" method="post">

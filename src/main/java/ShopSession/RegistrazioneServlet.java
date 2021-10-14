@@ -46,12 +46,14 @@ public class RegistrazioneServlet extends HttpServlet {
 		
 		if(!email.contains("@")) {
 			session.setAttribute("emailSbagliata", "Email Sbagliata");
-			response.sendRedirect("registrazioneShop2.jsp");
+			response.sendRedirect("registrazioneShop.jsp");
 		} else if(user != 0) {
 			session.setAttribute("utenteRegistrato", "Utente già registrato");
-			response.sendRedirect("registrazioneShop2.jsp");
+			response.sendRedirect("registrazioneShop.jsp");
 		} else if(user == 0) {
-			response.sendRedirect("catalogo.jsp");
+			Shop.insertUser(nome, cognome, email, password);
+			session.setAttribute("faiLogin", "Effettua il Login, dopo la registrazione");
+			response.sendRedirect("LoginShop.jsp");
 		}
 		
 	}

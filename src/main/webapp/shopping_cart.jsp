@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-
+<%@page import="java.util.*"%>
+<%@page import="it.beije.herse.web.entity.Product"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,18 +11,33 @@
 	
 </head>
 <body style="margin:1%">
-	<jsp:useBean id="productCart" class="it.beije.herse.web.entity.Product" scope="session"></jsp:useBean>
+	<!--<jsp:useBean id="productCart" class="it.beije.herse.web.entity.Product" scope="session"></jsp:useBean>-->
 	<jsp:useBean id="carrello" class="it.beije.herse.web.entity.Carrello" scope="session"></jsp:useBean>
 	
 	<h1>Carrello</h1>
 	<p>
-		<% out.print("Id Prodotto: "+productCart.getId() + " "); 
-		out.print("Tipo: " + productCart.getName() + " ");
-		 out.print("Quantità: " + productCart.getQuantity()  + " "); 
-		 out.print("Totale: " + productCart.getPrice()  + " "); 
-		 %>
+		<% 	
+		Double total = new Double(0);
+		for ( Map.Entry<Product, Integer> entry : carrello.getCarrello().entrySet()) {
+		    Product product = entry.getKey();
+		    Integer quantity = entry.getValue();
+		    
+		    out.print("Id Prodotto: "+product.getId() + " ");
+		    out.print("Tipo: " + product.getName() + " ");
+			out.print("Quantità: " + quantity  + " "); 
+			out.print("Prezzo: " + product.getPrice()  + " ");
+			%>
+			<br>
+			<% 
+			total += product.getPrice() * quantity;		
+		}%>
+		<br>
+		<% out.print("Totale: "+total);
+		session.setAttribute("total", total);
+		%>
+		
 	</p>
-	<button type = "submit" type="button" class="btn btn-success" ><a href = "ConfermaOrdine" style="text-decoration: none; color:white;">Paga</a></button>
+	<strong><a href = "ConfermaOrdine" style="text-decoration: none; color:red;">Paga</a></strong>
 	<!--  <button type="button" class="btn btn-primary" ><a href = "" style="text-decoration: none; color:white;">Aggiungi un altro prodotto</a></button>-->
 </body>
 </html>

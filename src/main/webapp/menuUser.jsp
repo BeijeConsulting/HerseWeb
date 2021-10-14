@@ -10,8 +10,7 @@
 	
 </head>
 <body style="margin:1%">
-	<!--  Object email = request.getAttribute("email");
-		Object password = request.getAttribute("password");-->
+
 	<jsp:useBean id="authUser" class="it.beije.herse.web.entity.User" scope="session"></jsp:useBean>
 	<% 
 	/*String email = (String) session.getAttribute("email");
@@ -24,10 +23,9 @@
 			<%
 		} else {
 			%>
-			<!-- strong>BENVENUTO < % = authUser.getFirstName() %> < % = authUser.getLastName() %>!</strong -->
 			<h1>Benvenuto <jsp:getProperty name="authUser" property="name"/>!</h1>
 			
-			<ul class="list-group list-group-flush">
+		<ul class="list-group list-group-flush">
 			<li class="list-group-item"><a href="OrdiniUser" style="text-decoration: none; color:black;">Visualizza tutti i tuoi ordini</a></li>
 			<li class="list-group-item"><a href="nuovoOrdine.jsp" style="text-decoration: none; color:black;">Effettua un nuovo ordine</a></li>
 			<li class="list-group-item"><a href="infoOrdine.html" style="text-decoration: none; color:black;">Ottieni informazioni riguardo un ordine</a></li>

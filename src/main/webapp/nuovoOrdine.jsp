@@ -24,6 +24,15 @@
 		session.removeAttribute("error");
 	}
 	%>
+	<% 
+	String errorInput = (String) session.getAttribute("quantity_input_error");
+	if (errorInput != null) {
+		%>
+		<span style="color:red"><%=error%></span><br><br>
+		<%
+		session.removeAttribute("error");
+	}
+	%>
 	
 	<h1>Nuovo ordine</h1>
 	<br>

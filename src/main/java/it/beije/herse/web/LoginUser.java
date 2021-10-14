@@ -31,7 +31,6 @@ public class LoginUser extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//response.getWriter().append("Served at: ").append(request.getContextPath());
 		HttpSession session = request.getSession();
 		String email = (String) session.getAttribute("email");
 		String password = (String) session.getAttribute("password");
@@ -43,13 +42,8 @@ public class LoginUser extends HttpServlet {
 		.append("<br>").append("email in sessione : ").append(email).append("</body></html>");
 	
 	}
-	
-//	protected void correctLogin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-//		
-//	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//correctLogin(request, response);
 		EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("herse-shop");
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
 		
@@ -65,42 +59,15 @@ public class LoginUser extends HttpServlet {
 		session.setAttribute("password", password);
 		
 		User user = new User();
-//		user.setEmail(email);
-//		user.setPassword(password);
-//		//int idUser = -1;
-//		String select = "SELECT u FROM User AS u";
-//		Query query = entityManager.createQuery(select);
-//		List<User> listUsers = query.getResultList();
-//		System.out.println("list"+listUsers);
-		
-//		if(listUsers.contains(user)) {
-//			
-//		}
-//		for(int i = 0; i < listUsers.size(); i++) {
-//			
-//			System.out.println(i);
-//			System.out.println(listUsers.get(i));
-//			if(listUsers.get(i).getEmail().equals(email) && listUsers.get(i).getPassword().equals(password)) {
-//				response.sendRedirect("menuUser.jsp");
-//			} if(i == listUsers.size()-1) {
-//				session.setAttribute("error", "Credenziali Errate");
-//				response.sendRedirect("loginError.jsp");
-//			} else continue;
-//		}
-		
+
 		try {
 			String userSelect = "SELECT u FROM User AS u WHERE email = '"+email+"' AND password = "+password;
 			Query query = entityManager.createQuery(userSelect);
 			user = (User) query.getSingleResult();
 			session.setAttribute("authUser", user);
-//			request.setAttribute("email", email);
-//			request.setAttribute("password", password);
-//			RequestDispatcher reqDis = request.getRequestDispatcher("menuUser.jsp");
-//			reqDis.forward(request, response);
-			
+
 			response.sendRedirect("menuUser.jsp");
 		} catch (PersistenceException e) {
-			//response.getWriter().append(openHtml).append("Utente non trovato. Utenticati nuovamente").append("<a href=\"login.html\" >-> Login</a>").append(closeHtml);
 			session.setAttribute("error", "Credenziali Errate");
 			response.sendRedirect("loginUser.jsp");
 		}

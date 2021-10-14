@@ -5,6 +5,7 @@
 		<class>it.beije.herse.web.entity.User</class>
 		<class>it.beije.herse.web.entity.Product</class>
 		<class>it.beije.herse.web.entity.Order</class>
+		<class>it.beije.herse.web.entity.OrderItem</class>
 		<exclude-unlisted-classes>true</exclude-unlisted-classes>
 		
 		<properties>

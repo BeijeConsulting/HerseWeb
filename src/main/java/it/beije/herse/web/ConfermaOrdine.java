@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import it.beije.herse.web.entity.Carrello;
 import it.beije.herse.web.entity.Order;
 import it.beije.herse.web.entity.Product;
 
@@ -35,28 +36,42 @@ public class ConfermaOrdine extends HttpServlet {
 		
 		HttpSession session = request.getSession();
 		
-		Product product = (Product)session.getAttribute("productCart");
-		System.out.println("ordine");
-		System.out.println(product);
+		Carrello carrello = (Carrello)session.getAttribute("carrello");
+		System.out.println("carrello"+carrello);
 		
-		response.getWriter().append(openHtml)
-		.append("<head><link href=\"https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css\" rel=\"stylesheet\" integrity=\"sha384-uWxY/CJNBR+1zjPWmfnSnVxwRheevXITnMqoEIeG1LJrdI0GlVs/9cVSyPYXdcSF\" crossorigin=\"anonymous\"></head>")
-		.append(openBody)
-		.append("<h1>Ordine confermato</h1>");
+		it.beije.herse.web.entity.User user = (it.beije.herse.web.entity.User)session.getAttribute("authUser");
+		System.out.println(user);
+		if( user != null) {
+			Double total = (Double)session.getAttribute("total");
+			
+			response.getWriter().append(openHtml)
+			.append("<head><link href=\"https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css\" rel=\"stylesheet\" integrity=\"sha384-uWxY/CJNBR+1zjPWmfnSnVxwRheevXITnMqoEIeG1LJrdI0GlVs/9cVSyPYXdcSF\" crossorigin=\"anonymous\"></head>")
+			.append(openBody)
+			.append("<h1>Ordine confermato</h1>")
+			.append("<a href=\"menuUser.jsp\" style=\"text-decoration: none; color:blue;\">-> Torna al menu</a>");
+			
+			EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("herse-shop");
+			EntityManager entityManager = entityManagerFactory.createEntityManager();
+			EntityTransaction transaction = entityManager.getTransaction();
+			transaction.begin();
+			
+			Order order = new Order();
+			order.setDateTime(LocalDateTime.now());
+			order.setUserId(user.getId());
+			order.setAmount(total);
+			
+			entityManager.persist(order);
+			transaction.commit();
+			entityManager.close();
+		} else {
+			response.getWriter().append(openHtml)
+			.append("<head><link href=\"https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css\" rel=\"stylesheet\" integrity=\"sha384-uWxY/CJNBR+1zjPWmfnSnVxwRheevXITnMqoEIeG1LJrdI0GlVs/9cVSyPYXdcSF\" crossorigin=\"anonymous\"></head>")
+			.append(openBody)
+			.append("<h1 style=\"color:red;\">Utente non loggato</h1>")
+			.append("<a href=\"loginUser.jsp\" style=\"text-decoration: none; color:blue;\">-> Login</a>");
+			
+		}
 		
-		EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("herse-shop");
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		EntityTransaction transaction = entityManager.getTransaction();
-		transaction.begin();
-		
-		Order order = new Order();
-		order.setDateTime(LocalDateTime.now());
-		order.setUserId(null);
-		order.setAmount(null);
-		
-//		entityManager.persist(order);
-//		transaction.commit();
-		entityManager.close();
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

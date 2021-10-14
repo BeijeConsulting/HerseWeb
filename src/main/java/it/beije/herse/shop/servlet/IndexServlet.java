@@ -47,13 +47,13 @@ public class IndexServlet extends HttpServlet {
 	    if(email!=null && password!=null){
 	    	session.setAttribute("email", email);
 	    	session.setAttribute("password", password);
-	    	if(!UserManager.loginUser(email, password)) response.sendRedirect("failedLogin.jsp");
+	    	if(!UserManager.loginUser(email, password)) response.sendRedirect("failedlogin.jsp");
 	    	else {
 	    		User loggedUser = UserManager.selectUser(email, password).get(0);
 	    		session.setAttribute("loggedUser", loggedUser);
 	    		session.removeAttribute("email");
 	    		session.removeAttribute("password");
-	    		response.sendRedirect("userMenu.jsp");
+	    		response.sendRedirect("usermenu.jsp");
 	    	}
 	    }
 	}

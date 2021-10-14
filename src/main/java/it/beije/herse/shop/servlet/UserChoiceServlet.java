@@ -39,16 +39,16 @@ public class UserChoiceServlet extends HttpServlet {
 		if(userAction!=null)
 			switch(userAction) {
 			case "newOrder":
-				response.sendRedirect("newOrder.jsp");
+				response.sendRedirect("neworder.jsp");
 				break;
 			case "showProfile":
-				response.sendRedirect("userProfile.jsp");
+				response.sendRedirect("userprofile.jsp");
 				break;
 			case "updateProfile":
-				response.sendRedirect("updateProfile.jsp");
+				response.sendRedirect("updateprofile.jsp");
 				break;	
 			case "showOrderHistory":
-				response.sendRedirect("orderHistory.jsp");
+				response.sendRedirect("orderhistory.jsp");
 				break;
 			}
 	}

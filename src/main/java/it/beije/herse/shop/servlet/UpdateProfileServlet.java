@@ -76,7 +76,7 @@ public class UpdateProfileServlet extends HttpServlet {
 			// loggedUser UPADTE
 			session.setAttribute("loggedUser", u);
 			
-			response.sendRedirect("userMenu.jsp");
+			response.sendRedirect("usermenu.jsp");
 		}
 	}
 

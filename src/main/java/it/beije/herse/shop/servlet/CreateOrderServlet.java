@@ -82,7 +82,7 @@ public class CreateOrderServlet extends HttpServlet {
 			String details = (String) request.getParameter("prodDetails"+p.getId());
 			if(details!=null && details.equalsIgnoreCase(p.getName())) {
 				session.setAttribute("prodId", p.getId());
-				response.sendRedirect("productDetails.jsp");
+				response.sendRedirect("productdetails.jsp");
 			}	
 		}
 	}

@@ -63,18 +63,18 @@ public class CheckoutServlet extends HttpServlet {
 		Double total = (Double) session.getAttribute("total");
 		if(submit!=null && submit.equalsIgnoreCase("CONFIRM & PAY")) {
 			if(total<=0) {
-				response.sendRedirect("newOrder.jsp");
+				response.sendRedirect("neworder.jsp");
 				return;
 			}
 			Order order = (Order) session.getAttribute("order");
 			OrderManager.insertOrder(order, items);
-			response.sendRedirect("confirmOrder.jsp");
+			response.sendRedirect("confirmorder.jsp");
 			return;
 		}
 		
 		String back = (String) request.getParameter("back");
 		if(back!=null && back.equalsIgnoreCase("BACK")) {
-			response.sendRedirect("newOrder.jsp");
+			response.sendRedirect("neworder.jsp");
 			return;
 		}
 		

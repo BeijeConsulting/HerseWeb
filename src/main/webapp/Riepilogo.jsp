@@ -35,7 +35,7 @@ if(user.getId() == null){
 		if(id != null) {
 			
 			
-			if(Integer.valueOf(qta) <= p.getQuantity()){
+			if(Integer.valueOf(qta) <= p.getQuantity()){ //
 				
 				OrderItem item = setOrderItem(Integer.valueOf(id), Integer.valueOf(qta), p.getPrice());
 				carrello.addItem(item);

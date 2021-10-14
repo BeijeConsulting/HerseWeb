@@ -53,8 +53,6 @@ public class OrderConfirm extends HttpServlet {
 		
 		session.setAttribute("orderConfirm", "Ordine Confermato!");
 		
-		manager.close();
-		
 		response.sendRedirect("viewproduct.jsp");
 		
 	}

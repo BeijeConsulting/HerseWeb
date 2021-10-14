@@ -6,9 +6,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -64,7 +62,6 @@ public class Shop {
 	}
 	
 	public static boolean checkQuantity(int productId, int quantity, int userId) {
-//		int orderId=  new Shop().insertOrder(userId);
 		
 		Product product = manager.find(Product.class, productId);
 		
@@ -80,7 +77,6 @@ public class Shop {
 			product.setQuantity(product.getQuantity()-quantity); //settatto la quantità nuova di product
 			transaction.commit();
 			
-			//insertOrderItem(orderId, productId, product.getQuantity(), quantity);
 			return true;
 		}
 	}

@@ -36,8 +36,7 @@ public class CatalogoServlet extends HttpServlet {
 		int quta = Integer.parseInt(request.getParameter("qta"));
 		HttpSession session=request.getSession();
 		if(Funzioni.controlloIdProdotto(idProdotto)&&Funzioni.controlloQuantità(idProdotto, quta)) {
-			session.setAttribute("carrello", Funzioni.carrello(idProdotto, (ArrayList<Product>)session.getAttribute("carrello")));
-			session.setAttribute("qta", Funzioni.qta(quta, (ArrayList<Integer>)session.getAttribute("qta")));
+			session.setAttribute("carrello", Funzioni.carrello(idProdotto,quta,(ArrayList<Carrello>)session.getAttribute("carrello"),(Order)session.getAttribute("order")));
 			session.setAttribute("prodotto_aggiunto", "Prodotto aggiunto al carrello!");
 			response.sendRedirect("Catalogo.jsp");
 		}else {

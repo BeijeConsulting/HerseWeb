@@ -30,11 +30,11 @@ public class LoginServlet extends HttpServlet {
 		HttpSession session=request.getSession();
 		if(Funzioni.login(username,password)!=null) {
 			User user=Funzioni.login(username,password);
-			List<Product> carrello=new ArrayList<Product>();
-			List<Integer> qta=new ArrayList<Integer>();
+			Order order=Funzioni.newOrder(user.getId());
+			List<Carrello> carrello=new ArrayList<Carrello>();
 			session.setAttribute("authUser", user);
+			session.setAttribute("order", order);
 			session.setAttribute("carrello", carrello);
-			session.setAttribute("qta", qta);
 			response.sendRedirect("Catalogo.jsp");
 		}else {
 			session.setAttribute("error", "Credenziali Errate");

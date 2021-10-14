@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@page import="Shop.Product,Shop.Funzioni, java.util.*"%>
+<%@page import="Shop.Product,Shop.Funzioni,Shop.Order, java.util.*"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,7 +16,11 @@
 			</tr>
 		</thead>
 		<tr>
-			<td><%=session.getAttribute("tot")%></td>
+			<td><%
+			Order order=(Order)session.getAttribute("order");
+			Double tot=order.getAmount();
+			%>
+			<%=tot%></td>
 		</tr>
 	</table>
 	<form action='ResetCarrello' method='post'>

@@ -61,8 +61,9 @@
 		<%}%>
 	</table>
 	<form action='CatalogoServlet' method='post'>
-		<label for='idProdotto'>Id:</label><br> <input type='text'
-			name='idProdotto'> <br> <label for='qta'>Quantità:</label><br>
+		<label for='idProdotto'>Id:</label><br> 
+		<input type='text'name='idProdotto'> <br> 
+		<label for='qta'>Quantità:</label><br>
 		<input type='text' name='qta'><br>
 		<button type='submit'>Invio</button>
 	</form>

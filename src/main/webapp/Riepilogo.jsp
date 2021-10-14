@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@page import="Shop.Product,Shop.Funzioni, java.util.*"%>
+<%@page import="Shop.Carrello,Shop.Product,Shop.Funzioni, java.util.*"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,25 +13,22 @@
 			<tr>
 				<td>Id</td>
 				<td>Nome</td>
-				<td>Descrizione</td>
 				<td>Prezzo</td>
 				<td>Quantità Acquistate</td>
 			</tr>
 		</thead>
 		<%
-		ArrayList<Product> carrello=(ArrayList<Product>)session.getAttribute("carrello");
-		ArrayList<Integer> qta=(ArrayList<Integer>)session.getAttribute("qta");
-		int i=0;
-		for (Product p : carrello) {
+		ArrayList<Carrello> carrello=(ArrayList<Carrello>)session.getAttribute("carrello");
+		for (Carrello c : carrello) {
+			Product p=Funzioni.getProdotto(c.getId_product());
 		%>
 		<tr>
-			<td><%=p.getId()%></td>
+			<td><%=c.getId_product()%></td>
 			<td><%=p.getName()%></td>
-			<td><%=p.getDesc()%></td>
 			<td><%=p.getPrice()%></td>
-			<td><%=qta.get(i)%></td>
+			<td><%=c.getQty()%></td>
 		</tr>
-		<%i++;
+		<%
 		}%>
 	</table>
 	<form action='Catalogo.jsp' method='post'>

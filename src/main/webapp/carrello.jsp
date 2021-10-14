@@ -52,6 +52,7 @@
 		%>
 	</ul>
 	<br><p><strong>Il totale è <%= total %> €</strong></p>
+	<% session.setAttribute("amount", total); %>
 	<form action='pay' method='post'>
 	  <br>
 	   <a href='catalogo.jsp'><input type='button' value='Torna al catalogo'/></a>

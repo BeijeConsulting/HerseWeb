@@ -65,7 +65,7 @@ int tot = prodotto.getQuantity()- quantita;
 
    %><li>
 			<form action='carrellos' method='post'>
-				<label for='<%= prodotto.getName() %>'><%= prodotto.getName() %></label>
+				<label for='<%= prodotto.getName() %>'><%= prodotto.getName() %>, prezzo: <%= prodotto.getPrice() %> €</label>
 				<input type='submit' value='aggiungi' /> <input type='hidden' name='idP' value='<%= prodotto.getId() %>'> 
 				    <a href='description.jsp?id=<%= prodotto.getId() %>'><input type='button' value='Dettaglio prodotto'></a>
 					<input type='number' name='quantita' step='1' min='1' value='1'max='<%= tot %>'>
@@ -75,8 +75,9 @@ int tot = prodotto.getQuantity()- quantita;
 }
 %>
 	</ul>
-
-	<a href='carrello.jsp'><input type='submit' value='Vai al carrello' /></a>
-
+<% String disabled = ""; 
+if(session.getAttribute("carrello")==null) disabled = "disabled"; %>
+	<a href='carrello.jsp'><input type='submit' value='Vai al carrello' <%= disabled %>/></a>
+	
 </body>
 </html>

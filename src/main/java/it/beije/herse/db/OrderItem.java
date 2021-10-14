@@ -83,14 +83,6 @@ public class OrderItem {
 		this.productId=productId;
 		this.sellPrice=sellPrice;
 		this.quantity=quantity;
-		
-		EntityManager entityManager = Singleton.createEntity("herse-shop");
-		EntityTransaction transaction = entityManager.getTransaction();
-		transaction.begin();
-		entityManager.persist(this);
-
-		transaction.commit();
-		entityManager.close();
 	}
 	
 	

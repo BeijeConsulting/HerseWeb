@@ -33,7 +33,7 @@ Product prodotto = entityManager.find(Product.class, id);
 <body>
 
 <h3>Dettaglio prodotto:</h3>
-<h4><%= prodotto.getName() %></h4>
+<h4><%= prodotto.getName() %>, prezzo: <%= prodotto.getPrice() %> €</h4>
 <p><%= prodotto.getDescription() %></p>
 
 <%

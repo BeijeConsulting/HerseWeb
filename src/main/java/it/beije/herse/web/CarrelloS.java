@@ -22,13 +22,12 @@ import it.beije.herse.bean.ShopEntityManager;
 @WebServlet("/carrellos")
 public class CarrelloS extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
 	public CarrelloS() {
 		super();
-		// TODO Auto-generated constructor stub
+		System.out.println("carrellos");
 	}
 
 	/**

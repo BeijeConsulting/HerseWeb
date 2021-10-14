@@ -12,6 +12,13 @@
     <h1>HERSE SHOP</h1>
     
     <br>
+    
+    <%
+    String failedLoginAction = (String) session.getAttribute("failedLoginAction");
+    if(failedLoginAction!=null && failedLoginAction.equals("signIn")){%>
+    SIGNED IN  <br><br>
+    <%} %>
+   
       
       <%
       String email = (String) session.getAttribute("email");

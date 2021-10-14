@@ -41,7 +41,8 @@ public class LoginFailServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 	    String failedLoginAction = request.getParameter("failedLoginAction");
 	    
-	    if(failedLoginAction!=null) 
+	    if(failedLoginAction!=null) {
+	    	session.setAttribute("failedLoginAction", failedLoginAction);
 	    	if(failedLoginAction.equalsIgnoreCase("retry")) response.sendRedirect("index.jsp");
 	    	else if(failedLoginAction.equalsIgnoreCase("signIn")) {
 	    		String email = (String) session.getAttribute("email");
@@ -49,6 +50,7 @@ public class LoginFailServlet extends HttpServlet {
 	    		UserManager.signIn(email, password);
 	    		response.sendRedirect("index.jsp");
 	    	}
+	    }
 	}
 
 }

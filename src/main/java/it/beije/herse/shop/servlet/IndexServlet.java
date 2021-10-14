@@ -41,6 +41,9 @@ public class IndexServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		HttpSession session = request.getSession();
 		
+//		System.out.println("RequestURI: "+request.getRequestURI());
+//		System.out.println("RequestURL: "+request.getRequestURL());
+		
 		String email = request.getParameter("email"); 
 	    String password = request.getParameter("password");
 	  

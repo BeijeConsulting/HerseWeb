@@ -2,7 +2,9 @@ package it.beije.herse.shop.beans;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import it.beije.herse.shop.manager.OrderManager;
 import it.beije.herse.shop.manager.ProductManager;
@@ -10,14 +12,15 @@ import it.beije.herse.shop.manager.ProductManager;
 public class Cart {
 	private Order order;
 	private List<OrderItem> items;
-	private Integer quantities[];
+	private Map<Integer,Integer> quantities;
+//	private Integer quantities[];
 	
 	public Cart() {
 		order = new Order();
 		items = new ArrayList<OrderItem>();
-		
-		List<Product> p = ProductManager.selectProducts();
-		quantities = new Integer[p.size()+1];
+		quantities = new HashMap<Integer, Integer>();
+//		List<Product> p = ProductManager.selectProducts();
+//		quantities = new Integer[p.size()+1];
 	}
 
 	public Order getOrder() {
@@ -51,13 +54,22 @@ public class Cart {
 		items.remove(item);
 	}
 
-	public Integer[] getQuantities() {
+	public Map<Integer,Integer> getQuantities() {
 		return quantities;
 	}
-	public void addQuantity(Integer index, Integer param) {
-		quantities[index] = param;
+	public void addQuantity(Integer index, Integer value) {
+		quantities.put(index, value);
 	}
 	public void removeQuantity(Integer index) {
-		quantities[index] = null;
+		quantities.remove(index);
 	}
+//	public Integer[] getQuantities() {
+//		return quantities;
+//	}
+//	public void addQuantity(Integer index, Integer param) {
+//		quantities[index] = param;
+//	}
+//	public void removeQuantity(Integer index) {
+//		quantities[index] = null;
+//	}
 }

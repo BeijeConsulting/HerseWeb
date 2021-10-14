@@ -53,6 +53,11 @@ public class IndexServlet extends HttpServlet {
 	    		session.setAttribute("loggedUser", loggedUser);
 	    		session.removeAttribute("email");
 	    		session.removeAttribute("password");
+	    		session.removeAttribute("cart");
+//	    		session.removeAttribute("order");
+//	    		session.removeAttribute("items");
+//	    		session.removeAttribute("checked");
+	    		
 	    		response.sendRedirect("usermenu.jsp");
 	    	}
 	    }

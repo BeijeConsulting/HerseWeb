@@ -42,7 +42,7 @@
 	</table><br>
 	<%} %>
 	
-	<form action="usermenu.jsp" method="post">
+	<form action="userMenu.jsp" method="post">
 	<br><br>
 	<input type="submit" name="back" value="BACK">
 	</form>

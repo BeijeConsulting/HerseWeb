@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import it.beije.herse.shop.beans.Cart;
 import it.beije.herse.shop.beans.Order;
 import it.beije.herse.shop.beans.OrderItem;
 import it.beije.herse.shop.beans.Product;
@@ -46,28 +47,39 @@ public class CheckoutServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		HttpSession session = request.getSession();
 		
-		List<OrderItem> items = (List<OrderItem>) session.getAttribute("items");
+		Cart cart = (Cart) session.getAttribute("cart");
+		
+		List<OrderItem> items = cart.getItems();
+//		List<OrderItem> items = (List<OrderItem>) session.getAttribute("items");
+//		Integer checked[] = (Integer[]) session.getAttribute("checked");
 		for(OrderItem i : items) {
-			System.out.println("DELETE ID: "+i.getProductId());
+			System.out.println("DELETE ID: "+i.getProductId()+"?");
 			String delete = (String) request.getParameter("deleteItem"+i.getProductId());
 			if(delete!=null) {
 				System.out.println("ID "+i.getProductId()+" DELETED");
-				items.remove(i);
-				session.setAttribute("items", items);
+				
+				cart.removeQuantity(i.getProductId());
+				cart.removeItem(i);
+				session.setAttribute("cart", cart);
+//				checked[i.getProductId()] = null;
+//				items.remove(i);
+//				session.setAttribute("items", items);
+//				session.setAttribute("checked", checked);
 				response.sendRedirect("checkout.jsp");
 				return;
 			}
 		}
 		
 		String submit = (String) request.getParameter("submitPayment");
-		Double total = (Double) session.getAttribute("total");
+//		Double total = (Double) session.getAttribute("total");
 		if(submit!=null && submit.equalsIgnoreCase("CONFIRM & PAY")) {
-			if(total<=0) {
+			if(cart.getTotal()<=0) {
 				response.sendRedirect("neworder.jsp");
 				return;
 			}
-			Order order = (Order) session.getAttribute("order");
-			OrderManager.insertOrder(order, items);
+			cart.confirmOrder();
+//			Order order = (Order) session.getAttribute("order");
+//			OrderManager.insertOrder(order, items);
 			response.sendRedirect("confirmorder.jsp");
 			return;
 		}

@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import it.beije.herse.shop.beans.Cart;
 import it.beije.herse.shop.beans.Order;
 import it.beije.herse.shop.beans.OrderItem;
 import it.beije.herse.shop.beans.Product;
@@ -50,28 +51,46 @@ public class CreateOrderServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		HttpSession session = request.getSession();
 		
-		List<OrderItem> items = new ArrayList<OrderItem>();
-		Order order = new Order();
-		
+		Cart cart = new Cart();
 		List<Product> products = ProductManager.selectProducts();
+//		List<OrderItem> items = new ArrayList<OrderItem>();
+//		Order order = new Order();
+		
+		// SAVE ORDER
+//		Integer checked[] = new Integer[products.size()+1];
+		for(Product p : products) {
+			String check = (String) request.getParameter("check"+p.getId());
+			if(check!=null && check.equalsIgnoreCase("on")) {
+				Integer quantity = Integer.valueOf(request.getParameter("quantity"+p.getId()));
+				if(quantity>0) cart.addQuantity(p.getId(), quantity);
+//				checked[p.getId()] = Integer.valueOf(request.getParameter("quantity"+p.getId()));
+			}
+		}
+//		session.setAttribute("checked", checked);
+		
 		String submit = (String) request.getParameter("submitOrder");
 		if(submit!=null && submit.equals("ADD TO CART")) {
 			for(Product p : products) {
 				String check = (String) request.getParameter("check"+p.getId());
 				if(check!=null && check.equalsIgnoreCase("on")) {
+					Integer quantity = Integer.valueOf(request.getParameter("quantity"+p.getId()));
+					if(quantity<=0) continue;
 					OrderItem item = new OrderItem();
 					item.setProductId(p.getId());
-					Integer quantity = Integer.valueOf(request.getParameter("quantity"+p.getId()));
 					item.setQuantity(quantity);
-					items.add(item);
+					cart.addItem(item);
+//					items.add(item);
 				}
 			}
 			
-			order.setUserId(((User)session.getAttribute("loggedUser")).getId());
-			order.setDateTime(LocalDateTime.now());
+			Integer userId = ((User)session.getAttribute("loggedUser")).getId();
+			cart.setOrderUserId(userId);
+			cart.setOrderDateTime(LocalDateTime.now());
+//			order.setUserId(((User)session.getAttribute("loggedUser")).getId());
+//			order.setDateTime(LocalDateTime.now());
 			
-			session.setAttribute("order", order);
-			session.setAttribute("items", items);
+//			session.setAttribute("order", order);
+//			session.setAttribute("items", items);
 			
 //			OrderManager.insertOrder(order, items);
 			
@@ -85,6 +104,8 @@ public class CreateOrderServlet extends HttpServlet {
 				response.sendRedirect("productdetails.jsp");
 			}	
 		}
+		
+		session.setAttribute("cart", cart);
 	}
 
 }

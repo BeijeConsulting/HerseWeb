@@ -1,4 +1,3 @@
-<%@page import="it.beije.herse.shop.beans.Cart"%>
 <%@page import="java.util.List"%>
 <%@page import="it.beije.herse.shop.manager.ProductManager"%>
 <%@page import="it.beije.herse.shop.beans.Product"%>
@@ -14,10 +13,7 @@
     
 <body bgcolor="black" text="white">
 
-	<% List<Product> products = ProductManager.selectProducts();
-	Cart cart = (Cart) session.getAttribute("cart");
-	Integer quantities[] = null;
-	if(cart!=null) quantities = cart.getQuantities();%>
+	<% List<Product> products = ProductManager.selectProducts();%>
     
     <h1>HERSE SHOP</h1>
         
@@ -35,13 +31,12 @@
             for(Product p : products){
             %>
             <tr>
-                <td><input type="checkbox" name="check<%= p.getId()%>" <%if(quantities!=null && quantities[p.getId()]!=null){ %>checked<%} %> ></td>
+                <td><input type="checkbox" name="check<%= p.getId()%>"></td>
                 <td>"<%= p.getName()%>"</td>
                 <td><input type="text" name="price<%= p.getId()%>" style="width: 5em; background-color: black; color: white; border: none" 
                 	value="<%= p.getPrice() %> $" readonly></td>
                 <td><input type="number" name="quantity<%= p.getId()%>" min="0" style="width: 4em; background-color: black; 
-                	color: white; border: none" <%if(quantities!=null && quantities[p.getId()]!=null){ 
-                	%>value="<%= quantities[p.getId()] %>"<%} else{%> value="0" <%}%>></td>
+                	color: white; border: none" value="0"></td>
                 <td>
                 <input type=submit name="prodDetails<%= p.getId()%>" value="<%= p.getName()%>">
                 </td>

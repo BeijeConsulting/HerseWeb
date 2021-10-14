@@ -18,20 +18,19 @@
 	<table>
 	
 	<%
-	List<OrderItem> items = (List<OrderItem>) session.getAttribute("items");
-	Order order = (Order) session.getAttribute("order");
-	Double total = 0.0;
+	Cart cart = (Cart) session.getAttribute("cart");
+	List<OrderItem> items = cart.getItems();
+	Order order = cart.getOrder();
 	for(OrderItem i : items){
 		Product p = ProductManager.selectProducts(i.getProductId()).get(0);
-		total += i.getQuantity()*p.getPrice();
 	%>
 		<tr><td><%= p.getName() %></td><td>QUANTITY: <%= i.getQuantity() %></td><td>PRICE: <%= i.getQuantity()*p.getPrice() %>$</td>
 		<td><input type="submit" name="deleteItem<%= p.getId()%>" value="DELETE <%= p.getName()%>"></td></tr>
 	<% }
-	session.setAttribute("total", total);%>
+	//session.setAttribute("total", total);%>
 	</table>
 	<br>
-	TOTAL: <%= total %>$
+	TOTAL: <%= cart.getTotal() %>$
 	
 	<br><br>
 	<input type="submit" name="submitPayment" value="CONFIRM & PAY">

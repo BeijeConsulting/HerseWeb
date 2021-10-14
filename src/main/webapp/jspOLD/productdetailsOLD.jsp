@@ -13,7 +13,6 @@
 	
 	<%
 	Integer prodId = (Integer) session.getAttribute("prodId");
-	session.removeAttribute("prodId");
 	Product p = ProductManager.selectProducts(prodId).get(0);
 	%>
 	
@@ -26,7 +25,7 @@
 		<tr><td>IN STOCK: </td><td><%= p.getQuantity() %></td></tr>
 	</table>
 	<br>
-	<form action="neworder.jsp" method="post">
+	<form action="newOrder.jsp" method="post">
 	<br><br>
 	<input type="submit" name="back" value="BACK">
 	</form>

@@ -17,10 +17,8 @@
 	ORDER SUMMARY: <br>
 	<table>
 	<%
-	//session.removeAttribute("total");
-	Cart cart = (Cart) session.getAttribute("cart");
-	List<OrderItem> items = cart.getItems();
-	Order order = cart.getOrder();
+	List<OrderItem> items = (List<OrderItem>) session.getAttribute("items");
+	Order order = (Order) session.getAttribute("order");
 	
 	for(OrderItem i : items){
 		Product p = ProductManager.selectProducts(i.getProductId()).get(0);

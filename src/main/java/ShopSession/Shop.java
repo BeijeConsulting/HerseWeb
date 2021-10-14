@@ -17,7 +17,7 @@ public class Shop {
 	
 	final static EntityManager manager = ShopEntityManager.newEntityManager();
 	
-	public static boolean existUser(int userId) {
+	public boolean existUser(int userId) {
 		
 		User user = manager.find(User.class, userId);
 		if(user != null) {
@@ -27,7 +27,7 @@ public class Shop {
 		}
 	}
 	
-	public static void insertUser(String nome, String cognome, String email, String password) {
+	public void insertUser(String nome, String cognome, String email, String password) {
 		EntityTransaction transaction = manager.getTransaction();
 		transaction.begin();
 		User user = new User();
@@ -39,7 +39,7 @@ public class Shop {
 		transaction.commit();
 	}
 	
-	public static List<Product> getProducts(){
+	public List<Product> findProducts(){
 		CriteriaBuilder criteriaBuilder = manager.getCriteriaBuilder();
 
 		CriteriaQuery<Product> criteriaQuery = criteriaBuilder.createQuery(Product.class);
@@ -54,14 +54,14 @@ public class Shop {
 		return query.getResultList();
 	}
 	
-	public static List<Product> getProductsById(int productId){
+	public List<Product> findProductsById(int productId){
 		String selectP = "SELECT p FROM Product as p WHERE id=" + productId;
 		Query query = manager.createQuery(selectP);
 		List<Product> products =  query.getResultList();
 		return products;
 	}
 	
-	public static boolean checkQuantity(int productId, int quantity, int userId) {
+	public boolean checkQuantity(int productId, int quantity, int userId) {
 		
 		Product product = manager.find(Product.class, productId);
 		
@@ -81,7 +81,7 @@ public class Shop {
 		}
 	}
 	
-	public static void addQuantityProduct(int productId, int quantity) {
+	public void addQuantityProduct(int productId, int quantity) {
 		EntityTransaction transaction = manager.getTransaction();
 		Product product = manager.find(Product.class, productId);
 		transaction.begin();
@@ -89,7 +89,7 @@ public class Shop {
 		transaction.commit();
 	}
 	
-	public static int insertOrder(int userId) {
+	public int insertOrder(int userId) {
 		EntityTransaction transaction = manager.getTransaction();
 		transaction.begin();
 		Order order = new Order();
@@ -102,7 +102,7 @@ public class Shop {
 		return order.getId();
 	}
 	
-	public static void insertOrderItem(int order, int product, int quantity) {
+	public void insertOrderItem(int order, int product, int quantity) {
 		EntityTransaction transaction = manager.getTransaction();
 		Product prod = manager.find(Product.class, product);
 		transaction.begin();
@@ -115,13 +115,13 @@ public class Shop {
 		transaction.commit();
 	}
 	
-	public static Order findOrder(int orderId) {
+	public Order findOrder(int orderId) {
 		EntityTransaction transaction = manager.getTransaction();
 		Order order = manager.find(Order.class, orderId);
 		return order;
 	}
 	
-	public static Order changeOrder(int orderId) {
+	public Order changeOrder(int orderId) {
 		String selectP = "SELECT p FROM OrderItem as p WHERE orderId=" + orderId;
 		Query query = manager.createQuery(selectP);
 		List<OrderItem> orders =  query.getResultList();
@@ -143,14 +143,14 @@ public class Shop {
 		return order;
 	}
 	
-	public static List<OrderItem> findOrderItem(int orderId){
+	public List<OrderItem> findOrderItem(int orderId){
 		String selectP = "SELECT o FROM OrderItem as o WHERE orderId=" + orderId;
 		Query query = manager.createQuery(selectP);
 		List<OrderItem> orders =  query.getResultList();
 		return orders;
 	}
 	
-	public static int checkCredential(String email, String password) {
+	public int checkCredential(String email, String password) {
 		String selectU = "SELECT u FROM User as u"; // WHERE email=" + email;
 		Query query = manager.createQuery(selectU);
 		List<User> user =  query.getResultList();

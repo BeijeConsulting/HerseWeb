@@ -52,7 +52,8 @@ public class LoginServletBean extends HttpServlet {
 		
 		HttpSession session = request.getSession();
 		
-		int user = Shop.checkCredential(email, password);
+		Shop shop = new Shop();
+		int user = shop.checkCredential(email, password);
 		
 		String userId = String.valueOf(user);
 		System.out.println("userId - LS: " + userId);

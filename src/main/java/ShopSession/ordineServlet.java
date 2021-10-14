@@ -27,6 +27,7 @@ public class ordineServlet extends HttpServlet {
      */
     public ordineServlet() {
         super();
+       	System.out.println("ordineServlet");
         // TODO Auto-generated constructor stub
     }
 
@@ -48,18 +49,19 @@ public class ordineServlet extends HttpServlet {
 		int userId = Integer.parseInt(user);
 		int orderId = 0;
 		if(user != null){
-			orderId = Shop.insertOrder(userId);
+			Shop shop = new Shop();
+			orderId = shop.insertOrder(userId);
 		}
 		HashMap<Integer, Object> map = (HashMap<Integer, Object>) session.getAttribute("map");
 		for (Integer key : map.keySet()) {
 			Object obj = map.get(key);
 			Carrello carrello = (Carrello) obj;
-			List<Product> products = Shop.getProductsById(carrello.getProductId());
+			List<Product> products = new Shop().findProductsById(carrello.getProductId());
 			for (Product p : products) {
-				Shop.insertOrderItem(orderId, p.getId(), carrello.getQuantity());
+				new Shop().insertOrderItem(orderId, p.getId(), carrello.getQuantity());
 			}
 		}
-		Order order = Shop.changeOrder(orderId);
+		Order order = new Shop().changeOrder(orderId);
 		
 		System.out.println("Order: " + order);
 		

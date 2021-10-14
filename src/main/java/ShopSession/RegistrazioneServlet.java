@@ -42,7 +42,8 @@ public class RegistrazioneServlet extends HttpServlet {
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
 		
-		int user = Shop.checkCredential(email, password);
+		Shop shop1 = new Shop();
+		int user = shop1.checkCredential(email, password);
 		
 		if(!email.contains("@")) {
 			session.setAttribute("emailSbagliata", "Email Sbagliata");
@@ -51,7 +52,8 @@ public class RegistrazioneServlet extends HttpServlet {
 			session.setAttribute("utenteRegistrato", "Utente già registrato");
 			response.sendRedirect("registrazioneShop.jsp");
 		} else if(user == 0) {
-			Shop.insertUser(nome, cognome, email, password);
+			Shop shop = new Shop();
+			shop.insertUser(nome, cognome, email, password);
 			session.setAttribute("faiLogin", "Effettua il Login, dopo la registrazione");
 			response.sendRedirect("LoginShop.jsp");
 		}

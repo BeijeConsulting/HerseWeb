@@ -74,8 +74,8 @@ public class CarrelloServlet extends HttpServlet {
 		System.out.println("carrello");
 		
 		if(buyMore == null) {
-
-			if(Shop.checkQuantity(productId, quantity, userId)) {
+			Shop shop = new Shop();
+			if(shop.checkQuantity(productId, quantity, userId)) {
 				Carrello carrello = new Carrello();
 				carrello.setProductId(productId);
 				carrello.setQuantity(quantity);
@@ -91,8 +91,8 @@ public class CarrelloServlet extends HttpServlet {
 			}
 
 		} else {
-			System.out.println("vuoi comprare ancora");
-			if(Shop.checkQuantity(productId, quantity, userId)) {
+			Shop shop = new Shop();
+			if(shop.checkQuantity(productId, quantity, userId)) {
 				Carrello carrello = new Carrello();
 				carrello.setProductId(productId);
 				carrello.setQuantity(quantity);

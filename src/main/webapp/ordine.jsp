@@ -28,9 +28,9 @@ Order order = (Order) session.getAttribute("order");
 <tr><th>IdProdotto</th><th>NomeProdotto</th><th>Prezzo</th><th>Quantità</th></tr>
 
 <%
-List<OrderItem> orders = Shop.findOrderItem(order.getId());
+List<OrderItem> orders = new Shop().findOrderItem(order.getId());
 for(OrderItem o: orders){
-	List<Product> pro = Shop.getProductsById(o.getProductId());
+	List<Product> pro = new Shop().findProductsById(o.getProductId());
 	for(Product p: pro){
 		out.print("<tr>");
 		out.print("<td>" + p.getId() + "</td>");

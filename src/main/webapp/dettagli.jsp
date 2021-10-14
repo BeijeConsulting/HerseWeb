@@ -11,7 +11,7 @@
 
 <%
 
-List<Product> products = Shop.getProducts();
+List<Product> products = new Shop().findProducts();
 
 List<Integer> ids = new ArrayList<Integer>();
 
@@ -34,7 +34,7 @@ for(Product p: products){
 <tr><th>Id</th><th>Nome</th><th>Dettagli</th><th>Prezzo</th><th>Quantità</th><th>Immagine</th></tr>
 <%
 for(int x: ids){
-	List<Product> prod = Shop.getProductsById(x);
+	List<Product> prod = new Shop().findProductsById(x);
 	for(Product p: prod){
 		out.print("<tr>");
 		out.print("<td>" + p.getId() + "</td>");

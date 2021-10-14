@@ -80,21 +80,24 @@ public class EliminaProdotto extends HttpServlet {
 						int quantityCar = carrello.getQuantity();
 						System.out.println("quantityCar: " + quantityCar);
 						if(quantityCar == quantity) {
+							Shop shop = new Shop();
 							System.out.println("car==par");
-							Shop.addQuantityProduct( productId, quantity);
+							shop.addQuantityProduct( productId, quantity);
 							quantity -= quantityCar;
 							map.remove(i);
 						}
 						if(quantityCar > quantity) {
+							Shop shop = new Shop();
 							System.out.println("car>par");
 							carrello.setQuantity(quantityCar - quantity);
-							Shop.addQuantityProduct( productId, quantity);
+							shop.addQuantityProduct( productId, quantity);
 							quantity = 0;
 						} 
 						if(quantityCar < quantity) {
+							Shop shop = new Shop();
 							System.out.println("car<par");
 							quantity -= quantityCar; 
-							Shop.addQuantityProduct( productId, quantityCar);
+							shop.addQuantityProduct( productId, quantityCar);
 							System.out.println("quanity-quantityCar:" + quantity);
 							map.remove(i);
 							

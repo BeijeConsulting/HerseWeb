@@ -21,7 +21,7 @@
 <h3> I nostri Prodotti</h3>
 
 <%
-List<Product> products = Shop.getProducts();
+List<Product> products = new Shop().findProducts();
 %>
 <table Style="border:1px solid">
 <tr><th>Id</th><th>Prodotto</th><th>Prezzo</th><th>Quantità</th></tr>

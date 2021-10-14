@@ -38,7 +38,7 @@ for (Integer key : map.keySet()) {
 	Object obj = map.get(key);
 	Carrello carrello = (Carrello) obj;
 	out.print(" Prodotto: ");
-	List<Product> products = Shop.getProductsById(carrello.getProductId());
+	List<Product> products = new Shop().findProductsById(carrello.getProductId());
 	for (Product p : products) {
 		out.print("<tr>");
 		out.print("<td>" + p.getId() + "</td>");

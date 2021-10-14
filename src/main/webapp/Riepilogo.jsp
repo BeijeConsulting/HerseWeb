@@ -8,8 +8,6 @@
 </head>
 <body>
 
-<h1>Riepilogo</h1>
-
 <%@page import="it.beije.herse.shop.*"%>
 <%@page import="static it.beije.herse.shop.MyShop.*"%>
 
@@ -19,49 +17,11 @@
 <jsp:useBean id="carrello" class="it.beije.herse.shop.Carrello" scope="session"></jsp:useBean>
 <jsp:useBean id="user" class="it.beije.herse.shop.User" scope="session"></jsp:useBean>
 
+<h1>Riepilogo</h1>
+
 <%
-if(user.getId() == null){
-	response.sendRedirect("index.html");		
-} else if(carrello.getItems().isEmpty()) {
-	
-	List<Product> list = getProducts();
-	StringBuilder error = new StringBuilder();
-	
-	for(Product p : list){
-	
-		String qta = request.getParameter("prodQta" + p.getId());
-		String id = request.getParameter(p.getId().toString());
-		
-		if(id != null) {
-			
-			
-			if(Integer.valueOf(qta) <= p.getQuantity()){ //
-				
-				OrderItem item = setOrderItem(Integer.valueOf(id), Integer.valueOf(qta), p.getPrice());
-				carrello.addItem(item);
-				
-			}else{
-				
-				if(p.getQuantity() > 1)
-					error.append("Sono disponibili " + p.getQuantity() + " di " + p.getName());
-				else
-					error.append("E' disponibile " + p.getQuantity() + " di " + p.getName());
-				
-			}
-			
-		}
-		
-	}
-	
-	if(!error.isEmpty()){
-		session.setAttribute("errorQta", error);
-		response.sendRedirect("viewproduct.jsp");
-	}
-
-}
-
 for(OrderItem item : carrello.getItems()){
-	Product p = getProduct(item.getProductId());
+	Product p = getProduct(item.getProductId(), (ManagerCRUD)request.getSession().getAttribute("managerCRUD"));
 	String htmlEl = "<html><body><input style=\"width:100px\" type=\"text\" value=\"" + p.getName() + "\" readonly>\n"
 					+ "<input style=\"width:100px\" type=\"text\" value=\"" + p.getDescription() + "\" readonly>\n"
 					+ "<input style=\"width:70px\" type=\"text\" value=\"" + item.getSellPrice() + "\" readonly>\n"

@@ -34,6 +34,7 @@ public class OrderConfirm extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		HttpSession session = request.getSession();
+		ManagerCRUD manager = (ManagerCRUD)session.getAttribute("managerCRUD");
 		User user = (User)session.getAttribute("user");
 		Carrello c = (Carrello)session.getAttribute("carrello");
 		Order o = initOrder(user.getId());
@@ -45,9 +46,9 @@ public class OrderConfirm extends HttpServlet {
 		
 		c.setListItem(setListOrderItemId(c.getItems(), o.getId()));
 		
-		registerOrderItem(c.getItems());
+		registerOrderItem(c.getItems(),manager);
 		
-		updateQtaProduct(c.getItems());
+		updateQtaProduct(c.getItems(),manager);
 		
 		session.removeAttribute("carrello");
 		
@@ -57,7 +58,7 @@ public class OrderConfirm extends HttpServlet {
 		
 	}
 	
-	private void registerOrderItem(List<OrderItem> items) {
+	private void registerOrderItem(List<OrderItem> items, ManagerCRUD manager) {
 		
 		manager.begin();
 		
@@ -68,12 +69,12 @@ public class OrderConfirm extends HttpServlet {
 		
 	}
 	
-	private void updateQtaProduct(List<OrderItem> items) {
+	private void updateQtaProduct(List<OrderItem> items,ManagerCRUD manager) {
 		
 		manager.begin();
 		
 		for(OrderItem item : items) {
-			Product p = getProduct(item.getProductId());
+			Product p = getProduct(item.getProductId(),manager);
 			p.setQuantity(p.getQuantity()-item.getQuantity());
 			manager.insert(p);
 		}

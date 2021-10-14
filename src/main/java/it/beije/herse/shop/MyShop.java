@@ -7,10 +7,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MyShop {
+	
+	private MyShop() {}
 
-	public static ManagerCRUD manager = new ManagerCRUD();
-
-	public static User getUser(String email, String password) {
+	public static User getUser(String email, String password, ManagerCRUD manager) {
 
 		User user = null;
 		String query = "SELECT U FROM User as U WHERE email = '" + email + "' AND password = '" + password + "'";
@@ -25,7 +25,7 @@ public class MyShop {
 		
 	}
 	
-	public static Product getProduct(Integer id) {
+	public static Product getProduct(Integer id, ManagerCRUD manager) {
 
 		Product prod = null;
 		String query = "SELECT P FROM Product as P WHERE id = " + id;
@@ -40,7 +40,7 @@ public class MyShop {
 		
 	}
 
-	public static List<Product> getProducts() {
+	public static List<Product> getProducts(ManagerCRUD manager) {
 
 		String query = "SELECT P FROM Product as P";
 
@@ -115,18 +115,7 @@ public class MyShop {
 	}
 
 	public static boolean validateQta(String qta, Product p) {
-		
-		boolean flag = false;
-		
-		try {
-			if(Double.valueOf(qta) > 0 && Double.valueOf(qta) <= p.getQuantity())
-				flag = true;
-		}catch(NumberFormatException e) {
-			System.out.println("Valore non valido");
-		}
-		
-		return flag;
-		
+		return (Double.valueOf(qta) > 0 && Double.valueOf(qta) <= p.getQuantity());	
 	}
 	
 	public static Double calcAmountOrder(List<OrderItem> items) {

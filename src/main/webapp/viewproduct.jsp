@@ -16,34 +16,33 @@
 	<jsp:useBean id="user" class="it.beije.herse.shop.User" scope="session"></jsp:useBean>
 
 	<%
-	if (request.getSession().getAttribute("orderConfirm") == null) {
+	session = request.getSession();
+	if (session.getAttribute("orderConfirm") == null) {
 
 		if (user.getId() == null)
 			response.sendRedirect("index.html");
-		else if (request.getSession().getAttribute("errorQta") != null)
-			out.print(request.getSession().getAttribute("errorQta"));
+		else if (session.getAttribute("errorQta") != null)
+			out.print(session.getAttribute("errorQta"));
 	%>
 
-	<%@ page import="it.beije.herse.shop.Product"%>
-	<%@ page import="static it.beije.herse.shop.MyShop.*"%>
-	<%@ page import="java.util.List"%>
-
-	<%
-	session = request.getSession();
-	%>
+	<%@ page import="it.beije.herse.shop.Product" %>
+	<%@ page import="it.beije.herse.shop.ManagerCRUD" %>
+	<%@ page import="static it.beije.herse.shop.MyShop.*" %>
+	<%@ page import="java.util.List" %>
 
 	<%!public String newHTMLProd(Product p) {
 		return "<input type=\"checkbox\" name=\"" + p.getId() + "\" value=\"" + p.getId() + "\">"
 				+ "<input type=\"text\" name=\"prodName" + p.getId() + "\" value=\"" + p.getName() + "\" readonly>\n"
 				+ "<input type=\"text\" name=\"prodDescription" + p.getId() + "\" value=\"" + p.getDescription()
-				+ "\" readonly>\n" + "<input style=\"width:30px\" type=\"text\" name=\"prodQta" + p.getId()
+				+ "\" readonly>\n" + "<input style=\"width:30px\" type=\"number\" name=\"prodQta" + p.getId()
 				+ "\" placeholder=\"0\"><br>\n";
 	}%>
 
-	<form method="get" action="Riepilogo.jsp">
+	<form method="post" action="RiepilogoServlet">
 
 		<%
-		List<Product> products = getProducts();
+		ManagerCRUD m = (ManagerCRUD)session.getAttribute("managerCRUD");
+		List<Product> products = getProducts(m);
 
 		StringBuilder s = new StringBuilder();
 
@@ -61,7 +60,7 @@
 		request.getSession().removeAttribute("orderConfirm");
 		out.print(confirm);
 	%>
-	<a href="viewproduct.jsp"><input type="submit"
+	<br><a href="viewproduct.jsp"><input type="submit"
 		value="Continua ad acquistare"></a>
 	<%
 	}

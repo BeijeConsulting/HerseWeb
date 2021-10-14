@@ -10,7 +10,7 @@ import javax.servlet.http.HttpSession;
 
 import static it.beije.herse.shop.MyShop.*;
 
-import it.beije.herse.shop.Carrello;
+import it.beije.herse.shop.ManagerCRUD;
 import it.beije.herse.shop.User;
 
 /**
@@ -39,7 +39,8 @@ public class LoginServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		User user = getUser(request.getParameter("email"), request.getParameter("password"));
+		ManagerCRUD m = new ManagerCRUD();
+		User user = getUser(request.getParameter("email"), request.getParameter("password"), m);
 		HttpSession session = request.getSession();
 		
 		if(user == null) {
@@ -47,8 +48,8 @@ public class LoginServlet extends HttpServlet {
 			response.sendRedirect("index.html");
 		}
 		
+		session.setAttribute("managerCRUD", m);
 		session.setAttribute("user", user);
-		session.setAttribute("carrello", new Carrello());
 		response.sendRedirect("viewproduct.jsp");
 		doGet(request, response);
 		

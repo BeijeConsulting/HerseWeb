@@ -74,7 +74,7 @@ public class ordineServlet extends HttpServlet {
 			session.setAttribute("order", order);
 			response.sendRedirect("ordine.jsp");
 		}
-		
+	
 		
 	}
 

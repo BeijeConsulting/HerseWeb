@@ -7,7 +7,7 @@
 <title>Benvenuti Herse</title>
 </head>
 <body>
-<h1>Hello Herse!!</h1>
+<h1>Benvenuti Herse!!</h1>
 
 <%
 //String error = request.getParameter("error");

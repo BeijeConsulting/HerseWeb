@@ -23,11 +23,6 @@ import it.beije.herse.bean.*;
 public class Accesso extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	public static final String  A_CAPO = "<br>";
-	public static final String  INIZIO = "<html><body>";
-	public static final String  FINE = "</html></body>";
-
-	public static String username;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -39,13 +34,13 @@ public class Accesso extends HttpServlet {
 
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		HttpSession session = request.getSession();
-		String username = (String) session.getAttribute("username");
-		String password = (String) session.getAttribute("password");
-		
-		System.out.println("username: " + username);
-		System.out.println("password " + password);
+//
+//		HttpSession session = request.getSession();
+//		String username = (String) session.getAttribute("username");
+//		String password = (String) session.getAttribute("password");
+//		
+//		System.out.println("username: " + username);
+//		System.out.println("password " + password);
 		
 	}
 	
@@ -71,7 +66,7 @@ public class Accesso extends HttpServlet {
 		List <User> utenti = query.getResultList();
 		if(utenti.size()==0) {
 			session.setAttribute("error", "Credenziali Errate");
-			response.sendRedirect("Accesso.jsp");
+			response.sendRedirect("accesso_ecommerce.jsp");
 		}
 		else if(utenti.size()==1) {
 			System.out.println(utenti.get(0));

@@ -20,11 +20,11 @@ if (error != null) {
 
 <form action = "shop" method = "post">
 <label for="username">Username</label><br>
-<input type="text" name = "username"><br>
+<input type="text" name = "username" value = "p.p@gmail.com"><br>
 <label for="password">Password</label><br>
-<input type="text" name = "password"><br>
+<input type="text" name = "password" value = "papa"><br>
 <input type="submit" value="Submit">
 </form>
-
+<p><%= session.getId() %></p>
 </body>
 </html>

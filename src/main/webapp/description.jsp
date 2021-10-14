@@ -33,7 +33,7 @@ Product prodotto = entityManager.find(Product.class, id);
 <body>
 
 <h3>Dettaglio prodotto:</h3>
-<h4><%= prodotto.getName() %></h4>
+<h4><%= prodotto.getName() %> prezzo <%= prodotto.getPrice() %></h4>
 <p><%= prodotto.getDescription() %></p>
 
 <%
@@ -57,6 +57,7 @@ int tot = prodotto.getQuantity()- quantita;
 				<input type='submit' value='aggiungi' /> <input type='hidden' name='idP' value='<%= prodotto.getId() %>'> 
 				<input type='number' name='quantita' step='1' min='1' value='1'max='<%= tot %>'>
 			</form>
+			<a href='catalogo.jsp'><input type ='button'  value ='Torna al catalogo'></a>
 
 </body>
 </html>

@@ -1,6 +1,7 @@
 package it.beije.herse.web;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.Set;
 
@@ -14,6 +15,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import it.beije.herse.bean.Product;
 import it.beije.herse.bean.ShopEntityManager;
+import it.beije.herse.bean.*;
+import it.beije.herse.bean.User;
 
 /**
  * Servlet implementation class Pay
@@ -38,12 +41,13 @@ public class Pay extends HttpServlet {
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		HttpSession session = request.getSession();
+		if(session.getAttribute("carrello")==null)
+			response.sendRedirect("catalogo.jsp");
+		else {
 		EntityManager entityManager = ShopEntityManager.newEntityManager();
 		EntityTransaction transaction = entityManager.getTransaction();
 		transaction.begin();
@@ -51,10 +55,20 @@ public class Pay extends HttpServlet {
 
 		Carrello carrello = (Carrello) session.getAttribute("carrello");
 
-		// succedono cose strane
+
 		Set<Integer> set = carrello.getMappa().keySet();
 		Iterator<Integer> indice = set.iterator();
-		double total = 0.0;
+		Double amount = (Double) session.getAttribute("amount");
+		
+		
+		User user = (User) session.getAttribute("user");
+		Order order = new Order();
+		order.setAmount(amount);
+		order.setDateTime(LocalDateTime.now());
+		order.setUserId(user.getId());
+		entityManager.persist(order);
+		
+		int orderId = order.getId();
 
 		while (indice.hasNext()) {
 
@@ -64,14 +78,24 @@ public class Pay extends HttpServlet {
 			Product p = entityManager.find(Product.class,i);
 			p.setQuantity(p.getQuantity()-quantita);
 			entityManager.persist(p);
+			
+			OrderItem orderItem = new OrderItem();
+			orderItem.setOrderId(orderId);
+			orderItem.setProductId(p.getId());
+			orderItem.setSellPrice(p.getPrice());
+			orderItem.setQuantity(quantita);
+			entityManager.persist(orderItem);
 		}
+	
+		
 
+		
 		transaction.commit();
 		entityManager.close();
 		session.removeAttribute("carrello");
 
 		response.getWriter().append("<html><p>Acquisto completato </p> <a href='catalogo.jsp'>Torna al catalogo</a></html>");
-
+		}
 	}
 
 }

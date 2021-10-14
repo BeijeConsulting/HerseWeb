@@ -1,4 +1,4 @@
-package it.beije.herse.web;
+package it.beije.herse.web.my;
 
 import java.io.IOException;
 import java.util.List;

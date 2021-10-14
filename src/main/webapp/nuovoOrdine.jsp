@@ -1,7 +1,7 @@
 
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
- <%@page import="it.beije.herse.web.ListaProdotti"%>
+ <%@page import="it.beije.herse.web.my.ListaProdotti"%>
   <%@page import="java.util.List"%>
  <%@page import="it.beije.herse.web.entity.Product"%>
 <!DOCTYPE html>
@@ -30,7 +30,17 @@
 		%>
 		<span style="color:red"><%=error%></span><br><br>
 		<%
-		session.removeAttribute("error");
+		session.removeAttribute("quantity_input_error");
+	}
+	%>
+	
+	<% 
+	String errorQuantity = (String) session.getAttribute("quantita");
+	if (errorInput != null) {
+		%>
+		<span style="color:red"><%=error%></span><br><br>
+		<%
+		session.removeAttribute("quantita");
 	}
 	%>
 	
@@ -79,6 +89,8 @@
 	
 	<br><br>
 	<a href="menuUser.jsp" style="text-decoration: none; color:black;">-> Torna al menu</a>
+	<br>
+	<a href="loginUser.jsp" style="text-decoration: none; color:blue;">Log out</a>
 </body>
 
 </html>

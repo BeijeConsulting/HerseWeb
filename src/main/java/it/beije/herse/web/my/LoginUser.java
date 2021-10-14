@@ -1,4 +1,4 @@
-package it.beije.herse.web;
+package it.beije.herse.web.my;
 
 import java.io.IOException;
 import java.util.List;
@@ -28,6 +28,7 @@ public class LoginUser extends HttpServlet {
    
     public LoginUser() {
         super();
+        System.out.println("prova servlet");
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

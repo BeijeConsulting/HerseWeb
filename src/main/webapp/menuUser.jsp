@@ -28,13 +28,13 @@
 		<ul class="list-group list-group-flush">
 			<li class="list-group-item"><a href="OrdiniUser" style="text-decoration: none; color:black;">Visualizza tutti i tuoi ordini</a></li>
 			<li class="list-group-item"><a href="nuovoOrdine.jsp" style="text-decoration: none; color:black;">Effettua un nuovo ordine</a></li>
-			<li class="list-group-item"><a href="infoOrdine.html" style="text-decoration: none; color:black;">Ottieni informazioni riguardo un ordine</a></li>
+			<li class="list-group-item"><a href="infoOrdine.jsp" style="text-decoration: none; color:black;">Ottieni informazioni riguardo un ordine</a></li>
 			<li class="list-group-item"><a href="catalogo" style="text-decoration: none; color:black;">Catalogo prodotti</a></li>
 		</ul>
 		<%} %>
 		
 	
-	
-	<!--  <a href="login.html" style="text-decoration: none; color:blue;">Login</a>-->
+	<br>
+	<a href="loginUser.jsp" style="text-decoration: none; color:blue;">Log out</a>
 </body>
 </html>

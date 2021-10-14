@@ -1,7 +1,9 @@
-package it.beije.herse.web;
+package it.beije.herse.web.my;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -16,6 +18,7 @@ import javax.servlet.http.HttpSession;
 
 import it.beije.herse.web.entity.Carrello;
 import it.beije.herse.web.entity.Order;
+import it.beije.herse.web.entity.OrderItem;
 import it.beije.herse.web.entity.Product;
 
 @WebServlet("/ConfermaOrdine")
@@ -61,7 +64,27 @@ public class ConfermaOrdine extends HttpServlet {
 			order.setAmount(total);
 			
 			entityManager.persist(order);
+			//transaction.commit();
+			
+			for ( Map.Entry<Product, Integer> entry : carrello.getCarrello().entrySet()) {
+				Product product = entry.getKey();
+			    Integer quantity = entry.getValue();
+			    
+			    Product differentProduct = entityManager.find(Product.class, product.getId());
+			    
+			    differentProduct.setQuantity(product.getQuantity() - quantity);
+			    
+			    OrderItem orderItem = new OrderItem();
+			    orderItem.setQuantity(quantity);
+			    orderItem.setProductId(product.getId());
+			    orderItem.setSellPrice(product.getPrice());
+			    orderItem.setOrderId(order.getId()); 	///errore
+			    
+			    entityManager.persist(orderItem);
+			    entityManager.persist(differentProduct);
+			}
 			transaction.commit();
+
 			entityManager.close();
 		} else {
 			response.getWriter().append(openHtml)

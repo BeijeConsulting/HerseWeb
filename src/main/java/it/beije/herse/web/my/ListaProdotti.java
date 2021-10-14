@@ -1,4 +1,4 @@
-package it.beije.herse.web;
+package it.beije.herse.web.my;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -29,6 +29,7 @@ public class ListaProdotti extends HttpServlet {
    
     public ListaProdotti() {
         super();
+        System.out.println("lista prodotti servlet");
     }
     
     public static List<Product> selectProducts() {

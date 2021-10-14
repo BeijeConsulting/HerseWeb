@@ -1,4 +1,4 @@
-package it.beije.herse.web;
+package it.beije.herse.web.my;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -51,18 +51,22 @@ public class ShoppingCart extends HttpServlet {
 		String[] idProdotti = idProdotto.split(",");
 		String[] quantitaProdotti = quantita.split(",");
 
-		//List<Integer> listId = new ArrayList<>();
-		//List<Integer> listQuantita = new ArrayList<>();
-		//List<Product> listProduct = new ArrayList<>();
+		// List<Integer> listId = new ArrayList<>();
+		// List<Integer> listQuantita = new ArrayList<>();
+		List<Product> listProduct = new ArrayList<>();
 		List<OrderItem> listOrderItem = new ArrayList<>();
-		
-		if(idProdotti.length == quantitaProdotti.length) {
-			
+
+		if (idProdotti.length == quantitaProdotti.length) {
+
 			for (int i = 0; i < idProdotti.length; i++) {
-				//listId.add(Integer.valueOf(idProdotti[i].trim()));
+				// listId.add(Integer.valueOf(idProdotti[i].trim()));
+				Product product = new Product();
+				product.setId(Integer.valueOf(idProdotti[i].trim()));
+				listProduct.add(product);
+
 				OrderItem orderItem = new OrderItem();
 				orderItem.setProductId(Integer.valueOf(idProdotti[i].trim()));
-				orderItem.setQuantity(Integer.valueOf(quantitaProdotti[i].trim()));
+				// orderItem.setQuantity(Integer.valueOf(quantitaProdotti[i].trim()));
 				listOrderItem.add(orderItem);
 			}
 
@@ -72,17 +76,15 @@ public class ShoppingCart extends HttpServlet {
 //			System.out.println("id" + listId);
 //			System.out.println("quantita" + listQuantita);
 
-			
-			//popolo listProduct
+			// popolo listProduct
 //			for (int i = 0; i < listId.size(); i++) {
 //				Product product = new Product();
 //				product.setId(listId.get(i));
 //				listProduct.add(product);
 //				System.out.println(product);
 //			}
-			
-			
-			//popolo listOrderItem
+
+			// popolo listOrderItem
 //			for(int i = 0; i < listProduct.size(); i++) {
 ////				OrderItem orderItem = new OrderItem();
 ////				orderItem.setProductId(listId.get(i));
@@ -91,40 +93,65 @@ public class ShoppingCart extends HttpServlet {
 //				listOrderItem.add(orderItem);
 //			}
 
-			//System.out.println("numero prodotti" + listProduct.size());
+			// System.out.println("numero prodotti" + listProduct.size());
 
 			String select = "SELECT p FROM Product AS p";
 			Query query = entityManager.createQuery(select);
 
 			Carrello carrelloContenitore = new Carrello();
 			HashMap<Product, Integer> cart = new HashMap<>();
+			System.out.println(listOrderItem);
 
 			try {
-				List<Product> listResult = query.getResultList();
-				System.out.println("risultati db" + listResult);
+				List<Product> listResultProduct = query.getResultList();
+				System.out.println("risultati db" + listResultProduct);
 
-//				for (int i = 0; i < listOrderItem.size(); i++) {
-//					for (Product p : listResult) {
-//						if (listProduct.get(i).getId() == p.getId()) {
-//							listProduct.get(i).setName(p.getName());
-//							listProduct.get(i).setDescription(p.getDescription());
-//							listProduct.get(i).setPrice(p.getPrice()); // prezzo del singolo prodotto, non considero ancora la quantita
-//
-//							cart.put(listProduct.get(i), listQuantita.get(i)); // aggiungo i due elemento al carrello, la quantita ha la stessa posizione del prodotto
-//							System.out.println("lunghezza cart" + cart.size());
-//							System.out.println("prodotto i" + listProduct.get(i));
-//							System.out.println("quantita i" + listQuantita.get(i));
-//							cart.forEach((key, value) -> System.out.println(key + ":" + value));
-//						} 
-//					}
-//				}
+				// verificare quantità sufficiente e procedere solo con quella
+				for (int i = 0; i < quantitaProdotti.length; i++) {
+					if (listResultProduct.get(i).getQuantity() >= Integer.valueOf(quantitaProdotti[i])) {
 
-				carrelloContenitore.setCarrello(cart);
-				System.out.println("carrello" + carrelloContenitore);
+						listOrderItem.get(i).setQuantity(Integer.valueOf(quantitaProdotti[i]));
+						//listOrderItem.get(i).setQuantity(listOrderItem.get(i).getQuantity() - Integer.valueOf(quantitaProdotti[i]));
+						
+						for (Product pResult : listResultProduct) {
+							if (listProduct.get(i).getId() == pResult.getId()) {
+								listProduct.get(i).setName(pResult.getName());
+								listProduct.get(i).setDescription(pResult.getDescription());
+								listProduct.get(i).setPrice(pResult.getPrice()); // prezzo del singolo prodotto, non considero ancora la quantita
+								listProduct.get(i).setQuantity(pResult.getQuantity());
+								listOrderItem.get(i).setSellPrice(pResult.getPrice());
 
-				session.setAttribute("carrello", carrelloContenitore);
+//									manager.persist(orderItem);
+//									manager.persist(pResult);
+//									transaction.commit();
+								cart.put(listProduct.get(i), Integer.valueOf(quantitaProdotti[i])); // aggiungo i due elemento al carrello, la quantita ha la stessa posizione del prodotto
+								System.out.println("lunghezza cart" + cart.size());
+								System.out.println("prodotto i" + listProduct.get(i));
+								System.out.println("quantita i" + quantitaProdotti[i]);
+								System.out.println("order item i" + listOrderItem.get(i));
+								cart.forEach((key, value) -> System.out.println(key + ":" + value));
 
-				response.sendRedirect("shopping_cart.jsp");
+							}
+						}
+					} else if (listOrderItem.get(i).getQuantity() < listOrderItem.get(i).getQuantity()) {
+
+						session.setAttribute("quantita","Quantità del prodotto non sufficiente. Inserire una quantità minore.");
+						response.sendRedirect("nuovoOrdine.jsp");
+					}
+				}
+				if(cart.size() >=1) {
+					carrelloContenitore.setCarrello(cart);
+					System.out.println("carrello" + carrelloContenitore);
+					//System.out.println("order items"+listOrderItem);
+					
+					session.setAttribute("carrello", carrelloContenitore);
+					//session.setAttribute("orderItem", listOrderItem);
+					
+					response.sendRedirect("shopping_cart.jsp");
+				} else {
+					response.sendRedirect("nuovoOrdine.jsp");
+				}
+				
 
 			} catch (PersistenceException e) {
 				session.setAttribute("error", "Prodotto non presente");
@@ -134,9 +161,10 @@ public class ShoppingCart extends HttpServlet {
 			entityManager.close();
 		} else {
 			session.setAttribute("quantity_input_error", "Prodotto o quantità non inseriti");
+			entityManager.close();
 			response.sendRedirect("nuovoOrdine.jsp");
 		}
-		
+
 	}
 
 }

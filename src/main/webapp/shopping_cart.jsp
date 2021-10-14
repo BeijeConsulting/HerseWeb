@@ -13,6 +13,7 @@
 <body style="margin:1%">
 	<!--<jsp:useBean id="productCart" class="it.beije.herse.web.entity.Product" scope="session"></jsp:useBean>-->
 	<jsp:useBean id="carrello" class="it.beije.herse.web.entity.Carrello" scope="session"></jsp:useBean>
+	<!--<jsp:useBean id="orderItem" class="it.beije.herse.web.entity.OrderItem" scope="session"></jsp:useBean>-->
 	
 	<h1>Carrello</h1>
 	<p>
@@ -38,6 +39,6 @@
 		
 	</p>
 	<strong><a href = "ConfermaOrdine" style="text-decoration: none; color:red;">Paga</a></strong>
-	<!--  <button type="button" class="btn btn-primary" ><a href = "" style="text-decoration: none; color:white;">Aggiungi un altro prodotto</a></button>-->
-</body>
+	<br>
+	<a href="loginUser.jsp" style="text-decoration: none; color:blue;">Log out</a>
 </html>

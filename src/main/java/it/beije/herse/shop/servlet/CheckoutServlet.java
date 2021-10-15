@@ -11,11 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import it.beije.herse.shop.beans.Cart;
-import it.beije.herse.shop.beans.Order;
 import it.beije.herse.shop.beans.OrderItem;
-import it.beije.herse.shop.beans.Product;
-import it.beije.herse.shop.manager.OrderManager;
-import it.beije.herse.shop.manager.ProductManager;
 
 /**
  * Servlet implementation class CheckoutServlet

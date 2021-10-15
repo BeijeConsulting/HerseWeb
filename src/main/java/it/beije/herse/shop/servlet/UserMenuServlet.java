@@ -6,11 +6,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
-import it.beije.herse.shop.manager.OrderManager;
-import it.beije.herse.shop.manager.ProductManager;
-import it.beije.herse.shop.manager.UserManager;
 
 /**
  * Servlet implementation class UserMenuServlet
@@ -44,7 +39,7 @@ public class UserMenuServlet extends HttpServlet {
 		if(submit!=null && submit.equalsIgnoreCase("SUBMIT")) {
 			String userAction = (String) request.getParameter("userAction");
 			if(userAction!=null) {
-				HttpSession session = request.getSession();
+//				HttpSession session = request.getSession();
 				switch(userAction) {
 				case "newOrder":
 //					session.setAttribute("prodManager", new ProductManager());

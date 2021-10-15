@@ -5,11 +5,8 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
-import javax.persistence.Query;
-import javax.persistence.Tuple;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Root;
 
 import it.beije.herse.shop.beans.*;
@@ -62,8 +59,15 @@ public class UserManager {
 	public List<User> selectUser(String email, String password){
 		EntityManager manager = ShopEntityManager.newEntityManager();
 		
-		String loginQuery = "SELECT u FROM User as u WHERE email= '"+email+"' AND password= '"+password+"'";
-		List<User> userList = manager.createQuery(loginQuery).getResultList();;
+		// Criteria Query
+		CriteriaBuilder cb = manager.getCriteriaBuilder();
+		CriteriaQuery<User> query = cb.createQuery(User.class);
+		Root<User> u = query.from(User.class);
+		query.select(u).where(u.get("email").in(email), u.get("password").in(password));
+		
+		// SQL
+//		String loginQuery = "SELECT u FROM User as u WHERE email= '"+email+"' AND password= '"+password+"'";
+		List<User> userList = manager.createQuery(query).getResultList();;
 		
 //		System.out.println("TEST PRINT");
 //		for(User u : userList) System.out.println(u);

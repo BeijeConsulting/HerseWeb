@@ -2,7 +2,6 @@ package it.beije.herse.shop.servlet;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -13,11 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import it.beije.herse.shop.beans.Cart;
-import it.beije.herse.shop.beans.Order;
 import it.beije.herse.shop.beans.OrderItem;
 import it.beije.herse.shop.beans.Product;
 import it.beije.herse.shop.beans.User;
-import it.beije.herse.shop.manager.OrderManager;
 import it.beije.herse.shop.manager.ProductManager;
 //import it.beije.herse.shop.manager.ShopVecchia;
 

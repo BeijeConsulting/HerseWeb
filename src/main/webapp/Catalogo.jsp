@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@page import="Shop.User ,Shop.Product,Shop.Funzioni, java.util.*"%>
+<%@page import="Shop.User ,Shop.Product,javax.persistence.EntityManager,Shop.ShopEntityManager, java.util.*"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -48,7 +48,8 @@
 			</tr>
 		</thead>
 		<%
-		List<Product> lista = Funzioni.getCatalogo();
+		EntityManager manager=ShopEntityManager.newEntityManager();
+		List<Product> lista = manager.createQuery("SELECT p FROM Product as p").getResultList();
 		for (Product p : lista) {
 		%>
 		<tr>

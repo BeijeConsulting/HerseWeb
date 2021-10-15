@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@page import="Shop.Carrello,Shop.Product,Shop.Funzioni, java.util.*"%>
+<%@page import="Shop.Carrello,Shop.Product,javax.persistence.EntityManager, java.util.*"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,9 +18,11 @@
 			</tr>
 		</thead>
 		<%
+		EntityManager manager=(EntityManager)session.getAttribute("manager");
 		ArrayList<Carrello> carrello=(ArrayList<Carrello>)session.getAttribute("carrello");
 		for (Carrello c : carrello) {
-			Product p=Funzioni.getProdotto(c.getId_product());
+		//	Product p=Funzioni.getProdotto(c.getId_product());
+			Product p=manager.find(Product.class, c.getId_product());
 		%>
 		<tr>
 			<td><%=c.getId_product()%></td>

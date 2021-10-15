@@ -10,13 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import Shop.Funzioni;
-import Shop.Order;
-import Shop.Product;
-import Shop.ShopEntityManager;
-import Shop.User;
-import Shop.Carrello;
+import Shop.*;
 
 /**
  * Servlet implementation class EndServlet
@@ -32,9 +26,9 @@ public class EndServlet extends HttpServlet {
 		
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		EntityManager manager=ShopEntityManager.newEntityManager();
 		HttpSession session=request.getSession();
-		Funzioni.terminaOrdine((ArrayList<Carrello>)session.getAttribute("carrello"),(Order)session.getAttribute("order"));
+		EntityManager manager=(EntityManager)session.getAttribute("manager");
+		terminaOrdine((ArrayList<Carrello>)session.getAttribute("carrello"),(Order)session.getAttribute("order"));
 		Order o=(Order)session.getAttribute("order");
 		Order order=manager.find(Order.class, o.getId());
 		manager.getTransaction().begin();
@@ -43,5 +37,22 @@ public class EndServlet extends HttpServlet {
 		response.sendRedirect("End.jsp");
 		
 	}
+	protected  void terminaOrdine(ArrayList<Carrello> carrello,Order order) {
+		for(Carrello c:carrello)
+			commit(c,order.getId());
+	}
+	
+		protected  void commit(Carrello c,int id_order) {
+			EntityManager manager=ShopEntityManager.newEntityManager();
+			Product p=manager.find(Product.class, c.getId_product());
+			OrderItem orderItem=new OrderItem();
+			manager.getTransaction().begin();
+			orderItem.setOrderId(id_order);
+			orderItem.setProductId(c.getId_product());
+			orderItem.setSellPrice(p.getPrice());
+			orderItem.setQuantity(c.getQty());
+			manager.persist(orderItem);
+			manager.getTransaction().commit();
+		}
 
 }

@@ -37,13 +37,12 @@ public class LoginServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		
 		if(user == null) {
-			session.setAttribute("error", "Credenziali errate");
 			response.sendRedirect("index.html");
 		}
 		
 		session.setAttribute("managerCRUD", m);
 		session.setAttribute("user", user);
-		response.sendRedirect("viewproduct.jsp");
+		response.sendRedirect("ViewProduct");
 		
 	}
 

@@ -34,6 +34,10 @@ public class OrderConfirm extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		HttpSession session = request.getSession();
+		
+		if(session.getAttribute("htmlEl") != null)
+			session.removeAttribute("htmlEl");
+		
 		ManagerCRUD manager = (ManagerCRUD)session.getAttribute("managerCRUD");
 		User user = (User)session.getAttribute("user");
 		Carrello c = (Carrello)session.getAttribute("carrello");
@@ -54,7 +58,7 @@ public class OrderConfirm extends HttpServlet {
 		
 		session.setAttribute("orderConfirm", "Ordine Confermato!");
 		
-		response.sendRedirect("viewproduct.jsp");
+		response.sendRedirect("ViewProduct");
 		
 	}
 	
@@ -81,13 +85,6 @@ public class OrderConfirm extends HttpServlet {
 		
 		manager.commit();
 			
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
 	}
 
 }

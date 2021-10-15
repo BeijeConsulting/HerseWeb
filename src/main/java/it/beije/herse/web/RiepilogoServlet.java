@@ -29,7 +29,6 @@ public class RiepilogoServlet extends HttpServlet {
      */
     public RiepilogoServlet() {
         super();
-        System.out.println("Prova Costruttore Servlet");
     }
 
 	/**
@@ -38,6 +37,12 @@ public class RiepilogoServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		HttpSession session = request.getSession();
+		
+		if(session.getAttribute("user") == null)
+			response.sendRedirect("index.html");
+		if(session.getAttribute("htmlEl") != null)
+			session.removeAttribute("htmlEl");
+			
 		ManagerCRUD m = (ManagerCRUD)session.getAttribute("managerCRUD");
 		List<Product> list = getProducts(m);
 		StringBuilder error = new StringBuilder();
@@ -70,9 +75,18 @@ public class RiepilogoServlet extends HttpServlet {
 		}
 		
 		if(!error.isEmpty()){
-			session.setAttribute("errorQta", error);
-			response.sendRedirect("viewproduct.jsp");
+			session.setAttribute("errorQta", error.toString());
+			response.sendRedirect("ViewProduct");
 		} else {
+			StringBuilder htmlEl = new StringBuilder();
+			for(OrderItem item : c.getItems()){
+				Product p = getProduct(item.getProductId(), (ManagerCRUD)request.getSession().getAttribute("managerCRUD"));
+				htmlEl.append("<html><body><input style=\"width:100px\" type=\"text\" value=\"" + p.getName() + "\" readonly>\n"
+								+ "<input style=\"width:100px\" type=\"text\" value=\"" + p.getDescription() + "\" readonly>\n"
+								+ "<input style=\"width:70px\" type=\"text\" value=\"" + item.getSellPrice() + "\" readonly>\n"
+								+ "<input style=\"width:40px\" type=\"text\" value=\"" + item.getQuantity() + "\" readonly><br>\n");
+			}
+			session.setAttribute("htmlEl", htmlEl.toString());
 			session.setAttribute("carrello", c);
 			response.sendRedirect("Riepilogo.jsp");
 		}

@@ -28,13 +28,6 @@ public class LoginServlet extends HttpServlet {
     }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-	}
-
-	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -51,7 +44,6 @@ public class LoginServlet extends HttpServlet {
 		session.setAttribute("managerCRUD", m);
 		session.setAttribute("user", user);
 		response.sendRedirect("viewproduct.jsp");
-		doGet(request, response);
 		
 	}
 

@@ -46,7 +46,7 @@
 		<tr>
 			<td></td>
 			<td>PRODUCT ID: <%= i.getProductId() %></td>
-			<td>PRICE: <%= i.getSellPrice() %></td>
+			<td>PRICE: <%= i.getSellPrice() %>$</td>
 			<td>QUANTITY: <%= i.getQuantity() %></td>
 		</tr>
 		<%} %>

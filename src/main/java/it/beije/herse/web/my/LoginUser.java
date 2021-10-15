@@ -38,9 +38,6 @@ public class LoginUser extends HttpServlet {
 		
 		System.out.println("email : " + email);
 		System.out.println("password : " + password);
-		
-		response.getWriter().append("<html><body>password in sessione : ").append(password)
-		.append("<br>").append("email in sessione : ").append(email).append("</body></html>");
 	
 	}
 

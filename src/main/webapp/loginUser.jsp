@@ -23,10 +23,6 @@
 	<h1>Benvenuto, inserisci le tue credenziali</h1>
 	<form action="LoginUser" method="post">
 		<div>
-			<!--  <label>Id utente: </label>
-			<input type="text" >
-			</br>
-			</br>-->
 			
 			<label for="email">Email: </label>
 			<input type="text" name="email">

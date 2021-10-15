@@ -38,7 +38,7 @@
 		%>
 		
 	</p>
-	<strong><a href = "ConfermaOrdine" style="text-decoration: none; color:red;">Paga</a></strong>
+	<a href = "ConfermaOrdine" style="text-decoration: none;"><button type="button" class="btn btn-success">Paga</button></a>
 	<br>
-	<a href="logout" style="text-decoration: none; color:blue;">Log out</a>
+	<a href="logout" style="text-decoration: none; "><button type="button" class="btn btn-primary">Log out</button></a>
 </html>

@@ -1,6 +1,8 @@
 package it.beije.herse.web.my;
 
 import java.io.IOException;
+import java.sql.SQLException;
+import java.sql.SQLTransientException;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
@@ -40,31 +42,20 @@ public class ConfermaOrdine extends HttpServlet {
 		HttpSession session = request.getSession();
 		
 		Carrello carrello = (Carrello)session.getAttribute("carrello");
-		System.out.println("carrello"+carrello);
+		it.beije.herse.web.entity.User user = (it.beije.herse.web.entity.User)session.getAttribute("authUser");		
+		Double total = (Double)session.getAttribute("total");
+		EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("herse-shop");
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		EntityTransaction transaction = entityManager.getTransaction();
+		transaction.begin();
 		
-		it.beije.herse.web.entity.User user = (it.beije.herse.web.entity.User)session.getAttribute("authUser");
-		System.out.println(user);
-		if( user != null) {
-			Double total = (Double)session.getAttribute("total");
-			
-			response.getWriter().append(openHtml)
-			.append("<head><link href=\"https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css\" rel=\"stylesheet\" integrity=\"sha384-uWxY/CJNBR+1zjPWmfnSnVxwRheevXITnMqoEIeG1LJrdI0GlVs/9cVSyPYXdcSF\" crossorigin=\"anonymous\"></head>")
-			.append(openBody)
-			.append("<h1>Ordine confermato</h1>")
-			.append("<a href=\"menuUser.jsp\" style=\"text-decoration: none; color:blue;\">-> Torna al menu</a>");
-			
-			EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("herse-shop");
-			EntityManager entityManager = entityManagerFactory.createEntityManager();
-			EntityTransaction transaction = entityManager.getTransaction();
-			transaction.begin();
-			
+		try {
 			Order order = new Order();
 			order.setDateTime(LocalDateTime.now());
 			order.setUserId(user.getId());
 			order.setAmount(total);
 			
 			entityManager.persist(order);
-			//transaction.commit();
 			
 			for ( Map.Entry<Product, Integer> entry : carrello.getCarrello().entrySet()) {
 			    Integer quantity = entry.getValue();
@@ -84,20 +75,19 @@ public class ConfermaOrdine extends HttpServlet {
 			}
 			transaction.commit();
 
+			session.removeAttribute("carrello");
+			response.sendRedirect("conferma_ordine.jsp");
+		} catch(Exception sqlExc) {
+			session.setAttribute("error", "Impossibile processare l'ordine. Riprovare il pagamento");
+			response.sendRedirect("shopping_cart.jsp");
+		} finally {
 			entityManager.close();
-		} else {
-			response.getWriter().append(openHtml)
-			.append("<head><link href=\"https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css\" rel=\"stylesheet\" integrity=\"sha384-uWxY/CJNBR+1zjPWmfnSnVxwRheevXITnMqoEIeG1LJrdI0GlVs/9cVSyPYXdcSF\" crossorigin=\"anonymous\"></head>")
-			.append(openBody)
-			.append("<h1 style=\"color:red;\">Utente non loggato</h1>")
-			.append("<a href=\"loginUser.jsp\" style=\"text-decoration: none; color:blue;\">-> Login</a>");
-			
 		}
 		
-	}
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+	}
+	
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	}
 
 }

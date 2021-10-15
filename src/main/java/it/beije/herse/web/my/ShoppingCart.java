@@ -51,7 +51,6 @@ public class ShoppingCart extends HttpServlet {
 		String[] idProdotti = idProdotto.split(",");
 		String[] quantitaProdotti = quantita.split(",");
 
-		// List<Integer> listId = new ArrayList<>();
 		List<Integer> listQuantita = new ArrayList<>();
 		List<Product> listProduct = new ArrayList<>();
 		List<OrderItem> listOrderItem = new ArrayList<>();
@@ -59,7 +58,6 @@ public class ShoppingCart extends HttpServlet {
 		if (idProdotti.length == quantitaProdotti.length) {
 
 			for (int i = 0; i < idProdotti.length; i++) {
-				// listId.add(Integer.valueOf(idProdotti[i].trim()));
 				Product product = new Product();
 				product.setId(Integer.valueOf(idProdotti[i].trim()));
 				listProduct.add(product);
@@ -68,41 +66,14 @@ public class ShoppingCart extends HttpServlet {
 
 				OrderItem orderItem = new OrderItem();
 				orderItem.setProductId(Integer.valueOf(idProdotti[i].trim()));
-				// orderItem.setQuantity(Integer.valueOf(quantitaProdotti[i].trim()));
 				listOrderItem.add(orderItem);
 			}
-
-//			for (int i = 0; i < quantitaProdotti.length; i++) {
-//				listQuantita.add(Integer.valueOf(quantitaProdotti[i].trim()));
-//			}
-//			System.out.println("id" + listId);
-//			System.out.println("quantita" + listQuantita);
-
-			// popolo listProduct
-//			for (int i = 0; i < listId.size(); i++) {
-//				Product product = new Product();
-//				product.setId(listId.get(i));
-//				listProduct.add(product);
-//				System.out.println(product);
-//			}
-
-			// popolo listOrderItem
-//			for(int i = 0; i < listProduct.size(); i++) {
-////				OrderItem orderItem = new OrderItem();
-////				orderItem.setProductId(listId.get(i));
-//				orderItem.setQuantity(listQuantita.get(i));
-//				orderItem.setSellPrice(listProduct.get(i).getPrice());
-//				listOrderItem.add(orderItem);
-//			}
-
-			// System.out.println("numero prodotti" + listProduct.size());
 
 			String select = "SELECT p FROM Product AS p";
 			Query query = entityManager.createQuery(select);
 
 			Carrello carrelloContenitore = new Carrello();
 			HashMap<Product, Integer> cart = new HashMap<>();
-			//System.out.println(listOrderItem);
 
 			try {
 				List<Product> listResultProduct = query.getResultList();
@@ -113,7 +84,6 @@ public class ShoppingCart extends HttpServlet {
 					if (listResultProduct.get(i).getQuantity() >= listQuantita.get(i)) {
 
 						listOrderItem.get(i).setQuantity(listQuantita.get(i));
-						//listOrderItem.get(i).setQuantity(listOrderItem.get(i).getQuantity() - Integer.valueOf(quantitaProdotti[i]));
 						
 						for (Product pResult : listResultProduct) {
 							if (listProduct.get(i).getId() == pResult.getId()) {
@@ -123,9 +93,6 @@ public class ShoppingCart extends HttpServlet {
 								listProduct.get(i).setQuantity(pResult.getQuantity());
 								listOrderItem.get(i).setSellPrice(pResult.getPrice());
 
-//									manager.persist(orderItem);
-//									manager.persist(pResult);
-//									transaction.commit();
 								cart.put(listProduct.get(i), listQuantita.get(i)); // aggiungo i due elemento al carrello, la quantita ha la stessa posizione del prodotto
 								System.out.println("lunghezza cart" + cart.size());
 								System.out.println("prodotto i" + listProduct.get(i));
@@ -142,28 +109,23 @@ public class ShoppingCart extends HttpServlet {
 					}
 				}
 				if(cart.size() >=1) {
+					
 					carrelloContenitore.setCarrello(cart);
-					System.out.println("carrello" + carrelloContenitore);
-					//System.out.println("order items"+listOrderItem);
-					
+					System.out.println("carrello" + carrelloContenitore);					
 					session.setAttribute("carrello", carrelloContenitore);
-					//session.setAttribute("orderItem", listOrderItem);
-					
 					response.sendRedirect("shopping_cart.jsp");
 				} else {
 					response.sendRedirect("nuovoOrdine.jsp");
 				}
 				
-
 			} catch (PersistenceException e) {
 				session.setAttribute("error", "Prodotto non presente");
 				response.sendRedirect("nuovoOrdine.jsp");
 			}
-
-			//entityManager.close();
+			entityManager.close();
 		} else {
 			session.setAttribute("quantity_input_error", "Prodotto o quantità non inseriti");
-			//entityManager.close();
+			entityManager.close();
 			response.sendRedirect("nuovoOrdine.jsp");
 		}
 

@@ -4,6 +4,7 @@
  <%@page import="it.beije.herse.web.my.ListaProdotti"%>
   <%@page import="java.util.List"%>
  <%@page import="it.beije.herse.web.entity.Product"%>
+<%@page import="it.beije.herse.web.entity.RequestDb"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -46,7 +47,7 @@
 	
 	<h1>Nuovo ordine</h1>
 	<br>
-	<strong>Inserisci id prodotto e quantità del prodotto che vuoi aggiungere al carrello</strong>
+	<strong>Inserisci id e quantità dei prodotti che vuoi aggiungere al carrello</strong>
 	<br>
 	<form action="carrello" method="post">
 		<label for="id">Id prodotto: </label>
@@ -69,7 +70,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<%List<Product> products = ListaProdotti.selectProducts(); 
+				<%List<Product> products = new RequestDb().selectProducts(); 
 						for(Product p : products) {
 							%>
 				<tr>
@@ -90,7 +91,7 @@
 	<br><br>
 	<a href="menuUser.jsp" style="text-decoration: none; color:black;">-> Torna al menu</a>
 	<br>
-	<a href="logout" style="text-decoration: none; color:blue;">Log out</a>
+	<a href="logout" style="text-decoration: none; color:blue;"><button type="button" class="btn btn-primary">Log out</button></a>
 </body>
 
 </html>

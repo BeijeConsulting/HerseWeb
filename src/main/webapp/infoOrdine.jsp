@@ -13,6 +13,6 @@
 	<br>
 	<a href="menuUser.jsp" style="text-decoration: none; color:black;">-> Torna al menu</a>
 	<br>
-	<a href="logout" style="text-decoration: none; color:blue;">Log out</a>
+	<a href="logout" style="text-decoration: none; color:blue;"><button type="button" class="btn btn-primary">Log out</button></a>
 </body>
 </html>

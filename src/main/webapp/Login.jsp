@@ -25,7 +25,7 @@
 		<input type='text' name='password'><br>
 		<button type='submit'>Login</button>
 	</form>
-	<form action='Registrazione.jsp'>
+	<form action='Procediregistrazione' method='post'>
 	<button type='submit'>Registrati</button>
 	</form>
 </body>

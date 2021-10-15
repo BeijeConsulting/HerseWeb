@@ -34,7 +34,7 @@
 		<%
 		}%>
 	</table>
-	<form action='Catalogo.jsp' method='post'>
+	<form action='TornaAcquistiServlet' method='post'>
 		<button type='submit'>Torna agli acquisti</button>
 	</form>
 	<form action='EndServlet' method='post'>

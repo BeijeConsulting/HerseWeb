@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@page import="Shop.Product,Shop.Funzioni,Shop.Order, java.util.*"%>
+<%@page import="Shop.Product,Shop.Order, java.util.*"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,10 +24,10 @@
 		</tr>
 	</table>
 	<form action='ResetCarrello' method='post'>
-		<button type='submit'>Torna agli acquisti</button>
+		<button type='submit'>Nuovo carrello</button>
 	</form>
 	<form action='ResetAll' method='post'>
-		<button type='submit'>Conferma e torna alla Hompage</button>
+		<button type='submit'>Logout</button>
 	</form>
 
 </body>

@@ -68,8 +68,11 @@
 		<input type='text' name='qta'><br>
 		<button type='submit'>Invio</button>
 	</form>
-	<form action='Riepilogo.jsp' method='post'>
+	<form action='RiepilogoServlet' method='post'>
 		<button type='submit'>Vai al carrello</button>
+	</form>
+	<form action='DettagliServlet' method='post'>
+		<button type='submit'>Dettagli prodotti</button>
 	</form>
 
 </body>

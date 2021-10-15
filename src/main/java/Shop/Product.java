@@ -19,6 +19,9 @@ public class Product {
 	
 	@Column(name="quantity")
 	private Integer qty;
+	
+	@Column(name="path")
+	private String path;
 
 	public Integer getId() {
 		return id;
@@ -58,6 +61,13 @@ public class Product {
 
 	public void setQty(Integer qty) {
 		this.qty = qty;
+	}
+	public String getPath() {
+		return path;
+	}
+
+	public void setPath(String path) {
+		this.path = path;
 	}
 	
 	public String toString() {

@@ -15,23 +15,31 @@
     
 <body bgcolor="black" text="white">
 
-	<%
-	ProductManager prodManager = (ProductManager) session.getAttribute("prodManager");
+	<jsp:useBean id="prodManager" class="it.beije.herse.shop.manager.ProductManager" scope="session"></jsp:useBean>
+	
+	<% //ProductManager prodManager = (ProductManager) session.getAttribute("prodManager");
 	List<Product> products = prodManager.selectProducts();
 	//session.removeAttribute("products");
-	Cart cart = (Cart) session.getAttribute("cart");
+	//Cart cartAttribute = (Cart) session.getAttribute("cart");%>
+	
+	<jsp:useBean id="cart" class="it.beije.herse.shop.beans.Cart" scope="session"></jsp:useBean>
+	<jsp:setProperty property="quantities" name="cart" />
+	<jsp:setProperty property="order" name="cart" />
+	<jsp:setProperty property="items" name="cart" />
+	
+	<%
 	Map<Integer,Integer> quantities = null;
 	if(cart!=null) quantities = cart.getQuantities();%>
     
     <h1>HERSE SHOP</h1>
-    
-    <%
+  
+ 	 <%
     Boolean totalEqualsZero = (Boolean) session.getAttribute("totalEqualsZero");
-    if(totalEqualsZero!=null && totalEqualsZero){%>
+    if(totalEqualsZero!=null && totalEqualsZero){ %>
     <h2><font color="red">PLEASE ENTER A VALID NUMBER OF ITEMS</font></h2>
-    <%session.removeAttribute("totalEqualsZero");
-    } %>
-        
+    <% session.removeAttribute("totalEqualsZero");
+    } %> 
+   
     <form action="NewOrderServlet" method="post">
         <h3>ADD PRODUCTS TO YOUR ORDER:</h3>
         <table>

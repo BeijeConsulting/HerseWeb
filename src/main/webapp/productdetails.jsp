@@ -9,12 +9,15 @@
 <title>HERSE SHOP</title>
 </head>
 <body bgcolor="black" text="white">
+
+	<jsp:useBean id="prodManager" class="it.beije.herse.shop.manager.ProductManager" scope="session"></jsp:useBean>
+
 	<h1>HERSE SHOP</h1>
 	
 	<%
 	Integer prodId = (Integer) session.getAttribute("prodId");
 	session.removeAttribute("prodId");
-	ProductManager prodManager = (ProductManager) session.getAttribute("prodManager");
+	// ProductManager prodManager = (ProductManager) session.getAttribute("prodManager");
 	Product p = prodManager.selectProducts(prodId).get(0);
 	%>
 	

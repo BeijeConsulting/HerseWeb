@@ -6,6 +6,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import com.mysql.cj.Session;
 
 /**
  * Servlet implementation class ReturnToMenuServlet
@@ -35,6 +38,7 @@ public class ReturnToMenuServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		request.getSession().removeAttribute("cart");
 		response.sendRedirect("usermenu.jsp");
 //		doGet(request, response);
 	}

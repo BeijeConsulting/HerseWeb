@@ -12,17 +12,23 @@
 <title>HERSE SHOP</title>
 </head>
 <body bgcolor="black" text="white">
+
+	<jsp:useBean id="loggedUser" class="it.beije.herse.shop.beans.User" scope="session"></jsp:useBean>
+	
+	<jsp:useBean id="userManager" class="it.beije.herse.shop.manager.UserManager" scope="page"></jsp:useBean>
+	<jsp:useBean id="orderManager" class="it.beije.herse.shop.manager.OrderManager" scope="page"></jsp:useBean>
+
 	<h1>HERSE SHOP</h1>
 	
 	MY ORDER HISTORY: <br>
 	
-	<jsp:useBean id="loggedUser" class="it.beije.herse.shop.beans.User" scope="session"></jsp:useBean>
+	
 	<%
 	//User u = (User) session.getAttribute("loggedUser");
 	Integer userId = loggedUser.getId();
 	
-	UserManager userManager = (UserManager) session.getAttribute("userManager");
-	OrderManager orderManager = (OrderManager) session.getAttribute("orderManager");
+	// UserManager userManager = (UserManager) session.getAttribute("userManager");
+	// OrderManager orderManager = (OrderManager) session.getAttribute("orderManager");
 	
 	List<Order> orders = userManager.getOrders(userId);
 	for(Order o : orders){

@@ -47,7 +47,7 @@ public class UserMenuServlet extends HttpServlet {
 				HttpSession session = request.getSession();
 				switch(userAction) {
 				case "newOrder":
-					session.setAttribute("prodManager", new ProductManager());
+//					session.setAttribute("prodManager", new ProductManager());
 					response.sendRedirect("neworder.jsp");
 					break;
 				case "showProfile":
@@ -57,8 +57,8 @@ public class UserMenuServlet extends HttpServlet {
 					response.sendRedirect("updateprofile.jsp");
 					break;	
 				case "showOrderHistory":
-					session.setAttribute("userManager", new UserManager());
-					session.setAttribute("orderManager", new OrderManager());
+//					session.setAttribute("userManager", new UserManager());
+//					session.setAttribute("orderManager", new OrderManager());
 					response.sendRedirect("orderhistory.jsp");
 					break;
 				}

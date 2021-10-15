@@ -10,18 +10,24 @@
 <title>HERSE SHOP</title>
 </head>
 <body bgcolor="black" text="white">
+
+	<jsp:useBean id="prodManager" class="it.beije.herse.shop.manager.ProductManager" scope="session"></jsp:useBean>
+	
+	<jsp:useBean id="cart" class="it.beije.herse.shop.beans.Cart" scope="session"></jsp:useBean>
+
 	<h1>HERSE SHOP</h1>
 	
 	<form action="CheckoutServlet" method="post">
 	
 	ORDER SUMMARY: <br>
+	
 	<table>
 	
 	<%
-	Cart cart = (Cart) session.getAttribute("cart");
+	// Cart cart = (Cart) session.getAttribute("cart");
 	List<OrderItem> items = cart.getItems();
 	Order order = cart.getOrder();
-	ProductManager prodManager = (ProductManager) session.getAttribute("prodManager");
+	// ProductManager prodManager = (ProductManager) session.getAttribute("prodManager");
 	// List<Product> products = (List<Product>) session.getAttribute("products");
 	for(OrderItem i : items){
 		//Product p = products.get(products.indexOf(new Product().setId(i.getProductId());

@@ -26,6 +26,9 @@ public class Cart {
 	public Order getOrder() {
 		return order;
 	}
+	public void setOrder(Order order) {
+		this.order = order;
+	}
 	public void setOrderUserId(Integer userId) {
 		order.setUserId(userId);
 	}
@@ -38,6 +41,9 @@ public class Cart {
 
 	public List<OrderItem> getItems() {
 		return items;
+	}
+	public void setItems(List<OrderItem> items) {
+		this.items = items;
 	}
 	public Double getTotal() {
 		Double total = 0.0;
@@ -57,6 +63,9 @@ public class Cart {
 
 	public Map<Integer,Integer> getQuantities() {
 		return quantities;
+	}
+	public void setQuantities(Map<Integer, Integer> quantities) {
+		this.quantities = quantities;
 	}
 	public void addQuantity(Integer index, Integer value) {
 		quantities.put(index, value);

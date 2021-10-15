@@ -30,6 +30,9 @@ public class Product {
 	@Column(name="quantity")
 	private Integer quantity;
 	
+	@Column(name="img")
+	private String img;
+	
 	
 
 	public int getId() {
@@ -72,13 +75,24 @@ public class Product {
 		this.quantity = quantity;
 	}
 	
+	public String getImg() {
+		return img;
+	}
+
+	public void setImg(String img) {
+		this.img = img;
+	}
+	
 	public Product() {}
-	public Product(String name, String description, Double price, Integer quantity) {
+	
+	// costruttore per db
+	public Product(String name, String description, Double price, Integer quantity, String img) {
 		
 		this.name=name;
 		this.description=description;
 		this.price=price;
 		this.quantity=quantity;
+		this.img=img;
 		
 		
 		EntityManager entityManager = Singleton.createEntity("herse-shop");

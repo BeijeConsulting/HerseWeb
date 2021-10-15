@@ -27,7 +27,7 @@
 </head>
 <body>
 
-	<h1>Catalogo FraGese</h1>
+	<h1>Catalogo FraGese </h1> <a href='logout' ><input type='button' value='logout'></a>
 	<% 
 User u = (User) session.getAttribute("user");
 
@@ -65,6 +65,7 @@ int tot = prodotto.getQuantity()- quantita;
 
    %><li>
 			<form action='carrellos' method='post'>
+			<img src='file:///Users/Dinamite/git/HerseWeb/src/main/webapp/img/<%= prodotto.getImg() %>' alt='img_prodotto' height='200' width='200'><br>
 				<label for='<%= prodotto.getName() %>'><%= prodotto.getName() %>, prezzo: <%= prodotto.getPrice() %> €</label>
 				<input type='submit' value='aggiungi' /> <input type='hidden' name='idP' value='<%= prodotto.getId() %>'> 
 				    <a href='description.jsp?id=<%= prodotto.getId() %>'><input type='button' value='Dettaglio prodotto'></a>

@@ -82,7 +82,7 @@ public class Riepilogo extends HttpServlet {
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
+		System.out.println("sto per fare redirect");
 		HttpSession session = request.getSession();
 		User u = (User)session.getAttribute("user");
 		

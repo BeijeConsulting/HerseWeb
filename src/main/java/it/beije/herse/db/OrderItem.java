@@ -97,7 +97,7 @@ public class OrderItem {
 	public static void main(String[] args) {
 		
 		User user = new User("samu@fraio.it", "Samu","Fraio","pass");
-		Product product = new Product("chitarra classica", "suona", new Double(30.0), new Integer(1));	
+		Product product = new Product("chitarra classica", "suona", new Double(30.0), new Integer(1), "default.jpg");	
 	    Order order = new Order(user.getId(),product.getPrice());
 		OrderItem orderItem = new OrderItem(order.getId(),product.getId(),product.getPrice(),new Integer(2));
 		

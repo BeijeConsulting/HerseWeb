@@ -27,7 +27,7 @@
 			<td><%=p.getName()%></td>
 			<td><%=p.getDesc()%></td>
 			<td><%=p.getPrice()%></td>
-			<td><img src="/Users/omarelmounjid/Desktop/cuffieb.png" alt="Image not found"></td>
+			<td><img src="<%=p.getPath()%>" alt="Image not found"></td>
 		</tr>
 		<%}%>
 	</table>

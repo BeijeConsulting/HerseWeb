@@ -90,7 +90,7 @@
 	<br><br>
 	<a href="menuUser.jsp" style="text-decoration: none; color:black;">-> Torna al menu</a>
 	<br>
-	<a href="loginUser.jsp" style="text-decoration: none; color:blue;">Log out</a>
+	<a href="logout" style="text-decoration: none; color:blue;">Log out</a>
 </body>
 
 </html>

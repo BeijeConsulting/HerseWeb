@@ -67,17 +67,16 @@ public class ConfermaOrdine extends HttpServlet {
 			//transaction.commit();
 			
 			for ( Map.Entry<Product, Integer> entry : carrello.getCarrello().entrySet()) {
-				Product product = entry.getKey();
 			    Integer quantity = entry.getValue();
 			    
-			    Product differentProduct = entityManager.find(Product.class, product.getId());
+			    Product differentProduct = entityManager.find(Product.class, entry.getKey().getId());
 			    
-			    differentProduct.setQuantity(product.getQuantity() - quantity);
+			    differentProduct.setQuantity(entry.getKey().getQuantity() - quantity);
 			    
 			    OrderItem orderItem = new OrderItem();
 			    orderItem.setQuantity(quantity);
-			    orderItem.setProductId(product.getId());
-			    orderItem.setSellPrice(product.getPrice());
+			    orderItem.setProductId(differentProduct.getId());
+			    orderItem.setSellPrice(differentProduct.getPrice());
 			    orderItem.setOrderId(order.getId()); 	///errore
 			    
 			    entityManager.persist(orderItem);

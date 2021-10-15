@@ -40,5 +40,5 @@
 	</p>
 	<strong><a href = "ConfermaOrdine" style="text-decoration: none; color:red;">Paga</a></strong>
 	<br>
-	<a href="loginUser.jsp" style="text-decoration: none; color:blue;">Log out</a>
+	<a href="logout" style="text-decoration: none; color:blue;">Log out</a>
 </html>

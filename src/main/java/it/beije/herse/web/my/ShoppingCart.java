@@ -52,7 +52,7 @@ public class ShoppingCart extends HttpServlet {
 		String[] quantitaProdotti = quantita.split(",");
 
 		// List<Integer> listId = new ArrayList<>();
-		// List<Integer> listQuantita = new ArrayList<>();
+		List<Integer> listQuantita = new ArrayList<>();
 		List<Product> listProduct = new ArrayList<>();
 		List<OrderItem> listOrderItem = new ArrayList<>();
 
@@ -63,6 +63,8 @@ public class ShoppingCart extends HttpServlet {
 				Product product = new Product();
 				product.setId(Integer.valueOf(idProdotti[i].trim()));
 				listProduct.add(product);
+				
+				listQuantita.add(Integer.valueOf(quantitaProdotti[i].trim()));
 
 				OrderItem orderItem = new OrderItem();
 				orderItem.setProductId(Integer.valueOf(idProdotti[i].trim()));
@@ -100,7 +102,7 @@ public class ShoppingCart extends HttpServlet {
 
 			Carrello carrelloContenitore = new Carrello();
 			HashMap<Product, Integer> cart = new HashMap<>();
-			System.out.println(listOrderItem);
+			//System.out.println(listOrderItem);
 
 			try {
 				List<Product> listResultProduct = query.getResultList();
@@ -108,9 +110,9 @@ public class ShoppingCart extends HttpServlet {
 
 				// verificare quantità sufficiente e procedere solo con quella
 				for (int i = 0; i < quantitaProdotti.length; i++) {
-					if (listResultProduct.get(i).getQuantity() >= Integer.valueOf(quantitaProdotti[i])) {
+					if (listResultProduct.get(i).getQuantity() >= listQuantita.get(i)) {
 
-						listOrderItem.get(i).setQuantity(Integer.valueOf(quantitaProdotti[i]));
+						listOrderItem.get(i).setQuantity(listQuantita.get(i));
 						//listOrderItem.get(i).setQuantity(listOrderItem.get(i).getQuantity() - Integer.valueOf(quantitaProdotti[i]));
 						
 						for (Product pResult : listResultProduct) {
@@ -124,10 +126,10 @@ public class ShoppingCart extends HttpServlet {
 //									manager.persist(orderItem);
 //									manager.persist(pResult);
 //									transaction.commit();
-								cart.put(listProduct.get(i), Integer.valueOf(quantitaProdotti[i])); // aggiungo i due elemento al carrello, la quantita ha la stessa posizione del prodotto
+								cart.put(listProduct.get(i), listQuantita.get(i)); // aggiungo i due elemento al carrello, la quantita ha la stessa posizione del prodotto
 								System.out.println("lunghezza cart" + cart.size());
 								System.out.println("prodotto i" + listProduct.get(i));
-								System.out.println("quantita i" + quantitaProdotti[i]);
+								System.out.println("quantita i" + listQuantita.get(i));
 								System.out.println("order item i" + listOrderItem.get(i));
 								cart.forEach((key, value) -> System.out.println(key + ":" + value));
 
@@ -158,10 +160,10 @@ public class ShoppingCart extends HttpServlet {
 				response.sendRedirect("nuovoOrdine.jsp");
 			}
 
-			entityManager.close();
+			//entityManager.close();
 		} else {
 			session.setAttribute("quantity_input_error", "Prodotto o quantità non inseriti");
-			entityManager.close();
+			//entityManager.close();
 			response.sendRedirect("nuovoOrdine.jsp");
 		}
 

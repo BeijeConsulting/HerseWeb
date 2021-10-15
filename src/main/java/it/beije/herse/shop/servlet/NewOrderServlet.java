@@ -19,19 +19,19 @@ import it.beije.herse.shop.beans.Product;
 import it.beije.herse.shop.beans.User;
 import it.beije.herse.shop.manager.OrderManager;
 import it.beije.herse.shop.manager.ProductManager;
-import it.beije.herse.shop.manager.ShopVecchia;
+//import it.beije.herse.shop.manager.ShopVecchia;
 
 /**
- * Servlet implementation class CreateOrderServlet
+ * Servlet implementation class NewOrderServlet
  */
-@WebServlet("/CreateOrderServlet")
-public class CreateOrderServlet extends HttpServlet {
+@WebServlet("/NewOrderServlet")
+public class NewOrderServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CreateOrderServlet() {
+    public NewOrderServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -52,7 +52,7 @@ public class CreateOrderServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		
 		Cart cart = new Cart();
-		List<Product> products = ProductManager.selectProducts();
+		List<Product> products = new ProductManager().selectProducts();
 //		List<OrderItem> items = new ArrayList<OrderItem>();
 //		Order order = new Order();
 		

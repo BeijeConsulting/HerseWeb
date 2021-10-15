@@ -21,8 +21,11 @@
 	Cart cart = (Cart) session.getAttribute("cart");
 	List<OrderItem> items = cart.getItems();
 	Order order = cart.getOrder();
+	ProductManager prodManager = (ProductManager) session.getAttribute("prodManager");
+	// List<Product> products = (List<Product>) session.getAttribute("products");
 	for(OrderItem i : items){
-		Product p = ProductManager.selectProducts(i.getProductId()).get(0);
+		//Product p = products.get(products.indexOf(new Product().setId(i.getProductId());
+		Product p = prodManager.selectProducts(i.getProductId()).get(0);
 	%>
 		<tr><td><%= p.getName() %></td><td>QUANTITY: <%= i.getQuantity() %></td><td>PRICE: <%= i.getQuantity()*p.getPrice() %>$</td>
 		<td><input type="submit" name="deleteItem<%= p.getId()%>" value="DELETE <%= p.getName()%>"></td></tr>

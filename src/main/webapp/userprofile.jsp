@@ -10,17 +10,18 @@
 <body bgcolor="black" text="white">
 	<h1>HERSE SHOP</h1>
 	
+	<jsp:useBean id="loggedUser" class="it.beije.herse.shop.beans.User" scope="session"></jsp:useBean>
 	<%
-	User u = (User) session.getAttribute("loggedUser");
+	//User u = (User) session.getAttribute("loggedUser");
 	%>
 	
 	MY INFO: <br>
 	<table>
-		<tr><td>ID: </td><td><%= u.getId() %></td></tr>
-		<tr><td>NAME: </td><td><%= u.getName() %></td></tr>
-		<tr><td>SURNAME: </td><td><%= u.getSurname() %></td></tr>
-		<tr><td>EMAIL: </td><td><%= u.getEmail() %></td></tr>
-		<tr><td>PASSWORD: </td><td><%= u.getPassword() %></td></tr>
+		<tr><td>ID: </td><td><%= loggedUser.getId() %></td></tr>
+		<tr><td>NAME: </td><td><%= loggedUser.getName() %></td></tr>
+		<tr><td>SURNAME: </td><td><%= loggedUser.getSurname() %></td></tr>
+		<tr><td>EMAIL: </td><td><%= loggedUser.getEmail() %></td></tr>
+		<tr><td>PASSWORD: </td><td><%= loggedUser.getPassword() %></td></tr>
 	</table>
 	<br>
 	<form action="ReturnToMenuServlet" method="post">

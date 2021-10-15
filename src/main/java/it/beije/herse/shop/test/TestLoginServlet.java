@@ -30,14 +30,14 @@ import javax.servlet.http.Part;
 /**
  * Servlet implementation class TestServlet
  */
-@WebServlet("/ShopLoginServlet")
-public class ShopLoginServlet extends HttpServlet {
+@WebServlet("/TestLoginServlet")
+public class TestLoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ShopLoginServlet() {
+    public TestLoginServlet() {
         super();
         // TODO Auto-generated constructor stub
     }

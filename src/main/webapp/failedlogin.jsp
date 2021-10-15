@@ -12,7 +12,7 @@
     
     <h1>HERSE SHOP</h1>
     
-    <form action="LoginFailServlet" method="post">
+    <form action="FailedLoginServlet" method="post">
        <h2><font color="red">EMAIL AND PASSWORD NOT FOUND</font></h2>
         <input type="radio" name="failedLoginAction" value="retry">RETRY<br>
         <input type="radio" name="failedLoginAction" value="signIn">SIGN IN AS <%= session.getAttribute("email") %><br>

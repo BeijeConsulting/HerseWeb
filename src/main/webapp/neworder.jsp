@@ -15,8 +15,10 @@
     
 <body bgcolor="black" text="white">
 
-	<% List<Product> products = (List<Product>) session.getAttribute("products");
-	session.removeAttribute("products");
+	<%
+	ProductManager prodManager = (ProductManager) session.getAttribute("prodManager");
+	List<Product> products = prodManager.selectProducts();
+	//session.removeAttribute("products");
 	Cart cart = (Cart) session.getAttribute("cart");
 	Map<Integer,Integer> quantities = null;
 	if(cart!=null) quantities = cart.getQuantities();%>
@@ -30,7 +32,7 @@
     <%session.removeAttribute("totalEqualsZero");
     } %>
         
-    <form action="CreateOrderServlet" method="post">
+    <form action="NewOrderServlet" method="post">
         <h3>ADD PRODUCTS TO YOUR ORDER:</h3>
         <table>
             <tr>

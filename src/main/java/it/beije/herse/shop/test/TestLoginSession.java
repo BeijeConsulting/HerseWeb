@@ -31,13 +31,13 @@ import javax.servlet.http.Part;
  * Servlet implementation class TestServlet
  */
 @WebServlet("/ShopLoginServletSession")
-public class ShopLoginSession extends HttpServlet {
+public class TestLoginSession extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ShopLoginSession() {
+    public TestLoginSession() {
         super();
         // TODO Auto-generated constructor stub
     }

@@ -14,7 +14,8 @@
 	<%
 	Integer prodId = (Integer) session.getAttribute("prodId");
 	session.removeAttribute("prodId");
-	Product p = ProductManager.selectProducts(prodId).get(0);
+	ProductManager prodManager = (ProductManager) session.getAttribute("prodManager");
+	Product p = prodManager.selectProducts(prodId).get(0);
 	%>
 	
 	PRODUCT DETAILS: <br>

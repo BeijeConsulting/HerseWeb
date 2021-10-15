@@ -14,11 +14,11 @@ import it.beije.herse.shop.beans.*;
 
 public class ProductManager {
 	
-	public static void printProducts(List<Product> products) {
-		for(Product p : products) System.out.println(p);
-	}
+//	public static void printProducts(List<Product> products) {
+//		for(Product p : products) System.out.println(p);
+//	}
 	
-	public static List<Product> selectProducts(){
+	public List<Product> selectProducts(){
 		EntityManager manager = ShopEntityManager.newEntityManager();
 		List<Product> products = new ArrayList<>();
 		
@@ -45,7 +45,7 @@ public class ProductManager {
 		return products;
 	}
 	
-	public static List<Product> selectProducts(Integer id){
+	public List<Product> selectProducts(Integer id){
 		EntityManager manager = ShopEntityManager.newEntityManager();
 		List<Product> products = new ArrayList<>();
 		
@@ -57,43 +57,43 @@ public class ProductManager {
 		return products;
 	}
 	
-	public static void insertProducts(List<Product> products) {
-		EntityManager manager = ShopEntityManager.newEntityManager();
-		EntityTransaction transaction = manager.getTransaction();
-		transaction.begin();
-		
-		for (Product p : products) manager.persist(p);
-		
-		transaction.commit();
-		manager.close();
-	}
+//	public static void insertProducts(List<Product> products) {
+//		EntityManager manager = ShopEntityManager.newEntityManager();
+//		EntityTransaction transaction = manager.getTransaction();
+//		transaction.begin();
+//		
+//		for (Product p : products) manager.persist(p);
+//		
+//		transaction.commit();
+//		manager.close();
+//	}
 	
-	public static void updateProducts(String col, String colVal, Integer id) {
-		EntityManager manager = ShopEntityManager.newEntityManager();
-		EntityTransaction transaction = manager.getTransaction();
-		transaction.begin();
-		
-		Product p = manager.find(Product.class, id);
-		switch(col.toUpperCase()) {
-		case "NAME":
-			p.setName(colVal);
-			break;
-		case "DESCRIPTION":
-			p.setDescription(colVal);
-			break;
-		case "PRICE":
-			p.setPrice(Double.valueOf(colVal));
-			break;
-		case "QUANTITY":
-			p.setQuantity(Integer.valueOf(colVal));
-			break;
-		default:
-			System.out.println("No columns found");
-			break;
-		}
-		manager.persist(p);
-		
-		transaction.commit();
-		manager.close();
-	}
+//	public static void updateProducts(String col, String colVal, Integer id) {
+//		EntityManager manager = ShopEntityManager.newEntityManager();
+//		EntityTransaction transaction = manager.getTransaction();
+//		transaction.begin();
+//		
+//		Product p = manager.find(Product.class, id);
+//		switch(col.toUpperCase()) {
+//		case "NAME":
+//			p.setName(colVal);
+//			break;
+//		case "DESCRIPTION":
+//			p.setDescription(colVal);
+//			break;
+//		case "PRICE":
+//			p.setPrice(Double.valueOf(colVal));
+//			break;
+//		case "QUANTITY":
+//			p.setQuantity(Integer.valueOf(colVal));
+//			break;
+//		default:
+//			System.out.println("No columns found");
+//			break;
+//		}
+//		manager.persist(p);
+//		
+//		transaction.commit();
+//		manager.close();
+//	}
 }

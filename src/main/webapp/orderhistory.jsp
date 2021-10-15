@@ -16,21 +16,26 @@
 	
 	MY ORDER HISTORY: <br>
 	
+	<jsp:useBean id="loggedUser" class="it.beije.herse.shop.beans.User" scope="session"></jsp:useBean>
 	<%
-	User u = (User) session.getAttribute("loggedUser");
-	Integer userId = u.getId();
-	List<Order> orders = UserManager.getOrders(userId);
+	//User u = (User) session.getAttribute("loggedUser");
+	Integer userId = loggedUser.getId();
+	
+	UserManager userManager = (UserManager) session.getAttribute("userManager");
+	OrderManager orderManager = (OrderManager) session.getAttribute("orderManager");
+	
+	List<Order> orders = userManager.getOrders(userId);
 	for(Order o : orders){
 	%>
 	<table>
 		<tr>
 			<th>ORDER ID: <%= o.getId() %></th>
-			<th>AMOUNT: <%= o.getAmount() %></th>
+			<th>AMOUNT: <%= o.getAmount() %>$</th>
 			<th>DATE: <%= DateTimeFormatter.ISO_DATE.format(o.getDateTime()) %></th>
 			<th>TIME: <%= DateTimeFormatter.ISO_TIME.format(o.getDateTime()) %></th>
 		</tr>
 		<%
-		List<OrderItem> items = OrderManager.getOrderItems(o.getId());
+		List<OrderItem> items = orderManager.getOrderItems(o.getId());
 		for(OrderItem i : items){ %>
 		<tr>
 			<td></td>

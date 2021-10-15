@@ -1,4 +1,4 @@
-package it.beije.herse.shop.servlet;
+package it.beije.herse.shop.test;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -6,21 +6,18 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
-import it.beije.herse.shop.manager.UserManager;
 
 /**
- * Servlet implementation class LoginFailServlet
+ * Servlet implementation class TestFailedLoginServlet
  */
-@WebServlet("/LoginFailServlet")
-public class LoginFailServlet extends HttpServlet {
+@WebServlet("/TestFailedLoginServlet")
+public class TestFailedLoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public LoginFailServlet() {
+    public TestFailedLoginServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,6 +28,7 @@ public class LoginFailServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 //		response.getWriter().append("Served at: ").append(request.getContextPath());
+//		response.getWriter().append(request.getParameter("email"));
 	}
 
 	/**
@@ -38,19 +36,25 @@ public class LoginFailServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		HttpSession session = request.getSession();
-	    String failedLoginAction = request.getParameter("failedLoginAction");
-	    
-	    if(failedLoginAction!=null) {
-	    	session.setAttribute("failedLoginAction", failedLoginAction);
-	    	if(failedLoginAction.equalsIgnoreCase("retry")) response.sendRedirect("index.jsp");
-	    	else if(failedLoginAction.equalsIgnoreCase("signIn")) {
-	    		String email = (String) session.getAttribute("email");
-	    		String password = (String) session.getAttribute("password");
-	    		UserManager.signIn(email, password);
-	    		response.sendRedirect("index.jsp");
-	    	}
-	    }
+		
+		String submit = (String) request.getParameter("submitFailed");
+		if(submit!=null && submit.equals("SUBMIT")) {
+			
+			String action = (String) request.getParameter("failedLoginAction");
+			if(action!=null)
+				switch(action) {
+				case "retry":
+					response.sendRedirect("servlet/index.html");
+					break;
+				case "signIn":
+					String email = (String) request.getParameter("email");
+					response.sendRedirect("servlet/userMenu.html?email="+email);
+					break;
+				}
+			
+		}
+		
+//		doGet(request, response);
 	}
 
 }

@@ -44,33 +44,34 @@ public class UpdateProfileServlet extends HttpServlet {
 		
 		String submit = (String) request.getParameter("submitUpdate");
 		if(submit!=null && submit.equalsIgnoreCase("UPDATE")) {
+			UserManager userManager = new UserManager();
 			
 			// NAME UPDATE
 			String newName = (String) request.getParameter("newName");
 			if(newName.length()!=0) {
 				u.setName(newName);
-				UserManager.updateUsers("NAME", newName, u.getId());
+				userManager.updateUsers("NAME", newName, u.getId());
 			}
 			
 			// SURNAME UPDATE
 			String newSurname = (String) request.getParameter("newSurname");
 			if(newSurname.length()!=0) {
 				u.setSurname(newSurname);
-				UserManager.updateUsers("SURNAME", newSurname, u.getId());
+				userManager.updateUsers("SURNAME", newSurname, u.getId());
 			}
 			
 			// EMAIL UPDATE
 			String newEmail = (String) request.getParameter("newEmail");
 			if(newEmail.length()!=0) {
 				u.setEmail(newEmail);
-				UserManager.updateUsers("EMAIL", newEmail, u.getId());
+				userManager.updateUsers("EMAIL", newEmail, u.getId());
 			}
 			
 			// PASSWORD UPDATE
 			String newPassword = (String) request.getParameter("newPassword");
 			if(newPassword.length()!=0) {
 				u.setPassword(newPassword);
-				UserManager.updateUsers("PASSWORD", newPassword, u.getId());
+				userManager.updateUsers("PASSWORD", newPassword, u.getId());
 			}
 			
 			// loggedUser UPADTE

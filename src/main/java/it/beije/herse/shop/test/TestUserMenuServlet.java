@@ -10,16 +10,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class UserMenuServlet
+ * Servlet implementation class TestUserMenuServlet
  */
-@WebServlet("/UserMenuServlet")
-public class UserMenuServlet extends HttpServlet {
+@WebServlet("/TestUserMenuServlet")
+public class TestUserMenuServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UserMenuServlet() {
+    public TestUserMenuServlet() {
         super();
         // TODO Auto-generated constructor stub
     }

@@ -15,9 +15,7 @@
     
 <body bgcolor="black" text="white">
     
-    <%
-        User u = (User) session.getAttribute("loggedUser");
-        %>
+    <%User u = (User) session.getAttribute("loggedUser");%>
     <jsp:useBean id="loggedUser" class="it.beije.herse.shop.beans.User" scope="session"></jsp:useBean>
     <jsp:setProperty property="email" name="loggedUser" value="<%= u.getEmail() %>"/>
     <jsp:setProperty property="password" name="loggedUser" value="<%= u.getPassword() %>"/>
@@ -35,7 +33,7 @@
     	%><jsp:getProperty property="email" name="loggedUser"/><%
     }%> </h2>
     
-    <form action="UserChoiceServlet" method="post">
+    <form action="UserMenuServlet" method="post">
         CHOOSE AN OPTON:<br>
         <input type="radio" name="userAction" value="showProfile">SHOW MY PROFILE<br>
         <input type="radio" name="userAction" value="showOrderHistory">SHOW MY ORDER HISTORY<br>
@@ -43,6 +41,8 @@
         <input type="radio" name="userAction" value="updateProfile">UPDATE PROFILE<br>
         <br>
         <input type=submit name="submitUserAction" value="SUBMIT">
+        <br><br>
+        <input type=submit name="exit" value="EXIT">
     </form>
      
 </body>

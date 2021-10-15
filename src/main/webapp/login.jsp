@@ -24,7 +24,7 @@
       String password = (String) session.getAttribute("password");
       %>
       
-    <form action="IndexServlet" method="post">
+    <form action="LoginServlet" method="post">
     	INSERT USER AND PASSWORD<br> 
     	EMAIL: <input type="email" name="email" <%if(email!=null && password!=null){ %>value="<%=email %>" <%} %> ><br>
     	PASSWORD: <input type="password" name="password" <%if(email!=null && password!=null){ %>value="<%=password %>" <%} %> ><br><br>

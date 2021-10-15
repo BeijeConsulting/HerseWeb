@@ -33,7 +33,7 @@ public class Cart {
 		order.setDateTime(dateTime);
 	}
 	public void confirmOrder() {
-		OrderManager.insertOrder(order, items);
+		new OrderManager().insertOrder(order, items);
 	}
 
 	public List<OrderItem> getItems() {
@@ -41,8 +41,9 @@ public class Cart {
 	}
 	public Double getTotal() {
 		Double total = 0.0;
+		ProductManager prodManager = new ProductManager();
 		for(OrderItem i : items){
-			Product p = ProductManager.selectProducts(i.getProductId()).get(0);
+			Product p = prodManager.selectProducts(i.getProductId()).get(0);
 			total += i.getQuantity()*p.getPrice();
 		}
 		return total;

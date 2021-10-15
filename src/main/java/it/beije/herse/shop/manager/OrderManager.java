@@ -15,37 +15,38 @@ import it.beije.herse.shop.beans.*;
 
 public class OrderManager {
 
-	public static void printOrders(List<Order> orders) {
-		EntityManager manager = ShopEntityManager.newEntityManager();
-		
-		for(Order o : orders) {
-			System.out.println(o);
-			System.out.println("ITEMS: ");
-			
-			// Criteria Query
-			CriteriaBuilder cb = manager.getCriteriaBuilder();
-			CriteriaQuery<OrderItem> query = cb.createQuery(OrderItem.class);
-			Root<OrderItem> oi = query.from(OrderItem.class);
-			query.select(oi).where(oi.get("orderId").in(o.getId()));
-					
-			List<OrderItem> items = manager.createQuery(query).getResultList();
-			
-			// SQL
-//			Query itemsQuery = manager.createQuery("Select o From OrderItem as o Where orderId = "+o.getId());
-//			List<OrderItem> items = itemsQuery.getResultList();
-			for(OrderItem i : items) {
-				Product p = manager.find(Product.class, i.getProductId());
-				System.out.println("--> "+i+
-						" PRODUCT: {name: "+p.getName()+", description: "+p.getDescription()+"}");
-			}
-			
-			System.out.println();
-		}
-		
-		manager.close();
-	}
 	
-	public static List<OrderItem> getOrderItems(Integer orderId){
+//	public static void printOrders(List<Order> orders) {
+//		EntityManager manager = ShopEntityManager.newEntityManager();
+//		
+//		for(Order o : orders) {
+//			System.out.println(o);
+//			System.out.println("ITEMS: ");
+//			
+//			// Criteria Query
+//			CriteriaBuilder cb = manager.getCriteriaBuilder();
+//			CriteriaQuery<OrderItem> query = cb.createQuery(OrderItem.class);
+//			Root<OrderItem> oi = query.from(OrderItem.class);
+//			query.select(oi).where(oi.get("orderId").in(o.getId()));
+//					
+//			List<OrderItem> items = manager.createQuery(query).getResultList();
+//			
+//			// SQL
+////			Query itemsQuery = manager.createQuery("Select o From OrderItem as o Where orderId = "+o.getId());
+////			List<OrderItem> items = itemsQuery.getResultList();
+//			for(OrderItem i : items) {
+//				Product p = manager.find(Product.class, i.getProductId());
+//				System.out.println("--> "+i+
+//						" PRODUCT: {name: "+p.getName()+", description: "+p.getDescription()+"}");
+//			}
+//			
+//			System.out.println();
+//		}
+//		
+//		manager.close();
+//	}
+	
+	public List<OrderItem> getOrderItems(Integer orderId){
 		EntityManager manager = ShopEntityManager.newEntityManager();
 			
 		// Criteria Query
@@ -65,7 +66,7 @@ public class OrderManager {
 		return items;
 	}
 	
-	public static List<Order> selectOrders(){
+	public List<Order> selectOrders(){
 		EntityManager manager = ShopEntityManager.newEntityManager();
 		List<Order> orders = new ArrayList<>();
 		
@@ -94,7 +95,7 @@ public class OrderManager {
 		return orders;
 	}
 	
-	public static List<Order> selectOrders(Integer id){
+	public List<Order> selectOrders(Integer id){
 		EntityManager manager = ShopEntityManager.newEntityManager();
 		List<Order> order = new ArrayList<>();
 		
@@ -106,7 +107,7 @@ public class OrderManager {
 		return order;
 	}
 	
-	public static void insertOrder(Order order, List<OrderItem> items) {
+	public void insertOrder(Order order, List<OrderItem> items) {
 		EntityManager manager = ShopEntityManager.newEntityManager();
 		EntityTransaction transaction = manager.getTransaction();
 		transaction.begin();
@@ -136,58 +137,58 @@ public class OrderManager {
 		manager.close();
 	}
 	
-	public static void updateOrders(String col, String colVal, Integer id) {
-		EntityManager manager = ShopEntityManager.newEntityManager();
-		EntityTransaction transaction = manager.getTransaction();
-		transaction.begin();
-		
-		Order u = manager.find(Order.class, id);
-		switch(col.toUpperCase()) {
-		case "USERID":
-			u.setUserId(Integer.valueOf(colVal));
-			break;
-		case "AMOUNT":
-			u.setAmount(Double.valueOf(colVal));
-			break;
-		case "DATETIME":
-			u.setDateTime(LocalDateTime.parse(colVal));
-			break;
-		default:
-			System.out.println("No columns found");
-			break;
-		}
-		manager.persist(u);
-		
-		transaction.commit();
-		manager.close();
-	}
+//	public static void updateOrders(String col, String colVal, Integer id) {
+//		EntityManager manager = ShopEntityManager.newEntityManager();
+//		EntityTransaction transaction = manager.getTransaction();
+//		transaction.begin();
+//		
+//		Order u = manager.find(Order.class, id);
+//		switch(col.toUpperCase()) {
+//		case "USERID":
+//			u.setUserId(Integer.valueOf(colVal));
+//			break;
+//		case "AMOUNT":
+//			u.setAmount(Double.valueOf(colVal));
+//			break;
+//		case "DATETIME":
+//			u.setDateTime(LocalDateTime.parse(colVal));
+//			break;
+//		default:
+//			System.out.println("No columns found");
+//			break;
+//		}
+//		manager.persist(u);
+//		
+//		transaction.commit();
+//		manager.close();
+//	}
 	
-	public static void updateOrderItems(String col, String colVal, Integer id) {
-		EntityManager manager = ShopEntityManager.newEntityManager();
-		EntityTransaction transaction = manager.getTransaction();
-		transaction.begin();
-		
-		OrderItem i = manager.find(OrderItem.class, id);
-		switch(col.toUpperCase()) {
-		case "ORDERID":
-			i.setOrderId(Integer.valueOf(colVal));
-			break;
-		case "PRODUCTID":
-			i.setProductId(Integer.valueOf(colVal));
-			break;
-		case "SELLPRICE":
-			i.setSellPrice(Double.valueOf(colVal));
-			break;
-		case "QUANTITY":
-			i.setQuantity(Integer.valueOf(colVal));
-			break;
-		default:
-			System.out.println("No columns found");
-			break;
-		}
-		manager.persist(i);
-		
-		transaction.commit();
-		manager.close();
-	}
+//	public static void updateOrderItems(String col, String colVal, Integer id) {
+//		EntityManager manager = ShopEntityManager.newEntityManager();
+//		EntityTransaction transaction = manager.getTransaction();
+//		transaction.begin();
+//		
+//		OrderItem i = manager.find(OrderItem.class, id);
+//		switch(col.toUpperCase()) {
+//		case "ORDERID":
+//			i.setOrderId(Integer.valueOf(colVal));
+//			break;
+//		case "PRODUCTID":
+//			i.setProductId(Integer.valueOf(colVal));
+//			break;
+//		case "SELLPRICE":
+//			i.setSellPrice(Double.valueOf(colVal));
+//			break;
+//		case "QUANTITY":
+//			i.setQuantity(Integer.valueOf(colVal));
+//			break;
+//		default:
+//			System.out.println("No columns found");
+//			break;
+//		}
+//		manager.persist(i);
+//		
+//		transaction.commit();
+//		manager.close();
+//	}
 }

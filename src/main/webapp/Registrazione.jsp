@@ -1,11 +1,5 @@
-<%@page import="java.util.List"%>
-<%@page import="javax.persistence.Query"%>
-<%@page import="it.beije.bean.Users"%>
-<%@page import="javax.persistence.EntityTransaction"%>
-<%@page import="javax.persistence.EntityManager"%>
-<%@page import="it.beije.bean.SingletonEntityManagerFactory"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+    pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,51 +7,62 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<form action="Registrazione" method="post">
-		<label for="nome">Name</label><br> <input type="text" name="nome"><br>
-		<label for="cognome">Surname</label><br> <input type="text"
-			name="cognome"><br> <label for="email">Email</label><br>
-		<input type="text" name="email"><br> <label
-			for="password">Password</label><br> <input type="text"
-			name="password"><br> <label for="passwordCheck">Password
-			Confirmation</label><br> <input type="text" name="passwordCheck"><br>
-		<br> <input type="submit" value="Registrati">
-	</form>
+<h1>HerseShop</h1>
 
-	<%
-	String userError = "Utente gia esistente";
-	if(session.getAttribute("userError") != null){
+<form action="RegistrazioneController" method="post">
+
+<label for="nome"> Nome </label><br>
+<input type="text" name="nome"><br><br>
+
+<label for="cognome"> Cognome </label><br>
+<input type="text" name="cognome"><br><br>
+
+<label for="email"> Email </label><br>
+<input type="text" name="email"><br><br>
+
+<label for="password"> Password </label><br>
+<input type="password" name="password"><br><br>
+
+<label for="passwordCheck"> Conferma Password </label><br>
+<input type="password" name="passwordCheck"><br><br>
+
+<input type="submit" value="Registrati"><br><br>
+</form>
+
+<%
+if(session.getAttribute("errorEmptyText")!=null){
 	%>
-	<span style="color: red"><%=userError%></span>
-	<br>
-	<br>
+	<span style="color: red"> Campi nome e cognome obbligatori</span><br>
 	<%
-	session.removeAttribute("userError");
-	}
-	
-	String passwordError = "Password errata";
-	if(session.getAttribute("passwordError") != null){
+	session.removeAttribute("errorEmptyText");
+}
+%>
+<%
+if(session.getAttribute("errorEmail")!=null){
 	%>
-	<span style="color: red"><%=passwordError%></span>
-	<br>
-	<br>
+	<span style="color: red"> Controlla di aver inserito una mail corretta</span><br>
 	<%
-	session.removeAttribute("passwordError");
-	}
-	
-	String emailError = "Email errata";
-	if(session.getAttribute("emailError") != null){
+	session.removeAttribute("errorEmail");
+}
+%>
+<%
+if(session.getAttribute("errorPassword")!=null){
 	%>
-	<span style="color: red"><%=emailError%></span>
-	<br>
-	<br>
+	<span style="color: red"> Le password inserite non coincidono</span><br>
 	<%
-	session.removeAttribute("emailError");
-	}
+	session.removeAttribute("errorPassword");
+}
+%>
+<%
+if(session.getAttribute("errorUser")!=null){
 	%>
-	
-	<br>
-	<h6>Sei gia registrato? </h6>
-	<a href="login.jsp"> Log In </a><br>
+	<span style="color: red"> La mail e gia stata utilizzata</span><br>
+	<%
+	session.removeAttribute("errorUser");
+}
+%>
+
+<br>Torna alla <a href="Home.jsp"> Home </a><br>
+Sei gia registrato? effettua il <a href="LogIn.jsp"> Log In </a>
 </body>
 </html>

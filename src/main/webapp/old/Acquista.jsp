@@ -7,15 +7,11 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h1>HerseShop</h1>
+<h1>HerseShop</h1><br>
 
-Sicuro di voler uscire?
-<form action="LogOutController" method="post"><br>
-<input type="submit" value="Conferma"><br><br>
+Grazie per aver acquistato!<br><br>
 
-Oppure torna alla <a href="Home.jsp"> Home </a>
-</form>
-
-
+torna alla home page: 
+<a href="Home.jsp"> Home </a><br>
 </body>
 </html>

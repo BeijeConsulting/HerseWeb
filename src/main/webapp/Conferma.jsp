@@ -8,14 +8,7 @@
 </head>
 <body>
 <h1>HerseShop</h1>
-
-Sicuro di voler uscire?
-<form action="LogOutController" method="post"><br>
-<input type="submit" value="Conferma"><br><br>
-
-Oppure torna alla <a href="Home.jsp"> Home </a>
-</form>
-
-
+<h4>Congratulazioni il tuo ordine e' stato effettuato con successo!</h4>
+torna alla <a href="Home.jsp"> Home </a><br>
 </body>
 </html>

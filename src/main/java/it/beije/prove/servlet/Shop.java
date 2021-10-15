@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import it.beije.bean.Carrello;
+import it.beije.bean.CarrelloNew;
+import it.beije.bean.OrderItems;
 import it.beije.bean.Products;
 import it.beije.bean.SingletonEntityManagerFactory;
 
@@ -49,34 +51,82 @@ public class Shop extends HttpServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 //		doGet(request, response);
+//		HttpSession session = request.getSession();
+//		EntityManager entityManager = SingletonEntityManagerFactory.newEntityManager();
+//		Carrello carrello = (Carrello) session.getAttribute("Carrello");
+//
+//		if (carrello != null) {
+//			String jpqlSelect = "SELECT x FROM Products as x";
+//			Query query = entityManager.createQuery(jpqlSelect);
+//
+//			List<Products> result = query.getResultList();
+//			for (Products p : result) {
+//				int productId = p.getId();
+//				String tagId = request.getParameter("" + productId);
+//				if (tagId != null && !tagId.equals("")) {
+//					int quantity = Integer.parseInt(tagId);
+//					double tot = carrello.getTotale() + p.getPrice() * quantity;
+//					carrello.setTotale(tot);
+//
+//					double TotQuantity = carrello.getQuantita() + quantity;
+//					carrello.setQuantita(TotQuantity);
+//
+//					for (int i = 0; i < quantity; i++) {
+//						carrello.getProdotti().add(p);
+//					}
+//
+//					session.setAttribute("Carrello", carrello);
+//				}
+//			}
+//
+//			response.sendRedirect("CarrelloBis.jsp");
+//		}else {
+//			String authError = "Effettua prima il log in o registrati";
+//			request.setAttribute("authError", authError);
+//			session.setAttribute("authError", authError);
+//			response.sendRedirect("Prodotti.jsp");
+//		}
+
 		HttpSession session = request.getSession();
-		EntityManager entityManager = SingletonEntityManagerFactory.newEntityManager();
-		Carrello carrello = (Carrello) session.getAttribute("Carrello");
+		CarrelloNew carrello = (CarrelloNew) session.getAttribute("CarrelloNew");
+		if (carrello != null) {
+			EntityManager entityManager = SingletonEntityManagerFactory.newEntityManager();
+			String jpqlSelect = "SELECT x FROM Products as x";
+			Query query = entityManager.createQuery(jpqlSelect);
 
-		String jpqlSelect = "SELECT x FROM Products as x";
-		Query query = entityManager.createQuery(jpqlSelect);
+			List<Products> result = query.getResultList();
+			if (carrello.getOrderItems().size() != 0) {
+				for (Products products : result) {
+					int productId = products.getId();
+					String tagId = request.getParameter("" + productId);
+					if (tagId != null && tagId.equals("")) {
+						OrderItems orderItems = new OrderItems();
 
-		List<Products> result = query.getResultList();
-		for (Products p : result) {
-			int productId = p.getId();
-			String tagId = request.getParameter("" + productId);
-			if (tagId != null) {
-				int quantity = Integer.parseInt(tagId);
-				double tot = carrello.getTotale() + p.getPrice() * quantity;
-				carrello.setTotale(tot);
+						orderItems.setId(null);
+						orderItems.setOrderId(null);
+						orderItems.setProductId(products.getId());
+						int quantity = Integer.parseInt(tagId);
+						orderItems.setQuantity(quantity);
+						double price = products.getPrice() * quantity;
+						orderItems.setSellPrice((int) price);
 
-				double TotQuantity = carrello.getQuantita() + quantity;
-				carrello.setQuantita(TotQuantity);
-
-				for (int i = 0; i < quantity; i++) {
-					carrello.getProdotti().add(p);
+						carrello.addOrderItems(orderItems);
+					}
 				}
 
-				session.setAttribute("Carrello", carrello);
+				response.sendRedirect("CarrelloTris.jsp");
+			}else {
+				String carrelloError = "Carrello vuoto";
+				request.setAttribute("carrelloError", carrelloError);
+				session.setAttribute("carrelloError", carrelloError);
+				response.sendRedirect("Prodotti.jsp");
 			}
+		} else {
+			String authError = "Effettua prima il log in o registrati";
+			request.setAttribute("authError", authError);
+			session.setAttribute("authError", authError);
+			response.sendRedirect("Prodotti.jsp");
 		}
-
-		response.sendRedirect("CarrelloBis.jsp");
 	}
 
 }

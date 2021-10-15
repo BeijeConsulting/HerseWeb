@@ -28,6 +28,9 @@ public class Products {
 	@Column(name = "quantity")
 	private Integer quantity;
 
+	@Column(name = "image")
+	private String imagePath;
+
 	// Getter & Setter
 	public Integer getId() {
 		return id;
@@ -68,12 +71,20 @@ public class Products {
 	public void setQuantity(Integer quantity) {
 		this.quantity = quantity;
 	}
+	
+	public String getImagePath() {
+		return imagePath;
+	}
+
+	public void setImagePath(String imagePath) {
+		this.imagePath = imagePath;
+	}
 
 	// ToString using Fields
 	@Override
 	public String toString() {
 		return "Products [id=" + id + ", description=" + description + ", name=" + name + ", price=" + price
-				+ ", quantity=" + quantity + "]";
+				+ ", quantity=" + quantity + ", imagePath+" + imagePath + "]";
 	}
 
 }

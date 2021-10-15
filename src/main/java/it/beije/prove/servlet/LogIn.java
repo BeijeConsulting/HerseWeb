@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import it.beije.bean.Carrello;
+import it.beije.bean.CarrelloNew;
 import it.beije.bean.SingletonEntityManagerFactory;
 import it.beije.bean.Users;
 
@@ -59,8 +60,10 @@ public class LogIn extends HttpServlet {
 		Users users = checkUser(email, password, request, response);
 		if (users != null) {
 			session.setAttribute("authUser", users);
-			Carrello carrello = new Carrello(request);
-			session.setAttribute("Carrello", carrello);
+//			Carrello carrello = new Carrello(request);
+//			session.setAttribute("Carrello", carrello);
+			CarrelloNew carrelloNew = new CarrelloNew(request);
+			session.setAttribute("CarrelloNew", carrelloNew);
 			response.sendRedirect("Home.jsp");
 		} else {
 			response.sendRedirect("login.jsp");

@@ -1,6 +1,8 @@
 package it.beije.prove.servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
@@ -48,6 +50,53 @@ public class EliminaProdotti extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		HttpSession session = request.getSession();
+
+		Carrello carrello = (Carrello) session.getAttribute("Carrello");
+
+		if (carrello != null) {
+			List<Products> products = carrello.getProdotti();
+			List<Products> toDelete = new ArrayList<Products>();
+			Products precedente = null;
+			for (Products p : products) {
+				if (precedente != p) {
+					precedente = p;
+					String param = request.getParameter("p" + precedente.getId());
+					int paramInt = Integer.parseInt(param);
+					if (paramInt == 0) {
+						toDelete.add(precedente);
+					}
+				}
+			}
+			
+			System.out.println(toDelete.toString());
+			
+			products.removeAll(toDelete);
+			double totDelete=0;
+			int quantityDelete=toDelete.size();
+			for(Products p : toDelete) {
+				totDelete += p.getPrice();
+			}
+//			for(Products p : products) {
+//				for (Products ptd : toDelete) {
+//					if(p.equals(ptd)) {
+//						products.removeAll((Collection<?>) p);
+//					}
+//				}
+//			}
+			totDelete = carrello.getTotale() - totDelete;
+			quantityDelete = (int) (carrello.getQuantita()-quantityDelete);
+			
+			System.out.println(totDelete);
+			System.out.println(quantityDelete);
+			
+			carrello.setProdotti(products);
+			carrello.setQuantita(quantityDelete);
+			carrello.setTotale(totDelete);
+			session.setAttribute("Carrello", carrello);
+			response.sendRedirect("CarrelloBis.jsp");
+		}
+
 		// TODO Auto-generated method stub
 //		doGet(request, response);
 //		System.out.println("Post");
@@ -93,8 +142,8 @@ public class EliminaProdotti extends HttpServlet {
 //			session.setAttribute("Carrello", carrello);
 //		}
 //		response.sendRedirect("Carrello.jsp");
-		
-		response.sendRedirect("CarrelloBis.jsp");
-		
+
+//		response.sendRedirect("CarrelloBis.jsp");
+
 	}
 }

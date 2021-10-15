@@ -9,13 +9,10 @@
 <body>
 <h1>HerseShop</h1>
 
-Sicuro di voler uscire?
-<form action="LogOutController" method="post"><br>
-<input type="submit" value="Conferma"><br><br>
+Da implementare
 
-Oppure torna alla <a href="Home.jsp"> Home </a>
+<form action="AcquistaSchedaController" method="post">
+
 </form>
-
-
 </body>
 </html>

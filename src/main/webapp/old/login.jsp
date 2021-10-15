@@ -25,8 +25,11 @@ session.removeAttribute("passwordError");
 	  <input type="text" name="email"><br>
 	  <label for="password">password:</label><br>
 	  <input type="text" name="password"><br><br>
-	  <input type="submit" value="Submit">
+	  <input type="submit" value="LogIn">
 	</form> 
+	
+	<h6>Vuoi Fare il Login in seguito? </h6>
+	<a href="Home.jsp"> Home </a><br>
 
 </body>
 </html>

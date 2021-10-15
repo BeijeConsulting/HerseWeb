@@ -8,17 +8,27 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h1>Benvenuto su HerseShop: 
+<h1> Benvenuto su HerseShop</h1>
+<p>Ecco alcune cose che puoi fare: </p>
+
+<a href="Acquista.jsp"> Acquista prodotti </a><br>
+<a href="Carrello.jsp"> Vedi il tuo carrello </a><br>
+
 <%
-	Users user = (Users)session.getAttribute("authUser"); 
-	String name = user.getName();
-	String surname = user.getSurname();
+Users user = (Users)session.getAttribute("authUser");
+if(user!=null){
 %>
-<%=name%>	<%=surname %>
-</h1><br><br>
-<h4>Ecco cosa puoi fare da noi: </h4><br>
-<a href="Prodotti.jsp"> Vedi i nostri prodotti </a><br>
-<a href="CarrelloBis.jsp"> Vedi il tuo carrello </a><br>
-<a href="LogOut.jsp"> Log Out </a><br>
+	<a href="LogOut.jsp"> Log Out </a><br><br>
+	<p>Attualmente loggato come: <%=user.getName() %> <%=user.getSurname() %></p>
+<%
+}else{
+%>	
+	<a href="LogIn.jsp"> Log In </a><br>
+	<a href="Registrazione.jsp"> Registrati </a><br>
+	
+<%	
+}
+%>
+
 </body>
 </html>

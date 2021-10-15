@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import it.beije.bean.Carrello;
+import it.beije.bean.CarrelloNew;
 import it.beije.bean.SingletonEntityManagerFactory;
 import it.beije.bean.Users;
 
@@ -77,8 +78,10 @@ public class Registrazione extends HttpServlet {
 					entityManager.persist(user);
 					transaction.commit();
 					session.setAttribute("authUser", user);
-					Carrello carrello = new Carrello(request);
-					session.setAttribute("Carrello", carrello);
+//					Carrello carrello = new Carrello(request);
+//					session.setAttribute("Carrello", carrello);
+					CarrelloNew carrelloNew = new CarrelloNew(request);
+					session.setAttribute("CarrelloNew", carrelloNew);
 					response.sendRedirect("Home.jsp");
 				}else {
 					request.setAttribute("emailError", emailError);

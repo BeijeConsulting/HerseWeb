@@ -15,13 +15,12 @@
     
 <body bgcolor="black" text="white">
     
-    <%User u = (User) session.getAttribute("loggedUser");%>
     <jsp:useBean id="loggedUser" class="it.beije.herse.shop.beans.User" scope="session"></jsp:useBean>
-    <jsp:setProperty property="email" name="loggedUser" value="<%= u.getEmail() %>"/>
-    <jsp:setProperty property="password" name="loggedUser" value="<%= u.getPassword() %>"/>
-    <jsp:setProperty property="name" name="loggedUser" value="<%= u.getName() %>"/>
-    <jsp:setProperty property="surname" name="loggedUser" value="<%= u.getSurname() %>"/>
-    <jsp:setProperty property="id" name="loggedUser" value="<%= u.getId() %>"/>
+    <jsp:setProperty property="email" name="loggedUser"/>
+    <jsp:setProperty property="password" name="loggedUser"/>
+    <jsp:setProperty property="name" name="loggedUser"/>
+    <jsp:setProperty property="surname" name="loggedUser"/>
+    <jsp:setProperty property="id" name="loggedUser"/>
     
     <h1>HERSE SHOP</h1>
     

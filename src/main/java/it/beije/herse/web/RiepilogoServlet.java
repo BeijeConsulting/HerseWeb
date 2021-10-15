@@ -74,7 +74,7 @@ public class RiepilogoServlet extends HttpServlet {
 			
 		}
 		
-		if(!error.isEmpty()){
+		if(!error.toString().isEmpty()){
 			session.setAttribute("errorQta", error.toString());
 			response.sendRedirect("ViewProduct");
 		} else {

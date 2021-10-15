@@ -62,8 +62,10 @@ public class LoginServletBean extends HttpServlet {
 			session.setAttribute("error", "Credenziali Sbagliate");
 			response.sendRedirect("LoginShop.jsp");
 		} else {
+			List<Product> products = new Shop().findProducts();
 			HashMap<Integer, Object> map = new HashMap<Integer, Object>();
 			Integer cont = 1;
+			session.setAttribute("products", products);
 			session.setAttribute("map", map);
 			session.setAttribute("cont", cont);
 			session.setAttribute("userID", userId);

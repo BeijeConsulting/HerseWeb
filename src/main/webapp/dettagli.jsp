@@ -9,21 +9,6 @@
 </head>
 <body>
 
-<%
-
-List<Product> products = new Shop().findProducts();
-
-List<Integer> ids = new ArrayList<Integer>();
-
-for(Product p: products){
-	String prodId = request.getParameter(String.valueOf(p.getId())); 
-	if(prodId != null ){
-		ids.add(p.getId());
-	}
-}
-	
-
-%>
 
 <h1 align="center">Dettagli del Prodotto </h1>
 
@@ -33,8 +18,7 @@ for(Product p: products){
 <table Style="border:1px solid"  >
 <tr><th>Id</th><th>Nome</th><th>Dettagli</th><th>Prezzo</th><th>Quantità</th><th>Immagine</th></tr>
 <%
-for(int x: ids){
-	List<Product> prod = new Shop().findProductsById(x);
+	List<Product> prod = (List<Product>) session.getAttribute("prodToPrint");
 	for(Product p: prod){
 		out.print("<tr>");
 		out.print("<td>" + p.getId() + "</td>");
@@ -47,7 +31,6 @@ for(int x: ids){
  <% 
 		out.print("</tr>");
 	}
-}
 %>
 </table>
 

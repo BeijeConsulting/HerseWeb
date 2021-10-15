@@ -59,8 +59,6 @@ public class CarrelloServlet extends HttpServlet {
 		int quantity = Integer.parseInt(quantityS);
 		int userId = Integer.parseInt(user);
 		
-		
-		
 		HashMap<Integer, Object> map;
 		
 		 if (session.isNew()) {
@@ -73,40 +71,46 @@ public class CarrelloServlet extends HttpServlet {
 		
 		System.out.println("carrello");
 		
-		if(buyMore == null) {
-			Shop shop = new Shop();
-			if(shop.checkQuantity(productId, quantity, userId)) {
-				Carrello carrello = new Carrello();
-				carrello.setProductId(productId);
-				carrello.setQuantity(quantity);
-				map.put(cont, carrello);
-				cont++;
-				session.setAttribute("cont", cont);
-				session.setAttribute("map", map);
-				response.sendRedirect("riepilogo.jsp");
+		Shop shopP = new Shop();
+		
+		if(shopP.productExists(productId)) {
+			if(buyMore == null) {
+				Shop shop = new Shop();
+				if(shop.checkQuantity(productId, quantity, userId)) {
+					Carrello carrello = new Carrello();
+					carrello.setProductId(productId);
+					carrello.setQuantity(quantity);
+					map.put(cont, carrello);
+					cont++;
+					session.setAttribute("cont", cont);
+					session.setAttribute("map", map);
+					response.sendRedirect("riepilogoServlet");
+
+				} else {
+					session.setAttribute("wrongQuantity", "Quantità troppo alta, prova ad abbasarla");
+					response.sendRedirect("catalogo.jsp");
+				}
 
 			} else {
-				session.setAttribute("wrongQuantity", "Quantità troppo alta, prova ad abbasarla");
-				response.sendRedirect("catalogo.jsp");
+				Shop shop = new Shop();
+				if(shop.checkQuantity(productId, quantity, userId)) {
+					Carrello carrello = new Carrello();
+					carrello.setProductId(productId);
+					carrello.setQuantity(quantity);
+					map.put(cont, carrello);
+					cont++;
+					session.setAttribute("cont", cont);
+					session.setAttribute("map", map);
+					response.sendRedirect("catalogo.jsp");
+				}else {
+					session.setAttribute("wrongQuantity", "Quantità troppo alta, prova ad abbasarla");
+					response.sendRedirect("catalogo.jsp");
+				}
 			}
-
 		} else {
-			Shop shop = new Shop();
-			if(shop.checkQuantity(productId, quantity, userId)) {
-				Carrello carrello = new Carrello();
-				carrello.setProductId(productId);
-				carrello.setQuantity(quantity);
-				map.put(cont, carrello);
-				cont++;
-				session.setAttribute("cont", cont);
-				session.setAttribute("map", map);
-				response.sendRedirect("catalogo.jsp");
-			}else {
-				session.setAttribute("wrongQuantity", "Quantità troppo alta, prova ad abbasarla");
-				response.sendRedirect("catalogo.jsp");
-			}
+			session.setAttribute("wrongProdId", "Il Prodotto selezionato non esiste");
+			response.sendRedirect("catalogo.jsp");
 		}
-		
 	}
 
 }

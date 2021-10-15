@@ -1,6 +1,7 @@
 package ShopSession;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import Ecommerce.Order;
+import Ecommerce.OrderItem;
 import Ecommerce.Product;
 
 /**
@@ -71,6 +73,19 @@ public class ordineServlet extends HttpServlet {
 			
 			System.out.println("Order: " + order);
 			
+			List<OrderItem> orders = new Shop().findOrderItem(order.getId());
+			
+			List<Product> productOrder = new ArrayList<Product>();
+			
+			for(OrderItem o: orders){
+				List<Product> pro = new Shop().findProductsById(o.getProductId());
+				for(Product p: pro){
+					productOrder.add(p);
+				}
+			}
+			
+			session.setAttribute("orders", orders);
+			session.setAttribute("productOrder", productOrder);
 			session.setAttribute("order", order);
 			response.sendRedirect("ordine.jsp");
 		}

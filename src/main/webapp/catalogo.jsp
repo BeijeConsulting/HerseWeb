@@ -21,7 +21,7 @@
 <h3> I nostri Prodotti</h3>
 
 <%
-List<Product> products = new Shop().findProducts();
+List<Product> products = (List<Product>) session.getAttribute("products");
 %>
 <table Style="border:1px solid">
 <tr><th>Id</th><th>Prodotto</th><th>Prezzo</th><th>Quantità</th></tr>
@@ -37,7 +37,7 @@ for(Product p: products){
 %>
 </table>
 
-<form Style="border:1px solid" action="dettagli.jsp" method="post">
+<form Style="border:1px solid" action="dettagliServlet" method="post">
 <p>Di quale prodotto vuoi vedere i dettagli? (scegli in base all'id)</p>
 	<%
 	for(Product p: products){
@@ -52,6 +52,12 @@ for(Product p: products){
 	</p>
 </form>
 
+
+
+</div>
+
+<h3>Cosa vuoi comprare?</h3>
+
 <%
 String error = (String) session.getAttribute("wrongQuantity");
 if (error != null) {
@@ -60,13 +66,17 @@ if (error != null) {
 	<%
 	session.removeAttribute("wrongQuantity");
 }
-
 %>
 
-</div>
-
-
-<h3>Cosa vuoi comprare?</h3>
+<%
+String wrongId = (String) session.getAttribute("wrongProdId");
+if (wrongId != null) {
+	%>
+	<span style="color:red"><%=wrongId%></span><br><br>
+	<%
+	session.removeAttribute("wrongProdId");
+}
+%>
 
 	<form action='CarrelloServlet' method='post'>
 
@@ -88,7 +98,7 @@ if (error != null) {
 		</p>
 	</form>
 	
-	<form action='riepilogo.jsp' method='post'>
+	<form action='riepilogoServlet' method='post'>
 	
 		<p>
 			<input type="submit" value="Riepilogo Carrello">

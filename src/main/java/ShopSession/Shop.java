@@ -61,6 +61,15 @@ public class Shop {
 		return products;
 	}
 	
+	public boolean productExists(int productId) {
+		Product product = manager.find(Product.class, productId);
+		if(product != null) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
 	public boolean checkQuantity(int productId, int quantity, int userId) {
 		
 		Product product = manager.find(Product.class, productId);

@@ -44,23 +44,25 @@ if (emptyMap != null) {
 <tr><th>Id</th><th>Prodotto</th><th>Prezzo</th><th>Quantità</th></tr>
 
 <%
+
 HashMap<Integer, Object> map = (HashMap<Integer, Object>) session.getAttribute("map");
+List<Product> products = (List<Product>) session.getAttribute("prodRiepilogo");
 
 for (Integer key : map.keySet()) {
 	Object obj = map.get(key);
 	Carrello carrello = (Carrello) obj;
 	out.print(" Prodotto: ");
-	List<Product> products = new Shop().findProductsById(carrello.getProductId());
 	for (Product p : products) {
-		out.print("<tr>");
-		out.print("<td>" + p.getId() + "</td>");
-		out.print("<td>" + p.getName() + "</td>");
-		out.print("<td>" + p.getPrice() + "</td>");
-		out.print("<td>" + carrello.getQuantity() + "</td>");
-		out.print("</tr>");
+		if(p.getId() == carrello.getProductId()){
+			out.print("<tr>");
+			out.print("<td>" + p.getId() + "</td>");
+			out.print("<td>" + p.getName() + "</td>");
+			out.print("<td>" + p.getPrice() + "</td>");
+			out.print("<td>" + carrello.getQuantity() + "</td>");
+			out.print("</tr>");
+		}
 	}
 }
-
 %>
 
 </table>

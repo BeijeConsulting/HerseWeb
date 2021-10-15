@@ -15,7 +15,6 @@
 		
 		
 
-
 		<properties>
 			<property name="javax.persistence.jdbc.driver"
 				value="com.mysql.cj.jdbc.Driver" />

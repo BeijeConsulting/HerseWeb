@@ -29,7 +29,7 @@ public class Accesso extends HttpServlet {
 	 */
 	public Accesso() {
 		super();
-		// TODO Auto-generated constructor stub
+		System.out.println("login");
 	}
 
 

@@ -26,61 +26,65 @@
 <title>FraGese</title>
 </head>
 <body>
+	<a href='logout'><input type='button' value='logout'></a>
 
 	<h1>Catalogo FraGese</h1>
-	<% 
-User u = (User) session.getAttribute("user");
-
-%>
+	<%
+	User u = (User) session.getAttribute("user");
+	%>
 	<marquee> Per eventuali problemi con le JPA o con le JSP
 		rivolgersi al servizio clienti 80099990099 </marquee>
 	<h3>
-		Welcome <span style='color: green'><%= u.getName() %></span>
+		Welcome <span style='color: green'><%=u.getName()%></span>
 	</h3>
 
 	<ul>
-		<% 
+		<%
+		EntityManager entityManager = ShopEntityManager.newEntityManager();
+		Query q = entityManager.createQuery("SELECT product FROM Product as product");
+		List<Product> prodotti = q.getResultList();
 
-EntityManager entityManager = ShopEntityManager.newEntityManager();
-Query q = entityManager.createQuery("SELECT product FROM Product as product");
-List<Product> prodotti = q.getResultList();
+		Carrello carrello = null;
 
-Carrello carrello = null;
+		if (session.getAttribute("carrello") != null) {
+			carrello = (Carrello) session.getAttribute("carrello");
+		}
 
-if(session.getAttribute("carrello")!=null){
-	 carrello = (Carrello) session.getAttribute("carrello");
-}
+		for (int i = 0; i < prodotti.size(); i++) {
 
-for(int i=0;i<prodotti.size();i++){
-	
-	int quantita=0;
-	Product prodotto = prodotti.get(i);
-	
-if(carrello!=null && carrello.getMappa().containsKey(prodotto.getId())) {
-  quantita = carrello.getMappa().get(prodotto.getId());
-}
+			int quantita = 0;
+			Product prodotto = prodotti.get(i);
 
-int tot = prodotto.getQuantity()- quantita;
-	
+			if (carrello != null && carrello.getMappa().containsKey(prodotto.getId())) {
+				quantita = carrello.getMappa().get(prodotto.getId());
+			}
 
-   %><li>
+			int tot = prodotto.getQuantity() - quantita;
+		%><li>
 			<form action='carrellos' method='post'>
-				<label for='<%= prodotto.getName() %>'><%= prodotto.getName() %>, prezzo : <%= prodotto.getPrice() %></label>
-				<input type='submit' value='aggiungi' /> <input type='hidden' name='idP' value='<%= prodotto.getId() %>'> 
-				    <a href='description.jsp?id=<%= prodotto.getId() %>'><input type='button' value='Dettaglio prodotto'></a>
-					<input type='number' name='quantita' step='1' min='1' value='1'max='<%= tot %>'>
+				<img src="img/<%= prodotto.getImg() %>">
+				<label for='<%=prodotto.getName()%>'><%=prodotto.getName()%>,
+					prezzo : <%=prodotto.getPrice()%></label> <input type='submit'
+					value='aggiungi' /> <input type='hidden' name='idP'
+					value='<%=prodotto.getId()%>'> <a
+					href='description.jsp?id=<%=prodotto.getId()%>'><input
+					type='button' value='Dettaglio prodotto'></a> <input
+					type='number' name='quantita' step='1' min='1' value='1'
+					max='<%=tot%>'>
 			</form>
 		</li>
 		<%
 }
 %>
 	</ul>
-<%String disabled = "";
-if(session.getAttribute("carrello")==null)
-	disabled = "disabled";
-%>
-	<a href='carrello.jsp'><input type='submit' value='Vai al carrello' <%= disabled %> /></a>
+	<%
+	String disabled = "";
+	if (session.getAttribute("carrello") == null)
+		disabled = "disabled";
+	%>
+	<a href='carrello.jsp'><input type='submit' value='Vai al carrello'
+		<%=disabled%> /></a>
 
-<p><%= session.getId() %></p>
+	<p><%=session.getId()%></p>
 </body>
 </html>

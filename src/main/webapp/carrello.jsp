@@ -25,6 +25,9 @@
 <title>Carrello</title>
 </head>
 <body>
+
+	<a href='logout' ><input type='button' value='logout'></a>
+	
 	<h2>
 		Il carrello di
 		<%=((User) session.getAttribute("user")).getName()%></h2>

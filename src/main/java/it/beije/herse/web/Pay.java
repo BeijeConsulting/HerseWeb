@@ -94,7 +94,7 @@ public class Pay extends HttpServlet {
 		entityManager.close();
 		session.removeAttribute("carrello");
 
-		response.getWriter().append("<html><p>Acquisto completato </p> <a href='catalogo.jsp'>Torna al catalogo</a></html>");
+		response.getWriter().append("<html><body><a href='logout' ><input type='button' value='logout'></a><p>Acquisto completato </p> <a href='catalogo.jsp'>Torna al catalogo</a></body></html>");
 		}
 	}
 

@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,23 +8,28 @@
 </head>
 <body>
 
-<%
-String error = (String) session.getAttribute("error");
-if (error != null) {
+
+
+	<%
+	String error = (String) session.getAttribute("error");
+	if (error != null) {
 	%>
-	<span style="color:red"><%=error%></span><br><br>
+	<span style="color: red"><%=error%></span>
+	<br>
+	<br>
 	<%
 	session.removeAttribute("error");
-}
-%>
+	}
+	%>
 
-<form action = "shop" method = "post">
-<label for="username">Username</label><br>
-<input type="text" name = "username" value = "p.p@gmail.com"><br>
-<label for="password">Password</label><br>
-<input type="text" name = "password" value = "papa"><br>
-<input type="submit" value="Submit">
-</form>
-<p><%= session.getId() %></p>
+
+	<form action="shop" method="post">
+		<label for="username">Username</label><br> <input type="text"
+			name="username" value="utente@prova.it"><br> <label
+			for="password">Password</label><br> <input type="text"
+			name="password" value="12345"><br> <input type="submit"
+			value="Submit">
+	</form>
+	<p><%=session.getId()%></p>
 </body>
 </html>

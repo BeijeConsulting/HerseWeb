@@ -5,6 +5,7 @@ public class Carrello {
 	
 	// chiave id, valore quantità
 	private HashMap<Integer,Integer> mappa = new HashMap<>();
+	private HashMap<Integer, Integer> prezzi = new HashMap<>();
 
 	
 	
@@ -27,6 +28,13 @@ public class Carrello {
 		} else {
 			mappa.put(id, quantita);
 		}
+	}
+	
+	public HashMap<Integer, Integer> getPrezzi() {
+		return prezzi;
+	}
+	public void setPrezzi(HashMap<Integer, Integer> prezzi) {
+		this.prezzi = prezzi;
 	}
 	
 }

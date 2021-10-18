@@ -27,8 +27,19 @@ public class Product {
 	
 	@Column(name="quantity")
 	private Integer quantity;
+	
+	@Column(name="img")
+	private String img;
 
 	
+	public String getImg() {
+		return img;
+	}
+
+	public void setImg(String img) {
+		this.img = img;
+	}
+
 	public Integer getId() {
 		return id;
 	}

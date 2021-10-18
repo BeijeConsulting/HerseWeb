@@ -31,7 +31,7 @@ Product prodotto = entityManager.find(Product.class, id);
 <title>Dettaglio <%= prodotto.getName() %></title>
 </head>
 <body>
-
+<a href='logout' ><input type='button' value='logout'></a>
 <h3>Dettaglio prodotto:</h3>
 <h4><%= prodotto.getName() %> prezzo <%= prodotto.getPrice() %></h4>
 <p><%= prodotto.getDescription() %></p>

@@ -7,10 +7,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-
 @Entity
-@Table(name = "user")
-public class User {
+@Table(name = "product")
+public class Product {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -19,15 +18,15 @@ public class User {
 	
 	@Column(name="name")
 	private String name;
-
-	@Column(name="surname")
-	private String surname;
-
-	@Column(name="email")
-	private String email;
-
-	@Column(name="password")
-	private String password;
+	
+	@Column(name="description")
+	private String description;
+	
+	@Column(name="price")
+	private Double price;
+	
+	@Column(name="quantity")
+	private Integer quantity;
 
 	
 	public Integer getId() {
@@ -48,48 +47,42 @@ public class User {
 	}
 
 	
-	public String getSurname() {
-		return surname;
+	public String getDescription() {
+		return description;
 	}
 
-	public void setSurname(String surname) {
-		this.surname = surname;
-	}
-
-	
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	
-	public String getPassword() {
-		return password;
+	public Double getPrice() {
+		return price;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
+	public void setPrice(Double price) {
+		this.price = price;
 	}
+
 	
+	public Integer getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(Integer quantity) {
+		this.quantity = quantity;
+	}
+
 	
 	public String toString() {
 		StringBuilder builder = new StringBuilder("{id: ").append(id)
 				.append(", name: ").append(name)
-				.append(", surname: ").append(surname)
-				.append(", email: ").append(email)
-				.append(", password: ").append(password)
+				.append(", description: ").append(description)
+				.append(", price: ").append(price)
+				.append(", quantity: ").append(quantity)
 				.append("}");
 		
 		return builder.toString();
 	}
 	
-	
-
-	
-	
-	}
-
-
+}

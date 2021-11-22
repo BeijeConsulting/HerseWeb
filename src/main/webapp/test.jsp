@@ -14,7 +14,7 @@ String lname = request.getParameter("lname");
 
 System.out.println("lname : " + lname);
 %>
-<p>FIRST NAME: <%= fname %></br>
+<p>FIRST NAME: <%= fname %><br>
 LAST NAME: <% out.print(lname); %></p>
 
 </body>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+	width: 300px;
+	margin: auto;
+	text-align: center;
+}
+
+table {
+	margin: auto;
+}
+
+td {
+	border-style: solid;
+	border-size: 1px;
+	width: 30px;
+	height: 30px;
+	text-align: center;
+}
+</style>
+</head>
+<body>
+
+	<h2>CALCULATOR</h2>
+
+	<h3 id="display">___</h3>
+
+	<table>
+		<tr>
+			<td id="t1" onclick="get(this)">1</td>
+			<td id="t2" onclick="get(this)">2</td>
+			<td id="t3" onclick="get(this)">3</td>
+			<td onclick="get(this)">+</td>
+		</tr>
+		<tr>
+			<td id="t4" onclick="get(this)">4</td>
+			<td id="t5" onclick="get(this)">5</td>
+			<td id="t6" onclick="get(this)">6</td>
+			<td onclick="get(this)">-</td>
+		</tr>
+		<tr>
+			<td id="t7" onclick="get(this)">7</td>
+			<td id="t8" onclick="get(this)">8</td>
+			<td id="t9" onclick="get(this)">9</td>
+			<td onclick="get(this)">x</td>
+		</tr>
+		<tr>
+			<td id="tAC" onclick="get(this)">AC</td>
+			<td id="t0" onclick="get(this)">0</td>
+			<td id="tComma" onclick="get(this)">,</td>
+			<td onclick="get(this)">/</td>
+		</tr>
+	</table>
+
+
+	<script>
+let risultato = 0;
+let display = document.getElementById("display");
+let op = '';
+
+function get(valore) {
+	
+	let val = valore.innerHTML;
+	console.log('value: ' + val);
+  
+ 	if (val === 'AC') {
+    	risultato = 0;
+	} else if (!isNaN(val)) {
+		
+		if (op === '') {
+			
+			if(risultato === 0)
+				risultato = val;
+			else
+				risultato = parseFloat(risultato + '' + val);
+			
+		} else {
+			
+			if (op === '+')
+				risultato = parseFloat(risultato) + parseFloat(val);
+			else if (op === '-')
+				risultato = parseFloat(risultato) - parseFloat(val);
+			else if (op === 'x')
+				risultato = parseFloat(risultato) * parseFloat(val);
+			else if (op === '/')
+				risultato = parseFloat(risultato) / parseFloat(val);
+			
+		}
+			
+	} else {
+		
+		if(val === ',')
+			risultato = risultato + '.';
+		else
+			op = val;
+		
+	}
+  
+  display.innerHTML = risultato;
+  console.log(risultato);
+}
+</script>
+
+</body>
+</html>

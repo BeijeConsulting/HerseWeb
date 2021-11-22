@@ -11,7 +11,7 @@
 	<jsp:useBean id="user" class="it.beije.herse.shop.User" scope="session"></jsp:useBean>
 
 	<%
-	if(user == null) {
+	if(user.getId() == null) {
 		response.sendRedirect("index.html");
 	}
 	%>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            width: 300px;
+            margin: auto;
+            text-align: center;
+        }
+        table {
+            margin: auto;
+        }
+        td {
+            border-style: solid;
+            border-size: 1px;
+            width: 30px;
+            height: 30px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h2>CALCULATOR</h2>
+    <h3 id="display">___</h3>
+    <table>
+        <tr>
+            <td id="t1" onclick="get(this)">1</td>
+            <td id="t2" onclick="get(this)">2</td>
+            <td id="t3" onclick="get(this)">3</td>
+            <td onclick="get(this)">+</td>
+        </tr>
+        <tr>
+            <td id="t4" onclick="get(this)">4</td>
+            <td id="t5" onclick="get(this)">5</td>
+            <td id="t6" onclick="get(this)">6</td>
+            <td onclick="get(this)">-</td>
+        </tr>
+        <tr>
+            <td id="t7" onclick="get(this)">7</td>
+            <td id="t8" onclick="get(this)">8</td>
+            <td id="t9" onclick="get(this)">9</td>
+            <td onclick="get(this)">*</td>
+        </tr>
+        <tr>
+            <td id="tAC" onclick="get(this)">AC</td>
+            <td id="t0" onclick="get(this)">0</td>
+			<td id="tUguale" onclick="get(this)">=</td>	
+            <td onclick="get(this)">/</td>
+        </tr>
+		<!-- tr>
+			<td id="tComma" onclick="get(this)">,</td>
+		</tr -->
+    </table>
+    <script>
+        let risultato = 0;
+        let display = document.getElementById("display");
+		let operatore;
+		let precedente = 0;
+		
+        function get(valore) {
+            console.log("valore" , valore.innerHTML);
+				if (valore.innerHTML == '+' || valore.innerHTML == '-' || valore.innerHTML == '*' || valore.innerHTML == '/'){
+					operatore = valore.innerHTML;
+					display.innerHTML = precedente;
+					risultato = precedente;
+					precedente = 0;
+					return;
+					}
+
+				else if (valore.innerHTML == '='){
+	//				risultato = Number(risultato) + Number(precedente);
+					risultato = operazione(Number(risultato), Number(precedente), operatore);
+					display.innerHTML = risultato;
+					return;
+					}
+				else if (valore.innerHTML == 'AC'){
+					display.innerHTML="___";
+					precedente = 0;
+					risultato = 0;
+					return;
+					}
+				else{
+						if(Number(precedente) == 0)
+						precedente = Number(valore.innerHTML);
+						else
+						precedente = precedente + '' +  Number(valore.innerHTML);
+					}
+
+				console.log("precedente", precedente);
+            console.log("risultato", risultato);
+			display.innerHTML = precedente;
+
+			}
+        
+		
+		function operazione(a, b, operatore){
+				if(operatore == '+')
+					return a+b;
+				if(operatore == '-')
+					return a-b;
+				if(operatore == '*')
+					return a*b;
+				if(operatore == '/')
+					return a/b;
+			}
+    </script>
+</body>
+</html>

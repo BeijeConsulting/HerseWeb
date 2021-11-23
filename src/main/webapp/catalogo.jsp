@@ -62,7 +62,7 @@
 			int tot = prodotto.getQuantity() - quantita;
 		%><li>
 			<form action='carrellos' method='post'>
-				<img src="img/<%= prodotto.getImg() %>">
+				<img src="HerseWeb/src/main/webapp/img/<%= prodotto.getImg() %>">
 				<label for='<%=prodotto.getName()%>'><%=prodotto.getName()%>,
 					prezzo : <%=prodotto.getPrice()%></label> <input type='submit'
 					value='aggiungi' /> <input type='hidden' name='idP'

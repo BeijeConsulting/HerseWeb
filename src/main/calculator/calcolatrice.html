@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+	background-color: lightblue;
+	width: 300px;
+	margin: auto;
+	text-align: center;
+}
+
+table {
+	margin: auto;
+}
+
+td {
+	border-style: solid;
+	border-size: 1px;
+	width: 30px;
+	height: 30px;
+	text-align: center;
+}
+
+#equal {
+	margin-right: 52px;
+}
+
+.separator {
+	border-style: none;
+}
+</style>
+</head>
+<body>
+
+	<h2>CALCULATOR</h2>
+
+	<h3 id="display">___</h3>
+
+	<table>
+		<tr>
+			<td id="t1" onclick="get(1)">1</td>
+			<td id="t2" onclick="get(2)">2</td>
+			<td id="t3" onclick="get(3)">3</td>
+			<td class="separator">|</td>
+			<td onclick="get('+')">+</td>
+		</tr>
+		<tr>
+			<td id="t4" onclick="get(4)">4</td>
+			<td id="t5" onclick="get(5)">5</td>
+			<td id="t6" onclick="get(6)">6</td>
+			<td class="separator">|</td>
+			<td onclick="get('-')">-</td>
+		</tr>
+		<tr>
+			<td id="t7" onclick="get(7)">7</td>
+			<td id="t8" onclick="get(8)">8</td>
+			<td id="t9" onclick="get(9)">9</td>
+			<td class="separator">|</td>
+			<td onclick="get('x')">x</td>
+		</tr>
+		<tr>
+			<td id="tAC" onclick="get('AC')">AC</td>
+			<td id="t0" onclick="get(0)">0</td>
+			<td id="tComma" onclick="get(',')">,</td>
+			<td class="separator">|</td>
+			<td onclick="get('/')">/</td>
+		</tr>
+	</table>
+	<table id="equal">
+		<tr>
+			<td onclick="doThis()">=</td>
+		</tr>
+	</table>
+
+
+	<script>
+let result=null;
+let display = document.getElementById("display");
+let operation;
+let number;
+let comma=null;
+
+function get(valore) {
+  console.log(valore);
+
+
+  if (valore != 'AC'){
+
+    // virgola
+    if(result != null && number==null && valore==',') {
+      result = result.toString() + ".";
+      display.innerHTML = result;
+    }
+    if(result!=null && (operation==null || operation==',') && result.toString().includes(".") &&
+    parseInt(valore)<10 && number==null){
+        alert("qui");
+      result = result.toString() + "" + valore.toString();
+      display.innerHTML = result;
+      return;
+  }
+  if(number!= null && valore==',') {
+    number = number.toString() + ".";
+    display.innerHTML = number;
+  }
+  if(number!=null && (operation==null || operation==',') && number.toString().includes(".") &&
+  parseInt(valore)<10){
+    number = number.toString() + "" + valore.toString();
+    display.innerHTML = number;
+    return;
+}
+
+    if(parseInt(valore)<10){
+      if(result==null || result == '___'){
+    result = valore;
+    display.innerHTML = parseInt(result);
+  } else {
+      if(operation!=null){
+        if(number==null){
+    number=valore;
+    display.innerHTML = number;
+  } else {
+    number= parseInt(number + valore.toString());
+    display.innerHTML = number;
+  }
+} else {
+    result = result.toString() + "" + valore.toString();
+    display.innerHTML = result;
+  }
+  }
+  } else {
+    if((result==null || result=='___')&& valore=='-'){
+      result = '-';
+      display.innerHTML=result;
+    } else {
+      if(number!=null && valore==','){
+        comma=operation;
+      }
+    operation=valore;
+  }
+}
+}else{
+    alert("Reset done");
+    result = '___';
+    comma = null;
+    number = null;
+    operation = null;
+    display.innerHTML = result;
+  }
+  console.log(result);
+}
+
+function doThis(){
+if(comma!=null){
+  operation=comma;
+  comma=null;
+}
+  switch (operation) {
+    case '-':
+    result = result - number;
+    break;
+    case '+':
+    result = parseFloat(result) + parseFloat(number);
+    break;
+    case '/':
+    result = result / number;
+    break;
+    case 'x':
+    result = result * number;
+    break;
+    default: alert('Something goes wrong');
+  }
+  operation = null;
+  number = null;
+    display.innerHTML = result;
+}
+
+</script>
+
+</body>
+</html>

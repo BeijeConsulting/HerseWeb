@@ -1,0 +1,151 @@
+<html>
+<head>
+<style>
+body {
+	margin: 0 0 0 0;
+	background-color: black;
+}
+h1 {
+    color: white;
+}
+.square {
+	background-color: #FFFFFF;
+	position: absolute;
+    top: 400;
+    left: 700;
+}
+.circle {
+	background-color: #FF0000;
+	position: absolute;
+    width: 30;
+    height: 30;
+    border-radius: 50%;
+}
+    
+.timer{
+    position: absolute;
+    top: 0;
+    left: 1400;
+}
+.timerLabel{
+    position: absolute;
+    top: 0;
+    left: 1270;
+}
+
+.score{
+    position: absolute;
+    top: 0;
+    left: 130;
+}
+.scoreLabel{
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+</style>
+</head>
+<body onkeydown="getKeyCod()">
+    
+    <h1><div class="timerLabel">TIMER: </div><div id="timer" class="timer">0</div></h1>
+    <div id="square" class="square"></div>
+    <h1><div class="scoreLabel">SCORE: </div><div id="score" class="score">0</div></h1>
+
+<script>
+const mov = 5;
+
+let start = Math.floor(Date.now()/1000);
+let square = document.getElementById("square");
+let circles = [];
+
+let props = {
+			  width: 30,
+			  height: 30
+			}
+
+function changeProps() {
+	square.style.width = props.width;
+	square.style.height = props.height;
+}
+
+changeProps();
+
+function placeCircles(maxCircles) {
+    for(let i=0;i<maxCircles;i++){
+        let circle = document.createElement("div");
+        circle.className = "circle";
+        circle.id = "c"+i;
+        circle.style.top = Math.floor(Math.random()*800);
+        circle.style.left = Math.floor(Math.random()*1400);
+        document.body.appendChild(circle);
+        circles.push(circle);
+    }
+}
+    
+placeCircles(20);
+        
+let leftDistance = 700;
+let topDistance = 400;
+function getKeyCod() {
+    let timer = Math.floor(Date.now()/1000 - start)
+    document.getElementById("timer").innerHTML = timer;
+    
+	let key = window.event.keyCode;
+    
+	//37 >
+    //38 ^ 
+    //39 <
+    //40 v
+	if (key == 39) {
+		leftDistance += mov;
+		square.style.left = leftDistance;
+	} else if (key == 37) {
+		leftDistance -= mov;
+		square.style.left = leftDistance;
+	} else if (key == 38) {
+		topDistance -= mov;
+		square.style.top = topDistance;
+	} else if (key == 40) {
+		topDistance += mov;
+		square.style.top = topDistance;
+    }
+    
+    // square's position
+    let squareTop = square.offsetTop;
+    console.log("SQUARE TOP: ", squareTop);
+    
+    let squareBottom = squareTop+square.offsetHeight;
+    console.log("SQUARE BOTTOM: ", squareBottom);
+    
+    let squareLeft = square.offsetLeft;
+    console.log("SQUARE LEFT: ", squareLeft);
+    
+    let squareRight = squareLeft+square.offsetWidth;
+    console.log("SQUARE RIGHT: ", squareRight);
+    console.log("--------------------------");
+    
+    for(let i=0;i<circles.length;i++){
+        let circleTop = circles[i].offsetTop;
+        let circleBottom = circleTop+circles[i].offsetHeight;
+        let circleLeft = circles[i].offsetLeft;
+        let circleRight = circleLeft+circles[i].offsetWidth;
+        
+        if( ((squareTop>=circleTop && squareTop<=circleBottom) 
+            || (squareBottom>=circleTop && squareBottom<=circleBottom))
+            && ((squareLeft>=circleLeft && squareLeft<=circleRight) 
+            || (squareRight>=circleLeft && squareRight<=circleRight)) ) {
+        
+            document.body.removeChild(circles[i]);
+            
+            let score = Number(document.getElementById("score").innerHTML);
+            document.getElementById("score").innerHTML = ++score;
+            
+            let final = Math.floor(score*100/timer);
+            if(score==circles.length) alert("FINAL SCORE: " + final + "%");
+        }
+    }
+}
+</script>
+
+</body>
+</html>

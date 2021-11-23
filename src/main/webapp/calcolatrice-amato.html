@@ -1,0 +1,178 @@
+<!DOCTYPE html >
+<html>
+<head>
+<style>
+body {
+  width: 300px;
+  margin: auto;
+  text-align: center;
+}
+table {
+  margin: auto;
+}
+td {
+  border-style: solid;
+  width: 30px;
+  height: 30px;
+  text-align: center;
+}
+</style>
+</head>
+<body>
+<h2>CALCULATOR</h2>
+<h3 id="display">___</h3>
+<table>
+  <tr>
+    <td id="t1" onclick="get(1)">1</td>
+    <td id="t2" onclick="get(2)">2</td>
+    <td id="t3" onclick="get(3)">3</td>
+    <td onclick="get('+')">+</td>
+  </tr>
+  <tr>
+    <td id="t4" onclick="get(4)">4</td>
+    <td id="t5" onclick="get(5)">5</td>
+    <td id="t6" onclick="get(6)">6</td>
+    <td onclick="get('-')">-</td>
+  </tr>
+  <tr>
+    <td id="t7" onclick="get(7)">7</td>
+    <td id="t8" onclick="get(8)">8</td>
+    <td id="t9" onclick="get(9)">9</td>
+    <td onclick="get('x')">x</td>
+  </tr>
+  <tr>
+    <td id="tAC" onclick="get('C')">C</td>
+    <td id="t0" onclick="get(0)">0</td>
+    <td id="tequal" onclick="get('=')">=</td>
+    <td onclick="get('/')">/</td>
+  </tr>
+</table>
+<script>
+let risultato = 0;
+let display = document.getElementById("display");
+let toDisplay = ' ';
+
+let num1 = 0;
+let num2 = 0;
+let operazione = '';
+
+let items = [];
+let cont = 0;
+
+function get(valore) {
+    console.log(valore);
+
+    switch(valore){
+        case '+':
+            operazione = valore;
+            num1 = toDisplay;
+
+            items[cont++] = num1;
+            items[cont++] = operazione;
+            console.log("items: " + items);
+
+            console.log("operazione: " + operazione);
+            num2 = num1;
+            num1 = toDisplay;
+            toDisplay = '';
+            display.innerHTML = valore;
+            break;
+        case '-':
+            operazione = valore;
+
+            items[cont++] = num1;
+            items[cont++] = operazione;
+            console.log("items: " + items);
+
+            console.log("operazione: " + operazione);
+            num2 = num1;
+            num1 = toDisplay;
+            toDisplay = '';
+            display.innerHTML = valore;
+            break;
+        case 'x':
+            operazione = valore;
+            num1 = toDisplay;
+
+            items[cont++] = num1;
+            items[cont++] = operazione;
+            cont++;
+            console.log("items: " + items);
+
+            display.innerHTML = valore;
+            break;
+        case '/':
+            operazione = valore;
+            num1 = toDisplay;
+
+            items[cont++] = num1;
+            items[cont++] = operazione;
+            cont++;
+            console.log("items: " + items);
+
+            display.innerHTML = valore;
+            break;
+        case 'C':
+            items = [];
+            console.log("items: " + items);
+            cont = 0;
+            toDisplay = '';
+       
+            display.innerHTML = toDisplay;
+            break;
+        case '=':
+            num1 = toDisplay;
+
+            items[cont++] = num1;
+            cont++;
+            console.log("items: " + items);
+
+            total = calcola(items);
+
+            console.log(total);
+            display.innerHTML = total;
+
+            toDisplay ='';
+
+            items = [];
+            break;
+        default:
+            console.log("numero: " + valore);
+            toDisplay = toDisplay + valore;
+            display.innerHTML = toDisplay;
+            break;
+    }
+}
+
+function calcola(items){
+    let num2 = 0;
+    let num1 = 0;
+    for (let i = 0; i < items.length; i++) {
+        const operazione = items[i];
+        switch(operazione){
+            case '+':
+                console.log("operazione: " + num2 + " " + operazione + " " + num1);
+                return num2 + num1;
+            case '-':
+                console.log("operazione: " + num2 + " " + operazione + " " + num1);
+                return num2 - num1;
+            case 'x':
+                console.log("operazione: " + num2 + " " + operazione + " " + num1);
+                return num2 * num1;
+                console.log("operazione: " + num2 + operazione + num1);
+            case '/':
+                console.log("operazione: " + num2 + " " + operazione + " " + num1);
+                return num2 / num1;
+            default:
+                num1 = parseInt(items[i+2]);
+                num2 = parseInt(items[i]);
+                console.log("num1:" + num1);
+                console.log("num2: " + num2);
+                break;
+        }   
+    }
+    
+}
+</script>
+</body>
+</html>

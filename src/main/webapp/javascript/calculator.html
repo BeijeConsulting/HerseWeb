@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+	width: 300px;
+	margin: auto;
+	text-align: center;
+}
+
+table {
+	margin: auto;
+}
+
+td {
+	border-style: solid;
+	width: 30px;
+	height: 30px;
+	text-align: center;
+}
+input {
+	border-style: solid;
+	border-color: black;
+	width: 150px;
+	height: 30px;
+	text-align: center;
+	background-color: white;
+}
+</style>
+</head>
+<body>
+
+	<h2>CALCULATOR</h2>
+
+	<h3 id="display">___</h3>
+
+	<table>
+		<tr>
+			<td id="t1" onclick="get(1)">1</td>
+			<td id="t2" onclick="get(2)">2</td>
+			<td id="t3" onclick="get(3)">3</td>
+			<td onclick="get('+')">+</td>
+		</tr>
+		<tr>
+			<td id="t4" onclick="get(4)">4</td>
+			<td id="t5" onclick="get(5)">5</td>
+			<td id="t6" onclick="get(6)">6</td>
+			<td onclick="get('-')">-</td>
+		</tr>
+		<tr>
+			<td id="t7" onclick="get(7)">7</td>
+			<td id="t8" onclick="get(8)">8</td>
+			<td id="t9" onclick="get(9)">9</td>
+			<td onclick="get('x')">x</td>
+		</tr>
+		<tr>
+			<td id="tAC" onclick="get('AC')">AC</td>
+			<td id="t0" onclick="get(0)">0</td>
+			<td id="tComma" onclick="get('.')">,</td>
+			<td onclick="get('/')">/</td>
+		</tr>
+	</table>
+	<input type="button" id="tEquals" value="=" onclick="get('=')">
+
+<script>
+
+let result = 0;
+let display = document.getElementById("display");
+let operation;
+let decimal;
+let number = 0;
+
+function get(val){
+	
+	if(val=="+" || val=="-" || val=="x" || val=="/" || val=="=") {
+		
+		if(operation=="+") result = result + number;
+		else if(operation=="-") result = result - number;
+	    else if(operation=="x") result = result * number;
+		else if(operation=="/") result = result / number;
+		else if(!operation) result = number;
+		
+		operation = val;
+		number = 0;
+		
+		display.innerHTML = result;
+	}
+	else if(val=="AC") {
+		result = 0;
+		number = 0;
+		operation = null;
+		display.innerHTML = "___";
+	}
+	else if(val==".") {
+		decimal = val;
+	}
+	else {
+		if(operation=="=") {
+			result = 0;
+			operation = null;
+		}
+		
+		if(decimal==".") {
+			number = +(number + "." + val);
+			decimal = null;
+		}
+		else number = +("" + number + val);
+		
+		display.innerHTML = number;
+	}
+	  
+	console.log("VALUE : ", val);
+	console.log("NUMBER : ", number);
+	console.log("OPERATION : ", operation);
+	console.log("DECIMAL : ", decimal);
+	console.log("RESULT : ", result);
+	console.log("- - - - - - - - - - -");
+}
+</script>
+
+</body>
+</html>

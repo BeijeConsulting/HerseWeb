@@ -1,0 +1,70 @@
+<html>
+<head>
+<style>
+body {
+	margin: 0 0 0 0;
+}
+.quadro {
+	background-color: #FF0000;
+	position: absolute;
+}
+</style>
+</head>
+<body onkeydown="getKeyCod()">
+
+<div id="quadro" class="quadro"></div>
+
+<script>
+const mov = 5;
+
+let quadro = document.getElementById("quadro");
+
+//JSON JavaScript Object Notation
+let props = {
+			  width: 30,
+			  height: 30
+			}
+
+function changeProps() {
+	quadro.style.width = props.width + "px";
+	quadro.style.height = props.height + "px";
+}
+
+changeProps();
+
+let leftDistance = 1;
+let topDistance = 1;
+function getKeyCod() {
+	let key = window.event.keyCode;
+	console.log('key :', key);
+	console.log('top :',quadro.offsetTop);	
+	console.log('left :',quadro.offsetLeft);
+	//187 +
+	//189 -
+	//37 38 39 40
+	if (key == 39) {
+		leftDistance += mov;
+		quadro.style.left = leftDistance + "px";
+	} else if (key == 37) {
+		leftDistance -= mov;
+		quadro.style.left = leftDistance + "px";
+	} else if (key == 38) {
+		topDistance -= mov;
+		quadro.style.top = topDistance + "px";
+	} else if (key == 40) {
+		topDistance += mov;
+		quadro.style.top = topDistance + "px";
+	} else if (key == 187) {
+		props.width += 10;
+		props.height += 10;
+		changeProps();
+	} else if (key == 189) {
+		props.width -= 10;
+		props.height -= 10;
+		changeProps();
+	}
+}
+</script>
+
+</body>
+</html>

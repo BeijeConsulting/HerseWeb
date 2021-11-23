@@ -55,8 +55,8 @@ td {
 	</table>
 
 
-	<script>
-let risultato = 0;
+<script>
+/* let risultato = 0;
 let display = document.getElementById("display");
 let op = '';
 
@@ -87,6 +87,8 @@ function get(valore) {
 			else if (op === '/')
 				risultato = parseFloat(risultato) / parseFloat(val);
 			
+			op = '';
+			
 		}
 			
 	} else {
@@ -100,6 +102,92 @@ function get(valore) {
   
   display.innerHTML = risultato;
   console.log(risultato);
+} */
+let risultato = 0;
+let display = document.getElementById("display");
+let eq = '';
+
+
+function get(valore) {
+	
+	let val = valore.innerHTML;
+	console.log('value: ' + val);
+  
+ 	if (val === 'AC') {
+    	risultato = 0;
+    	eq = '';
+	} else {
+		eq = eq + val;
+		risultato = evaluate (eq);
+	}
+  
+ 	display.innerHTML = risultato;
+	console.log(risultato);
+}
+
+function evaluate (eq) {
+	
+	let i = 0;
+	let j = 0;
+	let num = '';
+	let nums = new Array(eq.length);
+	let ops = new Array(eq.length);
+	
+	while (i < eq.length) {
+		
+		let c = eq.charAt(i);
+		
+		if (!isNaN(c) || c === ',') {
+			num += c;
+			nums[j] = parseFloat(num);
+		} else {
+			nums[j] = parseFloat(num);
+			num = '';
+			ops[j] = c;
+			j++;
+		}
+		
+		i++;
+			
+	}
+	
+	return calc (nums, ops);
+	
+}
+
+function calc (nums, ops) {
+	
+	let i = 0;
+	
+	while (ops != null && nums[i+1] != null) {
+			
+		nums[i+1] = operation (ops[i], nums[i], nums[i+1]);
+		i++;
+		
+	}
+	
+	return nums[i];
+	
+}
+
+function operation (op, val1, val2) {
+	
+	let result = 0;
+	
+	console.log("val1: ", val1);
+	console.log("val2: ", val2);
+	
+	if (op === '+')
+		result = parseFloat(val1) + parseFloat(val2);
+	else if (op === '-')
+		result = parseFloat(val1) - parseFloat(val2);
+	else if (op === 'x')
+		result = parseFloat(val1) * parseFloat(val2);
+	else if (op === '/')
+		result = parseFloat(val1) / parseFloat(val2);
+	
+	return result;
+	
 }
 </script>
 
